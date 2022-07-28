@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8882962586491105467}
   - component: {fileID: 8882962586491105468}
   m_Layer: 0
-  m_Name: Enemy Camera
+  m_Name: JH_Enemy Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
