@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMove : MonoBehaviour
+public class JH_CameraMove : MonoBehaviour
 {
     [SerializeField]
     float speed = 5.0f;

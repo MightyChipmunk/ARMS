@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCamera : MonoBehaviour
+public class JH_EnemyCamera : MonoBehaviour
 {
     GameObject enemy;
     // Start is called before the first frame update

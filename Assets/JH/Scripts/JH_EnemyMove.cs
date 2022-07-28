@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class JH_EnemyMove : MonoBehaviour
 {
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
     GameObject target;
     CharacterController cc;
-    CameraMove cm;
     float gravity = -3;
     float yVelocity;
     float dashTime = 0.13f;
     float dashCool = 1f;
     bool canDash = true;
+    int ran = 0;
+    bool changeAct = true;
 
     [SerializeField]
     float speed = 10.0f;
@@ -24,8 +25,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
-        cm = transform.Find("Main Camera").GetComponent<CameraMove>();
-        target = GameObject.Find("Enemy Camera");
+        target = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -36,10 +36,16 @@ public class PlayerMove : MonoBehaviour
             yVelocity += gravity * Time.deltaTime;
         }
 
-        Move();
+        if (changeAct)
+        {
+            ran = Random.Range(1, 10);
+            StartCoroutine("RandomAct");
+        }
+
+        Move(ran);
         LookEnemy();
-        Jump();
-        Dash();
+        Jump(ran);
+        Dash(ran);
     }
 
     void LookEnemy()
@@ -50,22 +56,22 @@ public class PlayerMove : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(dir);
     }
 
-    void Move()
+    void Move(int ran)
     {
         moveDir = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
+        if (ran <= 2)
         {
             moveDir += dir;
         }
-        if (Input.GetKey(KeyCode.S))
+        if (ran > 2 && ran <= 4)
         {
             moveDir -= dir;
         }
-        if (Input.GetKey(KeyCode.A))
+        if (ran > 4 && ran <= 6)
         {
             moveDir -= transform.right;
         }
-        if (Input.GetKey(KeyCode.D))
+        if (ran > 6 && ran <= 8)
         {
             moveDir += transform.right;
         }
@@ -75,17 +81,17 @@ public class PlayerMove : MonoBehaviour
         cc.Move(moveDir * speed * Time.deltaTime);
     }
 
-    void Jump()
+    void Jump(int ran)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
+        if (ran > 8 && cc.isGrounded)
         {
             yVelocity = jumpPower;
         }
     }
 
-    void Dash()
+    void Dash(int ran)
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (canDash && ran <= 1)
         {
             StartCoroutine("IncreaseSpeed");
         }
@@ -94,14 +100,18 @@ public class PlayerMove : MonoBehaviour
     IEnumerator IncreaseSpeed()
     {
         float tmpSpeed = speed;
-        float tmpAngle = cm.Angle;
         canDash = false;
         speed *= 5;
-        cm.Angle *= 2;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;
-        cm.Angle = tmpAngle;
         yield return new WaitForSeconds(dashCool - dashTime);
         canDash = true;
+    }
+
+    IEnumerator RandomAct()
+    {
+        changeAct = false;
+        yield return new WaitForSeconds(0.3f);
+        changeAct = true;
     }
 }
