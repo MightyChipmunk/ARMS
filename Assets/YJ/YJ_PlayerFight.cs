@@ -8,7 +8,7 @@ using UnityEngine;
 // 필요요소 : 방향 (애너미 위치) , 속도
 // 마우스의 이동방향을 가져와서 내 주먹을 움직이게 하고싶다.
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
-public class YH_PlayerFight : MonoBehaviour
+public class YJ_PlayerFight : MonoBehaviour
 {
     // 누가 움직일것인지
     public GameObject left;
