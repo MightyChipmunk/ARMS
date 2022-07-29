@@ -91,12 +91,13 @@ public class JH_PlayerMove : MonoBehaviour
     {
         dir = target.transform.position - transform.position;
         dir.Normalize();
-        //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime);
         transform.rotation = Quaternion.LookRotation(dir);
     }
 
     void Move()
     {
+        if (cc.isGrounded)
+            moveDir = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
             moveDir += dir;
@@ -114,8 +115,6 @@ public class JH_PlayerMove : MonoBehaviour
             moveDir += transform.right;
         }
 
-        if (cc.isGrounded)
-            moveDir = Vector3.zero;
 
         moveDir.Normalize();
         moveDir.y = yVelocity;
@@ -199,7 +198,6 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
-            moveDir = Vector3.zero;
             // moveDir의 앵글을 계산해서 애니메이션 재생
             state = State.Idle;
         }
