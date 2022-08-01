@@ -10,7 +10,11 @@ public class JH_PlayerMove : MonoBehaviour
         Forward,
         Backward,
         Right,
+        FrontRight,
+        BackRight,
         Left,
+        FrontLeft,
+        BackLeft,
         Jump,
         Dash,
     }
@@ -21,9 +25,9 @@ public class JH_PlayerMove : MonoBehaviour
     CharacterController cc;
     JH_CameraMove cm;
     State state;
-    float gravity = -3;
+    float gravity = -9.81f;
     float yVelocity;
-    float dashTime = 0.13f;
+    float dashTime = 0.16f;
     float dashCool = 1f;
     bool canDash = true;
     bool isDash = false;
@@ -31,9 +35,9 @@ public class JH_PlayerMove : MonoBehaviour
     int ran = 0;
 
     [SerializeField]
-    float speed = 10.0f;
+    float speed = 2.0f;
     [SerializeField]
-    public float jumpPower = 1.5f;
+    public float jumpPower = 7f;
     [SerializeField]
     bool isEnemy = false;
 
@@ -117,33 +121,35 @@ public class JH_PlayerMove : MonoBehaviour
 
 
         moveDir.Normalize();
-        moveDir.y = yVelocity;
+        //moveDir.y = yVelocity;
         cc.Move(moveDir * speed * Time.deltaTime);
+        cc.Move(Vector3.up * yVelocity * Time.deltaTime);
     }
 
     void Move(int ran)
     {
         moveDir = Vector3.zero;
-        if (ran <= 1)
+        if (ran <= 2)
         {
             moveDir += dir;
         }
-        if (ran >= 1 && ran <= 3)
+        if (ran >= 2 && ran <= 4)
         {
             moveDir -= dir;
         }
-        if (ran >= 3 && ran <= 5)
+        if (ran >= 4 && ran <= 6)
         {
             moveDir -= transform.right;
         }
-        if (ran >= 5 && ran <= 7)
+        if (ran >= 6 && ran <= 8)
         {
             moveDir += transform.right;
         }
 
         moveDir.Normalize();
-        moveDir.y = yVelocity;
+        //moveDir.y = yVelocity;
         cc.Move(moveDir * speed * Time.deltaTime);
+        cc.Move(Vector3.up * yVelocity * Time.deltaTime);
     }
 
     void Jump()
@@ -172,7 +178,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Dash(int ran)
     {
-        if (canDash && ran <= 1)
+        if (canDash && ran <= 3)
         {
             StartCoroutine("IncreaseSpeedEnemy");
         }
@@ -184,7 +190,7 @@ public class JH_PlayerMove : MonoBehaviour
         float tmpAngle = cm.Angle;
         canDash = false;
         isDash = true;
-        speed *= 5;
+        speed *= 7;
         cm.Angle *= 2;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;
@@ -199,7 +205,28 @@ public class JH_PlayerMove : MonoBehaviour
         if (cc.isGrounded && !isDash)
         {
             // moveDir의 앵글을 계산해서 애니메이션 재생
-            state = State.Idle;
+            float angle = Vector3.Angle(moveDir, transform.forward);
+            float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
+            float finalAngle = sign * angle;
+            if (finalAngle >= -1f && finalAngle <= 1f)
+                state = State.Forward;
+            else if (finalAngle > 1f && finalAngle <= 89f)
+                state = State.FrontRight;
+            else if (finalAngle > 89 && finalAngle < 91)
+                state = State.Right;
+            else if (finalAngle > 91 && finalAngle < 180)
+                state = State.BackRight;
+            else if (finalAngle < -1f && finalAngle >= -89f)
+                state = State.FrontLeft;
+            else if (finalAngle < -89 && finalAngle > -91)
+                state = State.Left;
+            else if (finalAngle < -91 && finalAngle > -180)
+                state = State.BackLeft;
+            else if (finalAngle == 180 || finalAngle == -180)
+                state = State.Backward;
+            
+            if (!Input.anyKey)
+                state = State.Idle;
         }
         else if (!cc.isGrounded && !isDash)
         {
@@ -211,14 +238,13 @@ public class JH_PlayerMove : MonoBehaviour
             // 대쉬 중이라면 공중이라도 대쉬 모션 재생
             state = State.Dash;
         }
-        Debug.Log(state);
     }
 
     IEnumerator IncreaseSpeedEnemy()
     {
         float tmpSpeed = speed;
         canDash = false;
-        speed *= 5;
+        speed *= 7;
         isDash = true;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;

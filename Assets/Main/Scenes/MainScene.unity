@@ -1318,6 +1318,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6788942082035127993, guid: 39cbbfde99e023b4a854aa36c1cf49aa, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788942082035127993, guid: 39cbbfde99e023b4a854aa36c1cf49aa, type: 3}
+      propertyPath: jumpPower
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6788942082035127993, guid: 39cbbfde99e023b4a854aa36c1cf49aa, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39cbbfde99e023b4a854aa36c1cf49aa, type: 3}
 --- !u!1001 &4164050458542603219
@@ -1331,6 +1343,14 @@ PrefabInstance:
       propertyPath: sliderHp
       value: 
       objectReference: {fileID: 1441390364}
+    - target: {fileID: 9137060948642002704, guid: 8eaf64fab4c057f488eeb658112f81d1, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137060948642002704, guid: 8eaf64fab4c057f488eeb658112f81d1, type: 3}
+      propertyPath: jumpPower
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 9137060948642002706, guid: 8eaf64fab4c057f488eeb658112f81d1, type: 3}
       propertyPath: m_RootOrder
       value: 6
