@@ -11,7 +11,7 @@ public class JH_CameraMove : MonoBehaviour
     public float Angle { get { return angle; } set { angle = value; } }
     float lerp = 0;
 
-    Vector3 delta = new Vector3 (0, 2, -4);
+    Vector3 delta = new Vector3 (0, 3, -3.3f);
     // Start is called before the first frame update
     void Start()
     {

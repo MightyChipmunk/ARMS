@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JH_PlayerMove : MonoBehaviour
 {
-    enum State
+    public enum PlayerState
     {
         Idle,
         Forward,
@@ -16,7 +16,14 @@ public class JH_PlayerMove : MonoBehaviour
         FrontLeft,
         BackLeft,
         Jump,
-        Dash,
+        DashForward,
+        DashBackward,
+        DashRight,
+        DashFrontRight,
+        DashBackRight,
+        DashLeft,
+        DashFrontLeft,
+        DashBackLeft,
     }
 
     Vector3 dir;
@@ -24,7 +31,66 @@ public class JH_PlayerMove : MonoBehaviour
     GameObject target;
     CharacterController cc;
     JH_CameraMove cm;
-    State state;
+    PlayerState state;
+    public PlayerState State
+    {
+        get { return state; }
+        set
+        {
+            state = value;
+
+            Animator anim = GetComponent<Animator>();
+            switch (state)
+            {
+                case PlayerState.Idle:
+                    anim.SetInteger("StateNum", 0);
+                    break;
+                case PlayerState.Forward:
+                    anim.SetInteger("StateNum", 3);
+                    break;
+                case PlayerState.FrontRight:
+                    anim.SetInteger("StateNum", 4);
+                    break;
+                case PlayerState.Right:
+                    anim.SetInteger("StateNum", 4);
+                    break;
+                case PlayerState.BackRight:
+                    anim.SetInteger("StateNum", 4);
+                    break;
+                case PlayerState.FrontLeft:
+                    anim.SetInteger("StateNum", 1);
+                    break;
+                case PlayerState.Left:
+                    anim.SetInteger("StateNum", 1);
+                    break;
+                case PlayerState.BackLeft:
+                    anim.SetInteger("StateNum", 1);
+                    break;
+                case PlayerState.Backward:
+                    anim.SetInteger("StateNum", 2);
+                    break;
+                case PlayerState.Jump:
+                    anim.SetInteger("StateNum", 5);
+                    break;
+                case PlayerState.DashForward:
+                    break;
+                case PlayerState.DashFrontRight:
+                    break;
+                case PlayerState.DashRight:
+                    break;
+                case PlayerState.DashBackRight:
+                    break;
+                case PlayerState.DashFrontLeft:
+                    break;
+                case PlayerState.DashLeft:
+                    break;
+                case PlayerState.DashBackLeft:
+                    break;
+                case PlayerState.DashBackward:
+                    break;
+            }
+        }
+    }
     float gravity = -9.81f;
     float yVelocity;
     float dashTime = 0.16f;
@@ -56,7 +122,7 @@ public class JH_PlayerMove : MonoBehaviour
             target = GameObject.Find("Enemy Camera");
         }
 
-        state = State.Idle;
+        State = PlayerState.Idle;
     }
 
     // Update is called once per frame
@@ -88,7 +154,7 @@ public class JH_PlayerMove : MonoBehaviour
             Dash(ran);
         }
 
-        SetState();
+        SetPlayerState();
     }
 
     void LookEnemy()
@@ -200,7 +266,7 @@ public class JH_PlayerMove : MonoBehaviour
         canDash = true;
     }
 
-    void SetState()
+    void SetPlayerState()
     {
         if (cc.isGrounded && !isDash)
         {
@@ -209,34 +275,52 @@ public class JH_PlayerMove : MonoBehaviour
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
             if (finalAngle >= -1f && finalAngle <= 1f)
-                state = State.Forward;
+                State = PlayerState.Forward;
             else if (finalAngle > 1f && finalAngle <= 89f)
-                state = State.FrontRight;
+                State = PlayerState.FrontRight;
             else if (finalAngle > 89 && finalAngle < 91)
-                state = State.Right;
+                State = PlayerState.Right;
             else if (finalAngle > 91 && finalAngle < 180)
-                state = State.BackRight;
+                State = PlayerState.BackRight;
             else if (finalAngle < -1f && finalAngle >= -89f)
-                state = State.FrontLeft;
+                State = PlayerState.FrontLeft;
             else if (finalAngle < -89 && finalAngle > -91)
-                state = State.Left;
+                State = PlayerState.Left;
             else if (finalAngle < -91 && finalAngle > -180)
-                state = State.BackLeft;
+                State = PlayerState.BackLeft;
             else if (finalAngle == 180 || finalAngle == -180)
-                state = State.Backward;
+                State = PlayerState.Backward;
             
             if (!Input.anyKey)
-                state = State.Idle;
+                State = PlayerState.Idle;
         }
         else if (!cc.isGrounded && !isDash)
         {
             // 공중에 있다면 점프 모션 재생
-            state = State.Jump;
+            State = PlayerState.Jump;
         }
         else if (isDash)
         {
             // 대쉬 중이라면 공중이라도 대쉬 모션 재생
-            state = State.Dash;
+            float angle = Vector3.Angle(moveDir, transform.forward);
+            float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
+            float finalAngle = sign * angle;
+            if (finalAngle >= -1f && finalAngle <= 1f)
+                State = PlayerState.DashForward;
+            else if (finalAngle > 1f && finalAngle <= 89f)
+                State = PlayerState.DashFrontRight;
+            else if (finalAngle > 89 && finalAngle < 91)
+                State = PlayerState.DashRight;
+            else if (finalAngle > 91 && finalAngle < 180)
+                State = PlayerState.DashBackRight;
+            else if (finalAngle < -1f && finalAngle >= -89f)
+                State = PlayerState.DashFrontLeft;
+            else if (finalAngle < -89 && finalAngle > -91)
+                State = PlayerState.DashLeft;
+            else if (finalAngle < -91 && finalAngle > -180)
+                State = PlayerState.DashBackLeft;
+            else if (finalAngle == 180 || finalAngle == -180)
+                State = PlayerState.DashBackward;
         }
     }
 
