@@ -124,19 +124,19 @@ public class JH_PlayerMove : MonoBehaviour
     void Move(int ran)
     {
         moveDir = Vector3.zero;
-        if (ran <= 3)
+        if (ran <= 1)
         {
             moveDir += dir;
         }
-        if (ran >= 2 && ran <= 4)
+        if (ran >= 1 && ran <= 3)
         {
             moveDir -= dir;
         }
-        if (ran >= 4 && ran <= 6)
+        if (ran >= 3 && ran <= 5)
         {
             moveDir -= transform.right;
         }
-        if (ran >= 6 && ran <= 8)
+        if (ran >= 5 && ran <= 7)
         {
             moveDir += transform.right;
         }
