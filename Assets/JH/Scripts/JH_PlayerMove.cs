@@ -31,6 +31,7 @@ public class JH_PlayerMove : MonoBehaviour
     GameObject target;
     CharacterController cc;
     JH_CameraMove cm;
+    TrailRenderer tr;
     PlayerState state;
     public PlayerState State
     {
@@ -111,6 +112,7 @@ public class JH_PlayerMove : MonoBehaviour
     void Start()
     {
         cc = GetComponent<CharacterController>();
+        tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
 
         if (isEnemy)
         {
@@ -132,12 +134,16 @@ public class JH_PlayerMove : MonoBehaviour
         {
             yVelocity += gravity * Time.deltaTime;
         }
+        else
+        {
+            yVelocity = -1f;
+        }
 
         if (!isEnemy)
         {
+            Jump();
             Move();
             LookEnemy();
-            Jump();
             Dash();
         }
         else
@@ -148,11 +154,12 @@ public class JH_PlayerMove : MonoBehaviour
                 StartCoroutine("RandomAct");
             }
 
+            Jump(ran);
             Move(ran);
             LookEnemy();
-            Jump(ran);
             Dash(ran);
         }
+
 
         SetPlayerState();
     }
@@ -168,7 +175,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded)
             moveDir = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
         {
             moveDir += dir;
         }
@@ -195,11 +202,11 @@ public class JH_PlayerMove : MonoBehaviour
     void Move(int ran)
     {
         moveDir = Vector3.zero;
-        if (ran <= 2)
+        if (ran <= 2 && Vector3.Magnitude(target.transform.position - transform.position) >= 10.0f)
         {
             moveDir += dir;
         }
-        if (ran >= 2 && ran <= 4)
+        if (ran >= 3 && ran <= 4)
         {
             moveDir -= dir;
         }
@@ -250,22 +257,6 @@ public class JH_PlayerMove : MonoBehaviour
         }
     }
 
-    IEnumerator IncreaseSpeed()
-    {
-        float tmpSpeed = speed;
-        float tmpAngle = cm.Angle;
-        canDash = false;
-        isDash = true;
-        speed *= 7;
-        cm.Angle *= 2;
-        yield return new WaitForSeconds(dashTime);
-        speed = tmpSpeed;
-        isDash = false;
-        cm.Angle = tmpAngle;
-        yield return new WaitForSeconds(dashCool - dashTime);
-        canDash = true;
-    }
-
     void SetPlayerState()
     {
         if (cc.isGrounded && !isDash)
@@ -280,18 +271,22 @@ public class JH_PlayerMove : MonoBehaviour
                 State = PlayerState.FrontRight;
             else if (finalAngle > 89 && finalAngle < 91)
                 State = PlayerState.Right;
-            else if (finalAngle > 91 && finalAngle < 180)
+            else if (finalAngle > 91 && finalAngle < 179)
                 State = PlayerState.BackRight;
             else if (finalAngle < -1f && finalAngle >= -89f)
                 State = PlayerState.FrontLeft;
             else if (finalAngle < -89 && finalAngle > -91)
                 State = PlayerState.Left;
-            else if (finalAngle < -91 && finalAngle > -180)
+            else if (finalAngle < -91 && finalAngle > -179)
                 State = PlayerState.BackLeft;
-            else if (finalAngle == 180 || finalAngle == -180)
+            else if (finalAngle >= 179 || finalAngle <= -179)
                 State = PlayerState.Backward;
-            
-            if (!Input.anyKey)
+
+            if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+                  Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Space))
+                && !isEnemy)
+                State = PlayerState.Idle;
+            else if (ran == 9 && isEnemy)
                 State = PlayerState.Idle;
         }
         else if (!cc.isGrounded && !isDash)
@@ -324,15 +319,35 @@ public class JH_PlayerMove : MonoBehaviour
         }
     }
 
+    IEnumerator IncreaseSpeed()
+    {
+        float tmpSpeed = speed;
+        float tmpAngle = cm.Angle;
+        canDash = false;
+        isDash = true;
+        speed *= 7;
+        cm.Angle *= 2;
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashTime);
+        speed = tmpSpeed;
+        isDash = false;
+        cm.Angle = tmpAngle;
+        tr.emitting = false;
+        yield return new WaitForSeconds(dashCool - dashTime);
+        canDash = true;
+    }
+
     IEnumerator IncreaseSpeedEnemy()
     {
         float tmpSpeed = speed;
         canDash = false;
-        speed *= 7;
         isDash = true;
+        speed *= 7;
+        tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;
         isDash = false;
+        tr.emitting = false;
         yield return new WaitForSeconds(dashCool - dashTime);
         canDash = true;
     }
