@@ -202,7 +202,7 @@ public class JH_PlayerMove : MonoBehaviour
     void Move(int ran)
     {
         moveDir = Vector3.zero;
-        if (ran <= 2 && Vector3.Magnitude(target.transform.position - transform.position) >= 10.0f)
+        if (ran <= 2 && Vector3.Magnitude(target.transform.position - transform.position) >= 5.0f + Vector3.Distance(new Vector3(0, 2.5f, -2), Vector3.zero))
         {
             moveDir += dir;
         }

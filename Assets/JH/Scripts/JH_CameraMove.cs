@@ -11,11 +11,11 @@ public class JH_CameraMove : MonoBehaviour
     public float Angle { get { return angle; } set { angle = value; } }
     float lerp = 0;
 
-    Vector3 delta = new Vector3 (0, 3, -3.3f);
+    Vector3 delta;
     // Start is called before the first frame update
     void Start()
     {
-        
+        delta = transform.localPosition;
     }
 
     // Update is called once per frame
