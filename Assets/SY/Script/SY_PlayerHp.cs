@@ -34,11 +34,10 @@ public class SY_PlayerHp : MonoBehaviour
 
     MeshRenderer mesh;
     Material mat;
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // 적 팔에 닿으면 충돌 이벤트 구현
-        if (collision.gameObject.tag == "EnemyArms")
+        if (other.gameObject.tag == "EnemyArms")
         {
             if (Input.GetKey(KeyCode.F))
             {
