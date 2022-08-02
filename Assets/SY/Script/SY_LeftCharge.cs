@@ -8,6 +8,7 @@ public class SY_LeftCharge: MonoBehaviour
     MeshRenderer mesh;
     Material mat;
     Rigidbody rigid;
+    Renderer color;
 
     float currentTime;
     float creatTime = 1f;
@@ -17,7 +18,7 @@ public class SY_LeftCharge: MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         mesh = GetComponent<MeshRenderer>();
         mat = mesh.material;
-        
+        color = GetComponent<Renderer>();
     }
 
     // "F"를 누르면 차지 실행
@@ -51,12 +52,19 @@ public class SY_LeftCharge: MonoBehaviour
         mat.color = new Color(1, 1, 1);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // 충돌시 팔공격 받으면 HP 감소표시
-        if (collision.gameObject.tag == "EnemyArms")
+        if (other.gameObject.tag == "EnemyArms")
         {
-            mat.color = new Color(1, 0, 0);
+            if (color.material.color == Color.white)
+            {
+                //mat.color = new Color(1,1,0); // 노랑
+                color.material.color = Color.yellow; // 데미지 경고
+            }
+            else
+            {
+                color.material.color = Color.red; // 팔 멈춤
+            }
         }
     }
 }

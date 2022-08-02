@@ -211,7 +211,7 @@ public class JH_PlayerMove : MonoBehaviour
             // 대쉬 중이라면 공중이라도 대쉬 모션 재생
             state = State.Dash;
         }
-        Debug.Log(state);
+        //Debug.Log(state);
     }
 
     IEnumerator IncreaseSpeedEnemy()
