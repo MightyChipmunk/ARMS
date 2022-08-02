@@ -10,6 +10,8 @@ using UnityEngine;
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
 public class YJ_RightFight : MonoBehaviour
 {
+    public GameObject left;
+    YJ_LeftFight leftFight;
 
     // 공격 속도
     float rightspeed = 10f;
@@ -68,6 +70,8 @@ public class YJ_RightFight : MonoBehaviour
         rightPath = new List<Vector3>();
         mouseOrigin = Vector3.zero;
 
+        leftFight = left.GetComponent<YJ_LeftFight>();
+
     }
 
     
@@ -85,7 +89,7 @@ public class YJ_RightFight : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (Input.GetMouseButtonDown(1) && !click && !overlap)
+        if (Input.GetMouseButtonDown(1) && !click && !overlap && !leftFight.grap)
         {
             fire = true;
             mouseOrigin = Input.mousePosition;
