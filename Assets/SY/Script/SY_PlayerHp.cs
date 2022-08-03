@@ -9,6 +9,12 @@ public class SY_PlayerHp : MonoBehaviour
     public int maxHp = 6;
     public Slider sliderHp;
 
+    bool isKnock;
+    public bool IsKnock
+    {
+        get { return isKnock; }
+    }
+
     public void SetHP(int value)
     {
         hp = value;
@@ -20,8 +26,6 @@ public class SY_PlayerHp : MonoBehaviour
     }
     void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
-        mat = mesh.material;
 
         sliderHp.maxValue = maxHp;
         SetHP(maxHp);
@@ -29,26 +33,40 @@ public class SY_PlayerHp : MonoBehaviour
 
     void Update()
     {
-      
+        if (Input.GetKey(KeyCode.F) || IsKnock)
+        {
+
+        }
     }
 
-    MeshRenderer mesh;
-    Material mat;
     private void OnTriggerEnter(Collider other)
     {
         // 적 팔에 닿으면 충돌 이벤트 구현
         if (other.gameObject.tag == "EnemyArms")
         {
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(KeyCode.F) || IsKnock)
             {
-
+                
             }
             else
             {
                 // 체력 감소
                 SetHP(GetHP() - 1);
-                mat.color = new Color(1, 0, 0);  //-> 추후 캐릭터 애니매시션을 통해 KnockBack 구현
+                isKnock = true; //-> 추후 캐릭터 애니매시션을 통해 KnockBack 구현
             }
         }
+
+        if (isKnock != false)
+        {
+            StartCoroutine(Ondamaged());
+        }
+        
+    }
+
+    // 넉백 후 10초동안 무적상태
+    IEnumerator Ondamaged()
+    {
+        yield return new WaitForSeconds(5.0f);
+        isKnock = false;
     }
 }

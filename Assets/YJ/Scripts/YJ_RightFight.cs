@@ -10,6 +10,13 @@ using UnityEngine;
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
 public class YJ_RightFight : MonoBehaviour
 {
+    MeshRenderer mesh;
+    Material mat;
+    Renderer color;
+
+    float currentTime;
+    float creatTime = 1f;
+
     public GameObject left;
     YJ_LeftFight leftFight;
 
@@ -53,6 +60,10 @@ public class YJ_RightFight : MonoBehaviour
 
     void Start()
     {
+        mesh = GetComponent<MeshRenderer>();
+        mat = mesh.material;
+        color = GetComponent<Renderer>();
+
         // 타겟의 위치 찾기
         // 애너미의 처음위치로
         target = GameObject.Find("Enemy");
@@ -77,7 +88,28 @@ public class YJ_RightFight : MonoBehaviour
     
     void Update()
     {
-        if(overlap)
+        // "F키" 누르면 차징 상태 구현
+        if (Input.GetKey(KeyCode.F))
+        {
+            currentTime += Time.deltaTime;
+
+            if (currentTime > creatTime)
+            {
+                mat.color = new Color(0, 0, 1);  //-> 추후 캐릭터 애니매시션을 통해 Charging 구현
+                currentTime = 0;
+                StopCoroutine("WaitForIt");
+            }
+        }
+        else
+        {
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                StartCoroutine("WaitForIt");
+                currentTime = 0;
+            }
+        }
+
+        if (overlap)
         {
             Return();
             if(Vector3.Distance(transform.position, player.transform.position) < 1.45f)
@@ -219,6 +251,12 @@ public class YJ_RightFight : MonoBehaviour
         isRightROnce = false;
         isRightLOnce = false;
         transform.localPosition = Vector3.Lerp(transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
-        
+    }
+
+    // 5초 후 차지 풀림
+    IEnumerator WaitForIt()
+    {
+        yield return new WaitForSeconds(5.0f);
+        mat.color = new Color(1, 1, 1);
     }
 }
