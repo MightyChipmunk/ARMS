@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class JH_PlayerMove : MonoBehaviour
 {
+
     public enum PlayerState
     {
         Idle,
@@ -129,6 +131,7 @@ public class JH_PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         cc = GetComponent<CharacterController>();
         tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
         lf = transform.Find("Left").GetComponent<YJ_LeftFight>();

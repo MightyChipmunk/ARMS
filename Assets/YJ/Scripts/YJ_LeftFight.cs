@@ -10,7 +10,14 @@ using UnityEngine;
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
 public class YJ_LeftFight : MonoBehaviour
 {
-    
+    MeshRenderer mesh;
+    Material mat;
+    Renderer color;
+
+    float currentTime;
+    float creatTime = 1f;
+
+
     public GameObject right; // 오른손
     public GameObject trigger; // 가운데 선
     // 공격 속도
@@ -60,6 +67,10 @@ public class YJ_LeftFight : MonoBehaviour
 
     void Start()
     {
+        mesh = GetComponent<MeshRenderer>();
+        mat = mesh.material;
+        color = GetComponent<Renderer>();
+
         // 타겟의 위치 찾기
         // 애너미의 처음위치로
         target = GameObject.Find("Enemy");
@@ -83,6 +94,28 @@ public class YJ_LeftFight : MonoBehaviour
 
     void Update()
     {
+        // "F키" 누르면 차징 상태 구현
+        if (Input.GetKey(KeyCode.F))
+        {
+            currentTime += Time.deltaTime;
+
+            if (currentTime > creatTime)
+            {
+                mat.color = new Color(0, 0, 1);  //-> 추후 캐릭터 애니매시션을 통해 Charging 구현
+                currentTime = 0;
+                StopCoroutine("WaitForIt");
+            }
+        }
+        else
+        {
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                StartCoroutine("WaitForIt");
+                currentTime = 0;
+            }
+        }
+
+
         if (Input.GetMouseButtonDown(2))
         {
             grap = true;
@@ -277,6 +310,13 @@ public class YJ_LeftFight : MonoBehaviour
                 //trigger.gameObject.SetActive(false);
             }
         }
+    }
+
+    // 5초 후 차지 풀림
+    IEnumerator WaitForIt()
+    {
+        yield return new WaitForSeconds(5.0f);
+        mat.color = new Color(1, 1, 1);
     }
 
 }
