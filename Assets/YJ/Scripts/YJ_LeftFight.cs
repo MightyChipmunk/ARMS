@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// ¿ÞÂÊ ¸¶¿ì½º¸¦ ´©¸£¸é ÀÏÁ¤°Å¸®¸¸Å­ ¾Ö³Ê¹ÌÀÇ Ã³À½À§Ä¡¿¡ ÀÌµ¿ÇÏ°í½Í´Ù.
-// ÇÊ¿ä¿ä¼Ò : ¹æÇâ (¾Ö³Ê¹Ì À§Ä¡) , ¼Óµµ
-// ¸¶¿ì½ºÀÇ ÀÌµ¿¹æÇâÀ» °¡Á®¿Í¼­ ³» ÁÖ¸ÔÀ» ¿òÁ÷ÀÌ°Ô ÇÏ°í½Í´Ù.
-// ¸¶¿ì½º ÀÌµ¿¹æÇâ (°ø°Ý¹öÆ°À» ´­·¶À»¶§ Æ÷Áö¼Ç, ±× ÀÌÈÄ Æ÷Áö¼Ç)
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Å­ ï¿½Ö³Ê¹ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°ï¿½ï¿½Í´ï¿½.
+// ï¿½Ê¿ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ (ï¿½Ö³Ê¹ï¿½ ï¿½ï¿½Ä¡) , ï¿½Óµï¿½
+// ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ ï¿½Ö¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½Ï°ï¿½ï¿½Í´ï¿½.
+// ï¿½ï¿½ï¿½ì½º ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½Ý¹ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
 public class YJ_LeftFight : MonoBehaviour
 {
     MeshRenderer mesh;
@@ -18,48 +18,48 @@ public class YJ_LeftFight : MonoBehaviour
     float creatTime = 1f;
 
 
-    public GameObject right; // ¿À¸¥¼Õ
-    public GameObject trigger; // °¡¿îµ¥ ¼±
-    // °ø°Ý ¼Óµµ
+    public GameObject right; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public GameObject trigger; // ï¿½ï¿½ï¿½îµ¥ ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
     float leftspeed = 10f;
-    // µÇµ¹¾Æ¿À´Â ¼Óµµ
+    // ï¿½Çµï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ ï¿½Óµï¿½
     float backspeed = 15f;
 
-    // Å¸°Ù
+    // Å¸ï¿½ï¿½
     GameObject target;
     GameObject player;
 
 
-    // Å¸°ÙÀ§Ä¡
+    // Å¸ï¿½ï¿½ï¿½ï¿½Ä¡
     Vector3 targetPos;
 
     Transform originPos;
-    // ¿ÞÂÊ, ¿À¸¥ÂÊ¹öÆ° ´­¸²È®ÀÎ
-    bool fire = false; // ¿ÞÂÊ
+    // ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Æ° ï¿½ï¿½ï¿½ï¿½È®ï¿½ï¿½
+    bool fire = false; // ï¿½ï¿½ï¿½ï¿½
     public bool Fire
     {
         get { return fire; }
     }
     bool click = false;
-    bool isLeftROnce; // ¿Þ¼ÕÀÌ ¿À¸¥ÂÊÀ¸·Î ÈÖ¾ú´ÂÁö
-    bool isLeftLOnce; // ¿Þ¼ÕÀÌ ¿ÞÂÊÀ¸·Î ÈÖ¾ú´ÂÁö
-    bool overlap = false; // ¾Ö³Ê¹Ì¶û ´ê¾ÒÀ»¶§
-    public bool grap = false; // Àâ±â ÇÏ°íÀÖ´ÂÁö
+    bool isLeftROnce; // ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½
+    bool isLeftLOnce; // ï¿½Þ¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½
+    bool overlap = false; // ï¿½Ö³Ê¹Ì¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public bool grap = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ï¿½Ö´ï¿½ï¿½ï¿½
     public bool Grapp
     {
         get { return grap; }
     }
 
-    // ¸¶¿ì½º À§Ä¡ (½ÃÀÛ, ÀÌÈÄ)
+    // ï¿½ï¿½ï¿½ì½º ï¿½ï¿½Ä¡ (ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½)
     Vector3 mouseOrigin;
     Vector3 mousePos;
 
-    // Rigidbody ºÒ·¯¿À±â
+    // Rigidbody ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
     Rigidbody leftrg;
 
 
-    float leftTime = 0.5f; // ÁÂÇ¥ÀúÀå Ä«¿îÅÍ
-    [SerializeField] private List<Vector3> leftPath; // À§Ä¡°¡ µé¾î°¥ ¸®½ºÆ®
+    float leftTime = 0.5f; // ï¿½ï¿½Ç¥ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private List<Vector3> leftPath; // ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½î°¥ ï¿½ï¿½ï¿½ï¿½Æ®
     Vector3 leftOriginLocalPos;
     Vector3 rightOriginLocalPos;
 
@@ -71,20 +71,21 @@ public class YJ_LeftFight : MonoBehaviour
         mat = mesh.material;
         color = GetComponent<Renderer>();
 
-        // Å¸°ÙÀÇ À§Ä¡ Ã£±â
-        // ¾Ö³Ê¹ÌÀÇ Ã³À½À§Ä¡·Î
+        // Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ Ã£ï¿½ï¿½
+        // ï¿½Ö³Ê¹ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½
         target = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
         originPos = player.transform;
 
+        print(Vector3.Distance(transform.position, player.transform.position));
 
-        //Rigidbody ºÒ·¯¿À±â
+        //Rigidbody ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
         leftrg = GetComponent<Rigidbody>();
 
 
-        // ·ÎÄÃÁÂÇ¥ÀÇ °ªÀ» ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         leftOriginLocalPos = transform.localPosition;
-        // ÀÌµ¿ ÁÂÇ¥¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+        // ï¿½Ìµï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
         leftPath = new List<Vector3>();
         mouseOrigin = Vector3.zero;
 
@@ -94,14 +95,14 @@ public class YJ_LeftFight : MonoBehaviour
 
     void Update()
     {
-        // "FÅ°" ´©¸£¸é Â÷Â¡ »óÅÂ ±¸Çö
+        // "FÅ°" ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Input.GetKey(KeyCode.F))
         {
             currentTime += Time.deltaTime;
 
             if (currentTime > creatTime)
             {
-                mat.color = new Color(0, 0, 1);  //-> ÃßÈÄ Ä³¸¯ÅÍ ¾Ö´Ï¸Å½Ã¼ÇÀ» ÅëÇØ Charging ±¸Çö
+                mat.color = new Color(0, 0, 1);  //-> ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸Å½Ã¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Charging ï¿½ï¿½ï¿½ï¿½
                 currentTime = 0;
                 StopCoroutine("WaitForIt");
             }
@@ -123,7 +124,7 @@ public class YJ_LeftFight : MonoBehaviour
             rightOriginLocalPos = right.transform.localPosition;
             targetPos = target.transform.position + new Vector3(-1.23f, 0f, 0f);
             trigger.gameObject.SetActive(true);
-            
+
         }
         if (grap)
         {
@@ -133,14 +134,14 @@ public class YJ_LeftFight : MonoBehaviour
         if (overlap)
         {
             Return();
-            if (Vector3.Distance(transform.position, player.transform.position) < 2f)
+            if (Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
                 transform.localPosition = leftOriginLocalPos;
                 leftPath.Clear();
                 overlap = false;
             }
         }
-        // ¿ÞÂÊ ¸¶¿ì½º¸¦ ´©¸£¸é ÀÏÁ¤°Å¸®¸¸Å­ ¾Ö³Ê¹ÌÀÇ Ã³À½À§Ä¡¿¡ ÀÌµ¿ÇÏ°í½Í´Ù.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ì½ºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½Å­ ï¿½Ö³Ê¹ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï°ï¿½ï¿½Í´ï¿½.
         if (Input.GetMouseButtonDown(0) && !click && !overlap && !grap)
         {
             fire = true;
@@ -157,7 +158,7 @@ public class YJ_LeftFight : MonoBehaviour
     {
         if (!click)
         {
-            // ¸¸¾à¿¡ Ä³¸¯ÅÍ·ÎºÎÅÍ n¸¸Å­ ¾ÕÀ¸·Î °¬´Ù¸é Á¤Áö
+            // ï¿½ï¿½ï¿½à¿¡ Ä³ï¿½ï¿½ï¿½Í·Îºï¿½ï¿½ï¿½ nï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (Vector3.Distance(transform.position, player.transform.position) > 10f)
             {
                 leftrg.velocity = Vector3.zero;
@@ -166,7 +167,7 @@ public class YJ_LeftFight : MonoBehaviour
             }
             else
             {
-                // ¸®½ºÆ®¿¡ ¿òÁ÷ÀÌ´Â ÁÂÇ¥ ÀúÀå
+                // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½
                 leftTime += Time.deltaTime;
                 if (leftTime > 0.1f)
                 {
@@ -174,7 +175,7 @@ public class YJ_LeftFight : MonoBehaviour
                     leftTime = 0f;
                 }
 
-                // ÀÌµ¿
+                // ï¿½Ìµï¿½
                 Vector3 dir = targetPos - transform.position;
                 dir.Normalize();
                 transform.position += dir * leftspeed * Time.deltaTime;
@@ -185,10 +186,10 @@ public class YJ_LeftFight : MonoBehaviour
                 {
                     if (!isLeftROnce)
                     {
-                        leftrg.velocity = Vector3.zero; // addforceÁ¤Áö½ÃÄÑÁÖ±â ( ÃÊ±âÈ­ )
-                        leftrg.AddForce(Vector3.right * 5, ForceMode.Impulse); // ÃÊ±âÈ­ ÀÌÈÄ addforce
-                        isLeftROnce = true; // ¿Þ¼Õ ¿À¸¥ÂÊÀ¸·Î ÈÚ
-                        isLeftLOnce = false; // ¿Þ¼Õ ¿ÞÂÊÀ¸·Î ÈÖÁö ¾ÊÀ½.
+                        leftrg.velocity = Vector3.zero; // addforceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ( ï¿½Ê±ï¿½È­ )
+                        leftrg.AddForce(Vector3.right * 5, ForceMode.Impulse); // ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ addforce
+                        isLeftROnce = true; // ï¿½Þ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+                        isLeftLOnce = false; // ï¿½Þ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
                     }
                 }
 
@@ -196,10 +197,10 @@ public class YJ_LeftFight : MonoBehaviour
                 {
                     if (!isLeftLOnce)
                     {
-                        leftrg.velocity = Vector3.zero; // addforceÁ¤Áö½ÃÄÑÁÖ±â ( ÃÊ±âÈ­ )
-                        leftrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // ÃÊ±âÈ­ ÀÌÈÄ addforce
-                        isLeftLOnce = true; // ¿Þ¼Õ ¿ÞÂÊÀ¸·Î ÈÚ
-                        isLeftROnce = false; // ¿Þ¼Õ ¿À¸¥ÂÊÀ¸·Î ÈÖÁö ¾ÊÀ½.
+                        leftrg.velocity = Vector3.zero; // addforceï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ ( ï¿½Ê±ï¿½È­ )
+                        leftrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ addforce
+                        isLeftLOnce = true; // ï¿½Þ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+                        isLeftROnce = false; // ï¿½Þ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
                     }
                 }
             }
@@ -207,13 +208,13 @@ public class YJ_LeftFight : MonoBehaviour
 
 
         }
-        // Ä³¸¯ÅÍ·ÎºÎÅÍ n¸¸Å­ ¶³¾îÁ³´Ù¸é
+        // Ä³ï¿½ï¿½ï¿½Í·Îºï¿½ï¿½ï¿½ nï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½
         if (click)
         {
-            // ´Ù µÇµ¹¾Æ¿ÔÀ¸¸é ¿øÁ¡À¸·Î ¸¸µé±â
-            if (Vector3.Distance(transform.position, player.transform.position) < 2f)
+            // ï¿½ï¿½ ï¿½Çµï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            if (Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
-                print("¸®¼Â");
+                print("ï¿½ï¿½ï¿½ï¿½");
                 fire = false;
                 click = false;
                 leftspeed = 10f;
@@ -222,12 +223,12 @@ public class YJ_LeftFight : MonoBehaviour
                 transform.localPosition = leftOriginLocalPos;
             }
 
-            // ´Ù µÇµ¹¾Æ¿ÀÁö ¾Ê¾ÒÀ¸¸é µÇµ¹¾Æ¿À±â
+            // ï¿½ï¿½ ï¿½Çµï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çµï¿½ï¿½Æ¿ï¿½ï¿½ï¿½
             else
             {
                 if (leftPath.Count > 0)
                 {
-                    LeftBack(leftPath.Count - 1); //leftPath¸¦ µÚºÎÅÍ ºÒ·¯ÁÖ±â
+                    LeftBack(leftPath.Count - 1); //leftPathï¿½ï¿½ ï¿½Úºï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Ö±ï¿½
                 }
                 else
                 {
@@ -245,7 +246,7 @@ public class YJ_LeftFight : MonoBehaviour
 
             if (Vector3.Distance(transform.localPosition, leftPath[i]) < 1f)
             {
-                leftPath.RemoveAt(i); //¸®½ºÆ® ³¡¹øÈ£ºÎÅÍ Áö¿öÁÖ±â
+                leftPath.RemoveAt(i); //ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
             }
         }
         else
@@ -299,7 +300,7 @@ public class YJ_LeftFight : MonoBehaviour
             transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
             right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
 
-            if(Vector3.Distance(transform.position, player.transform.position) < 2f && Vector3.Distance(right.transform.position, player.transform.position) < 2f)
+            if(Vector3.Distance(transform.position, player.transform.position) < 1.45f && Vector3.Distance(right.transform.position, player.transform.position) < 1.7f)
             {
                 transform.localPosition = leftOriginLocalPos;
                 right.transform.localPosition = rightOriginLocalPos;
@@ -312,7 +313,7 @@ public class YJ_LeftFight : MonoBehaviour
         }
     }
 
-    // 5ÃÊ ÈÄ Â÷Áö Ç®¸²
+    // 5ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½
     IEnumerator WaitForIt()
     {
         yield return new WaitForSeconds(5.0f);
@@ -320,4 +321,3 @@ public class YJ_LeftFight : MonoBehaviour
     }
 
 }
-
