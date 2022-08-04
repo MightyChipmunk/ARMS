@@ -81,14 +81,15 @@ public class YJ_LeftFight1 : MonoBehaviour
 
     void Update()
     {
-        
+        transform.localRotation = Camera.main.transform.localRotation;
+
         if (Input.GetMouseButtonDown(2))
         {
             grap = true;
             leftOriginLocalPos = transform.localPosition;
             rightOriginLocalPos = right.transform.localPosition;
             //targetPos = target.transform.position + new Vector3(-1.23f, 0f, 0f);
-            targetPos = enemyCamera.transform.position + new Vector3(-1.23f, 0f, 0f);
+            targetPos = enemyCamera.transform.localPosition + new Vector3(-1.23f, 0f, 0f);
             trigger.gameObject.SetActive(true);
             
         }
@@ -112,7 +113,7 @@ public class YJ_LeftFight1 : MonoBehaviour
         {
             fire = true;
             mouseOrigin = Input.mousePosition;
-            targetPos = enemyCamera.transform.position;
+            targetPos = enemyCamera.transform.position ;
 
         }
         if (fire)
@@ -120,6 +121,7 @@ public class YJ_LeftFight1 : MonoBehaviour
             LeftFight();
         }
     }
+    bool b;
     void LeftFight()
     {
         if (!click)
@@ -142,7 +144,7 @@ public class YJ_LeftFight1 : MonoBehaviour
                 }
 
                 // 이동
-                dir = targetPos - transform.position;
+                dir = targetPos - transform.localPosition;
                 dir.Normalize();
                 //transform.position += dir * leftspeed * Time.deltaTime;
 
@@ -172,7 +174,8 @@ public class YJ_LeftFight1 : MonoBehaviour
                         //isLeftROnce = false; // 왼손 오른쪽으로 휘지 않음.
                     //}
                 }
-                transform.position += dir * leftspeed * Time.deltaTime;
+                //print(dir.x); TransformDirection = 로컬좌표를 월드좌표로 전환
+                transform.position += transform.TransformDirection(dir * leftspeed * Time.deltaTime);
             }
 
 
@@ -230,6 +233,7 @@ public class YJ_LeftFight1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //if (other.gameObject.name == "Enemy" && !trigger.gameObject.activeSelf)
         if (other.gameObject.name == "Enemy" && !trigger.gameObject.activeSelf)
         {
             overlap = true;

@@ -71,7 +71,7 @@ public class YJ_RightFight1 : MonoBehaviour
         rightOriginLocalPos = transform.localPosition;
         // 이동 좌표를 저장할 리스트
         rightPath = new List<Vector3>();
-        mouseOrigin = Vector3.zero;
+        //mouseOrigin = Vector3.zero;
 
         leftFight = left.GetComponent<YJ_LeftFight1>();
 
@@ -80,7 +80,9 @@ public class YJ_RightFight1 : MonoBehaviour
     
     void Update()
     {
-        if(overlap)
+        transform.localRotation = Camera.main.transform.localRotation;
+
+        if (overlap)
         {
             print("애너미닿음");
             Return();
@@ -128,7 +130,7 @@ public class YJ_RightFight1 : MonoBehaviour
                 }
 
                 // 이동
-                dir = targetPos - transform.position;
+                dir = targetPos - transform.localPosition;
                 dir.Normalize();
                 
 
@@ -159,7 +161,7 @@ public class YJ_RightFight1 : MonoBehaviour
                     //    isRightROnce = false; // 오른손 오른쪽으로 휘지 않음.
                     //}
                 }
-                transform.position += dir * rightspeed * Time.deltaTime;
+                transform.position += transform.TransformDirection(dir * rightspeed * Time.deltaTime);
             }
         }
         // 캐릭터로부터 n만큼 떨어졌다면
