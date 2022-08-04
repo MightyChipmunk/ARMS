@@ -11,11 +11,15 @@ public class JH_CameraMove : MonoBehaviour
     public float Angle { get { return angle; } set { angle = value; } }
     float lerp = 0;
 
-    Vector3 delta = new Vector3 (0, 3, -3.3f);
+    JH_PlayerMove pm;
+
+    Vector3 delta;
     // Start is called before the first frame update
     void Start()
     {
-        
+        pm = transform.parent.GetComponent<JH_PlayerMove>();
+
+        delta = transform.localPosition;
     }
 
     // Update is called once per frame
@@ -26,9 +30,9 @@ public class JH_CameraMove : MonoBehaviour
 
     void CamMove()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && pm.IsCanMove())
             lerp = Mathf.Lerp(lerp, angle, Time.deltaTime * speed);
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) && pm.IsCanMove())
             lerp = Mathf.Lerp(lerp, -angle, Time.deltaTime * speed);
         else
             lerp = Mathf.Lerp(lerp, 0, Time.deltaTime * speed);

@@ -100,7 +100,7 @@ public class YJ_LeftFight : MonoBehaviour
         if (overlap)
         {
             Return();
-            if (Vector3.Distance(transform.position, player.transform.position) < 1.45f)
+            if (Vector3.Distance(transform.position, player.transform.position) < 2f)
             {
                 transform.localPosition = leftOriginLocalPos;
                 leftPath.Clear();
@@ -178,7 +178,7 @@ public class YJ_LeftFight : MonoBehaviour
         if (click)
         {
             // 다 되돌아왔으면 원점으로 만들기
-            if (Vector3.Distance(transform.position, player.transform.position) < 1.45f)
+            if (Vector3.Distance(transform.position, player.transform.position) < 2f)
             {
                 print("리셋");
                 fire = false;
@@ -266,7 +266,7 @@ public class YJ_LeftFight : MonoBehaviour
             transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
             right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
 
-            if(Vector3.Distance(transform.position, player.transform.position) < 1.45f && Vector3.Distance(right.transform.position, player.transform.position) < 1.45f)
+            if(Vector3.Distance(transform.position, player.transform.position) < 2f && Vector3.Distance(right.transform.position, player.transform.position) < 2f)
             {
                 transform.localPosition = leftOriginLocalPos;
                 right.transform.localPosition = rightOriginLocalPos;

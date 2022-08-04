@@ -24,6 +24,11 @@ public class JH_PlayerMove : MonoBehaviour
         DashLeft,
         DashFrontLeft,
         DashBackLeft,
+        Guard,
+        Charge,
+        AttackLeft,
+        AttackRight,
+        Hitted,
     }
 
     Vector3 dir;
@@ -32,6 +37,7 @@ public class JH_PlayerMove : MonoBehaviour
     CharacterController cc;
     JH_CameraMove cm;
     TrailRenderer tr;
+    YJ_LeftFight lf;
     PlayerState state;
     public PlayerState State
     {
@@ -89,6 +95,18 @@ public class JH_PlayerMove : MonoBehaviour
                     break;
                 case PlayerState.DashBackward:
                     break;
+                case PlayerState.Guard:
+                    break;
+                case PlayerState.Charge:
+                    break;
+                case PlayerState.AttackLeft:
+                    anim.SetTrigger("Attack");
+                    anim.SetInteger("StateNum", 6);
+                    break;
+                case PlayerState.AttackRight:
+                    break;
+                case PlayerState.Hitted:
+                    break;
             }
         }
     }
@@ -113,6 +131,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
+        lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
 
         if (isEnemy)
         {
@@ -130,6 +149,7 @@ public class JH_PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (!cc.isGrounded)
         {
             yVelocity += gravity * Time.deltaTime;
@@ -143,7 +163,6 @@ public class JH_PlayerMove : MonoBehaviour
         {
             Jump();
             Move();
-            LookEnemy();
             Dash();
         }
         else
@@ -156,10 +175,9 @@ public class JH_PlayerMove : MonoBehaviour
 
             Jump(ran);
             Move(ran);
-            LookEnemy();
             Dash(ran);
         }
-
+        LookEnemy();
 
         SetPlayerState();
     }
@@ -175,23 +193,26 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded)
             moveDir = Vector3.zero;
-        if (Input.GetKey(KeyCode.W) && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
-        {
-            moveDir += dir;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            moveDir -= dir;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            moveDir -= transform.right;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            moveDir += transform.right;
-        }
 
+        if (IsCanMove())
+        {
+            if (Input.GetKey(KeyCode.W) && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
+            {
+                moveDir += dir;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                moveDir -= dir;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                moveDir -= transform.right;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                moveDir += transform.right;
+            }
+        }
 
         moveDir.Normalize();
         //moveDir.y = yVelocity;
@@ -201,22 +222,27 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Move(int ran)
     {
-        moveDir = Vector3.zero;
-        if (ran <= 2 && Vector3.Magnitude(target.transform.position - transform.position) >= 10.0f)
+        if (cc.isGrounded)
+            moveDir = Vector3.zero;
+
+        if (IsCanMove())
         {
-            moveDir += dir;
-        }
-        if (ran >= 3 && ran <= 4)
-        {
-            moveDir -= dir;
-        }
-        if (ran >= 4 && ran <= 6)
-        {
-            moveDir -= transform.right;
-        }
-        if (ran >= 6 && ran <= 8)
-        {
-            moveDir += transform.right;
+            if (ran <= 2 && Vector3.Magnitude(target.transform.position - transform.position) >= 5.0f + Vector3.Distance(new Vector3(0, 2.5f, -2), Vector3.zero))
+            {
+                moveDir += dir;
+            }
+            if (ran >= 3 && ran <= 4)
+            {
+                moveDir -= dir;
+            }
+            if (ran >= 4 && ran <= 6)
+            {
+                moveDir -= transform.right;
+            }
+            if (ran >= 6 && ran <= 8)
+            {
+                moveDir += transform.right;
+            }
         }
 
         moveDir.Normalize();
@@ -259,6 +285,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     void SetPlayerState()
     {
+
         if (cc.isGrounded && !isDash)
         {
             // moveDir의 앵글을 계산해서 애니메이션 재생
@@ -306,17 +333,32 @@ public class JH_PlayerMove : MonoBehaviour
                 State = PlayerState.DashFrontRight;
             else if (finalAngle > 89 && finalAngle < 91)
                 State = PlayerState.DashRight;
-            else if (finalAngle > 91 && finalAngle < 180)
+            else if (finalAngle > 91 && finalAngle < 179)
                 State = PlayerState.DashBackRight;
             else if (finalAngle < -1f && finalAngle >= -89f)
                 State = PlayerState.DashFrontLeft;
             else if (finalAngle < -89 && finalAngle > -91)
                 State = PlayerState.DashLeft;
-            else if (finalAngle < -91 && finalAngle > -180)
+            else if (finalAngle < -91 && finalAngle > -179)
                 State = PlayerState.DashBackLeft;
-            else if (finalAngle == 180 || finalAngle == -180)
+            else if (finalAngle >= 179 || finalAngle <= -179)
                 State = PlayerState.DashBackward;
         }
+
+
+        if (lf.Fire)
+        {
+            if (State != PlayerState.AttackLeft) 
+                State = PlayerState.AttackLeft;
+        }
+    }
+
+    public bool IsCanMove()
+    {
+        if (lf.Fire == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+            return true;
+        else
+            return false;
     }
 
     IEnumerator IncreaseSpeed()
