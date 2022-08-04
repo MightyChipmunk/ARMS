@@ -10,14 +10,9 @@ using UnityEngine;
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
 public class YJ_RightFight : MonoBehaviour
 {
-    MeshRenderer mesh;
-    Material mat;
-    Renderer color;
-
-    float currentTime;
-    float creatTime = 1f;
-
     public GameObject left;
+    public GameObject enemyCamera;
+    public GameObject trigger;
     YJ_LeftFight leftFight;
 
     // 공격 속도
@@ -44,6 +39,7 @@ public class YJ_RightFight : MonoBehaviour
     // 마우스 위치 (시작, 이후)
     Vector3 mouseOrigin;
     Vector3 mousePos;
+    Vector3 dir;
 
     // Rigidbody 불러오기
     Rigidbody rightrg;
@@ -60,10 +56,6 @@ public class YJ_RightFight : MonoBehaviour
 
     void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
-        mat = mesh.material;
-        color = GetComponent<Renderer>();
-
         // 타겟의 위치 찾기
         // 애너미의 처음위치로
         target = GameObject.Find("Enemy");
@@ -79,7 +71,7 @@ public class YJ_RightFight : MonoBehaviour
         rightOriginLocalPos = transform.localPosition;
         // 이동 좌표를 저장할 리스트
         rightPath = new List<Vector3>();
-        mouseOrigin = Vector3.zero;
+        //mouseOrigin = Vector3.zero;
 
         leftFight = left.GetComponent<YJ_LeftFight>();
 
@@ -88,29 +80,11 @@ public class YJ_RightFight : MonoBehaviour
     
     void Update()
     {
-        // "F키" 누르면 차징 상태 구현
-        if (Input.GetKey(KeyCode.F))
-        {
-            currentTime += Time.deltaTime;
-
-            if (currentTime > creatTime)
-            {
-                mat.color = new Color(0, 0, 1);  //-> 추후 캐릭터 애니매시션을 통해 Charging 구현
-                currentTime = 0;
-                StopCoroutine("WaitForIt");
-            }
-        }
-        else
-        {
-            if (Input.GetKeyUp(KeyCode.F))
-            {
-                StartCoroutine("WaitForIt");
-                currentTime = 0;
-            }
-        }
+        transform.localRotation = Camera.main.transform.localRotation;
 
         if (overlap)
         {
+            print("애너미닿음");
             Return();
             if(Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
@@ -121,12 +95,12 @@ public class YJ_RightFight : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (Input.GetMouseButtonDown(1) && !click && !overlap && !leftFight.grap)
+        if (Input.GetMouseButtonDown(1) && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf)
         {
             fire = true;
             mouseOrigin = Input.mousePosition;
-            targetPos = target.transform.position;
-
+            targetPos = enemyCamera.transform.position;
+            
         }
         if (fire)
         {
@@ -141,7 +115,7 @@ public class YJ_RightFight : MonoBehaviour
             // 만약에 캐릭터로부터 n만큼 앞으로 갔다면 정지
             if (Vector3.Distance(transform.position, player.transform.position) > 10f)
             {
-                rightrg.velocity = Vector3.zero;
+                //rightrg.velocity = Vector3.zero;
                 rightspeed = 0f;
                 click = true;
             }
@@ -156,35 +130,38 @@ public class YJ_RightFight : MonoBehaviour
                 }
 
                 // 이동
-                Vector3 dir = targetPos - transform.position;
+                dir = targetPos - transform.localPosition;
                 dir.Normalize();
-                transform.position += dir * rightspeed * Time.deltaTime;
+                
 
                 mousePos = Input.mousePosition;
 
                 // 마우스가 오른쪽을 향하면
                 if (mousePos.x - mouseOrigin.x > 0)
                 {
-                    if (!isRightROnce)
-                    {
-                        rightrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
-                        rightrg.AddForce(Vector3.right * 5, ForceMode.Impulse); // 초기화 이후 addforce
-                        isRightROnce = true; // 왼손 오른쪽으로 휨
-                        isRightLOnce = false; // 왼손 왼쪽으로 휘지 않음.
-                    }
+                    dir.x += 0.5f;
+                    //if (!isRightROnce)
+                    //{
+                    //    rightrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
+                    //    rightrg.AddForce(Vector3.right * 5, ForceMode.Impulse); // 초기화 이후 addforce
+                    //    isRightROnce = true; // 왼손 오른쪽으로 휨
+                    //    isRightLOnce = false; // 왼손 왼쪽으로 휘지 않음.
+                    //}
                 }
 
                 // 마우스가 왼쪽을 향하면
                 else if (mousePos.x - mouseOrigin.x < 0)
                 {
-                    if (!isRightLOnce)
-                    {
-                        rightrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
-                        rightrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // 초기화 이후 addforce
-                        isRightLOnce = true; // 오른손 왼쪽으로 휨
-                        isRightROnce = false; // 오른손 오른쪽으로 휘지 않음.
-                    }
+                    dir.x -= 0.5f;
+                    //if (!isRightLOnce)
+                    //{
+                    //    rightrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
+                    //    rightrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // 초기화 이후 addforce
+                    //    isRightLOnce = true; // 오른손 왼쪽으로 휨
+                    //    isRightROnce = false; // 오른손 오른쪽으로 휘지 않음.
+                    //}
                 }
+                transform.position += transform.TransformDirection(dir * rightspeed * Time.deltaTime);
             }
         }
         // 캐릭터로부터 n만큼 떨어졌다면
@@ -235,7 +212,7 @@ public class YJ_RightFight : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name.Contains("Enemy"))
+        if(other.gameObject.name == "Enemy" && !trigger.gameObject.activeSelf)
         {
             print("닿음 애너미랑");
             overlap = true;
@@ -244,19 +221,13 @@ public class YJ_RightFight : MonoBehaviour
 
     void Return()
     {
-        rightrg.velocity = Vector3.zero;
+        //rightrg.velocity = Vector3.zero;
         fire = false;
         click = false;
         rightspeed = 10f;
         isRightROnce = false;
         isRightLOnce = false;
         transform.localPosition = Vector3.Lerp(transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
-    }
-
-    // 5초 후 차지 풀림
-    IEnumerator WaitForIt()
-    {
-        yield return new WaitForSeconds(5.0f);
-        mat.color = new Color(1, 1, 1);
+        
     }
 }
