@@ -100,8 +100,7 @@ public class JH_PlayerMove : MonoBehaviour
                 case PlayerState.Charge:
                     break;
                 case PlayerState.AttackLeft:
-                    if (anim.GetInteger("StateNum") != 6)
-                        anim.SetTrigger("Attack");
+                    anim.SetTrigger("Attack");
                     anim.SetInteger("StateNum", 6);
                     break;
                 case PlayerState.AttackRight:
@@ -150,8 +149,6 @@ public class JH_PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("State: " + state);
-        Debug.Log("Fire: " + lf.Fire);
 
         if (!cc.isGrounded)
         {
