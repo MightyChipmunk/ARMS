@@ -9,7 +9,7 @@ public class SY_PlayerHp : MonoBehaviour
     public int maxHp = 6;
     public Slider sliderHp;
 
-    bool isKnock;
+    bool isKnock = false;
     public bool IsKnock
     {
         get { return isKnock; }

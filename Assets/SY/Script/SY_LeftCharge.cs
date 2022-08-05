@@ -50,7 +50,7 @@ public class SY_LeftCharge: MonoBehaviour
                 currentTime = 0;
             }
         }
-        Debug.Log("LeftGuard: " + isGuard);
+        //Debug.Log("LeftGuard: " + isGuard);
     }
 
     // 5초 후 차지 풀림
