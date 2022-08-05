@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 17235896}
   m_Layer: 31
   m_Name: Left
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

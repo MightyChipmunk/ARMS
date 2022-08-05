@@ -20,8 +20,7 @@ public class JH_PlayerMove : MonoBehaviour
         Jump,
         Guard,
         Charge,
-        AttackLeft,
-        AttackRight,
+        Attack,
         Hitted,
         KnockBack,
         Grap,
@@ -32,9 +31,11 @@ public class JH_PlayerMove : MonoBehaviour
     Vector3 moveDir = Vector3.zero;
     GameObject target;
     CharacterController cc;
+    Animator anim;
     JH_CameraMove cm;
     TrailRenderer tr;
     YJ_LeftFight lf;
+    YJ_RightFight rf;
     SY_LeftCharge lc;
     SY_PlayerHp ph;
     PlayerState state;
@@ -45,7 +46,6 @@ public class JH_PlayerMove : MonoBehaviour
         {
             state = value;
 
-            Animator anim = GetComponent<Animator>();
             switch (state)
             {
                 case PlayerState.Idle:
@@ -83,12 +83,13 @@ public class JH_PlayerMove : MonoBehaviour
                     break;
                 case PlayerState.Charge:
                     break;
-                case PlayerState.AttackLeft:
+                case PlayerState.Attack:
                     anim.SetInteger("StateNum", 6);
                     break;
-                case PlayerState.AttackRight:
-                    break;
                 case PlayerState.Hitted:
+                    break;
+                case PlayerState.Grap:
+                    anim.SetInteger("StateNum", 9);
                     break;
                 case PlayerState.KnockBack:
                     anim.SetInteger("StateNum", 8);
@@ -115,11 +116,12 @@ public class JH_PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        anim = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
         ph = GetComponent<SY_PlayerHp>();
         tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
         lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
+        rf = transform.Find("Left").GetComponent<YJ_RightFight>();
         lc = transform.Find("Left").GetComponent<SY_LeftCharge>();
 
         if (isEnemy)
@@ -140,13 +142,9 @@ public class JH_PlayerMove : MonoBehaviour
     {
 
         if (!cc.isGrounded)
-        {
             yVelocity += gravity * Time.deltaTime;
-        }
         else
-        {
             yVelocity = -1f;
-        }
 
         if (!isEnemy)
         {
@@ -314,11 +312,24 @@ public class JH_PlayerMove : MonoBehaviour
         {
             if (State != PlayerState.KnockBack)
                 State = PlayerState.KnockBack;
+
+            if (ph.CanUp && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)
+                || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+            {
+                if (ph.coroutine != null)
+                {
+                    ph.StopCoroutine(ph.coroutine);
+                }
+                ph.IsKnock = false;
+                ph.CanUp = false;
+                StartCoroutine("Fall");
+                anim.SetTrigger("Fall");
+            }
         }
-        else if (lf.Fire)
+        else if (lf.Fire/* || rf.Fire*/)
         {
-            if (State != PlayerState.AttackLeft) 
-                State = PlayerState.AttackLeft;
+            if (State != PlayerState.Attack) 
+                State = PlayerState.Attack;
         }
         else if (lf.Grapp)
         {
@@ -334,7 +345,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove()
     {
-        if (lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;
@@ -373,10 +384,34 @@ public class JH_PlayerMove : MonoBehaviour
         canDash = true;
     }
 
+    IEnumerator Fall()
+    {
+        float tmpSpeed = speed;
+        float tmpAngle = cm.Angle;
+        speed *= 7;
+        cm.Angle *= 2;
+        yield return new WaitForSeconds(dashTime);
+        speed = tmpSpeed;
+        cm.Angle = tmpAngle;
+        yield return new WaitForSeconds(dashCool - dashTime);
+    }
+
     IEnumerator RandomAct()
     {
         changeAct = false;
         yield return new WaitForSeconds(0.5f);
         changeAct = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 적 팔에 닿으면 충돌 이벤트 구현
+        if (other.gameObject.tag == "EnemyArms")
+        {
+            if ((ph.IsKnock || lc.IsGuard) /*차지 안된 공격 받으면 피격모션 재생*/ )
+            {
+                anim.SetTrigger("Hitted");
+            }
+        }
     }
 }

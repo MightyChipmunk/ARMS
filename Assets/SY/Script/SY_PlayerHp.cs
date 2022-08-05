@@ -8,11 +8,19 @@ public class SY_PlayerHp : MonoBehaviour
     int hp;
     public int maxHp = 6;
     public Slider sliderHp;
+    public Coroutine coroutine;
 
+    bool canUp = false;
+    public bool CanUp
+    {
+        get { return canUp; }
+        set { canUp = value; }
+    }
     bool isKnock = false;
     public bool IsKnock
     {
         get { return isKnock; }
+        set { isKnock = value; }
     }
 
     public void SetHP(int value)
@@ -33,10 +41,7 @@ public class SY_PlayerHp : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.F) || IsKnock)
-        {
 
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -48,7 +53,7 @@ public class SY_PlayerHp : MonoBehaviour
             {
                 
             }
-            else
+            else 
             {
                 // 체력 감소
                 SetHP(GetHP() - 1);
@@ -58,15 +63,18 @@ public class SY_PlayerHp : MonoBehaviour
 
         if (isKnock != false)
         {
-            StartCoroutine(Ondamaged());
+            coroutine = StartCoroutine(Ondamaged());
         }
         
     }
 
     // 넉백 후 10초동안 무적상태
-    IEnumerator Ondamaged()
+    public IEnumerator Ondamaged()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(2.0f);
+        canUp = true;
+        yield return new WaitForSeconds(3.0f);
         isKnock = false;
+        canUp = false;
     }
 }
