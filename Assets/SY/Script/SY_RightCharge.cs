@@ -51,7 +51,7 @@ public class SY_RightCharge: MonoBehaviour
                 currentTime = 0;
             }
         }
-        Debug.Log("RightGuard: " + isGuard);
+        //Debug.Log("RightGuard: " + isGuard);
     }
 
     
