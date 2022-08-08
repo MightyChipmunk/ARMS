@@ -19,6 +19,12 @@ public class SY_LeftCharge: MonoBehaviour
         get { return isGuard; }
     }
 
+    bool isCharging;
+    public bool IsCharging
+    {
+        get { return isCharging; }
+    }
+
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
@@ -30,17 +36,30 @@ public class SY_LeftCharge: MonoBehaviour
     // "F"를 누르면 차지 실행
     void Update()
     {
+        Charging();
+    }
+
+    void Charging()
+    {
+        // "F"키를 누르면 가드를 한다.
         if (Input.GetKey(KeyCode.F))
         {
             currentTime += Time.deltaTime;
             isGuard = true;
+
+            // "F"키를 2초 이상 누르면 차징 상태이고 싶다. 
             if (currentTime > creatTime)
             {
-                mat.color = new Color(0, 0, 1);  //-> 추후 캐릭터 애니매시션을 통해 Charging 구현
+                //mat.color = new Color(0, 0, 1);  //-> 추후 캐릭터 애니매시션을 통해 Charging 구현
+                isCharging = true;
                 currentTime = 0;
                 StopCoroutine("WaitForIt");
+                Debug.Log("LeftCharging: " + isCharging);
             }
+
         }
+        
+        // "F"키를 누르면 가드를 해제한다.
         else
         {
             if (Input.GetKeyUp(KeyCode.F))
@@ -50,29 +69,34 @@ public class SY_LeftCharge: MonoBehaviour
                 currentTime = 0;
             }
         }
-        Debug.Log("LeftGuard: " + isGuard);
+        //Debug.Log("LeftGuard: " + isGuard);
     }
+
 
     // 5초 후 차지 풀림
     IEnumerator WaitForIt()
     {
         yield return new WaitForSeconds(5.0f);
-        mat.color = new Color(1, 1, 1);
+        //mat.color = new Color(1, 1, 1);
+        isCharging = false;
+        Debug.Log("LeftCharging: " + isCharging);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyArms")
+        if (other.gameObject.tag =="EnemyArms" )
         {
             if (color.material.color == Color.white)
             {
                 //mat.color = new Color(1,1,0); // 노랑
                 color.material.color = Color.yellow; // 데미지 경고
             }
-            else
+            else if(color.material.color == Color.yellow)
             {
                 color.material.color = Color.red; // 팔 멈춤
             }
+              
         }
+        
     }
 }

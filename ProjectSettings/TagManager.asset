@@ -6,6 +6,7 @@ TagManager:
   tags:
   - EnemyArms
   - Cube
+  - PlayerArms
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - EnemyHand
   - PlayerHand
   m_SortingLayers:
   - name: Default

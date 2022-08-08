@@ -84,7 +84,7 @@ public class YJ_RightFight : MonoBehaviour
 
         if (overlap)
         {
-            print("æ÷≥ πÃ¥Í¿Ω");
+            //print("æ÷≥ πÃ¥Í¿Ω");
             Return();
             if(Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
@@ -214,7 +214,7 @@ public class YJ_RightFight : MonoBehaviour
     {
         if(other.gameObject.name == "Enemy" && !trigger.gameObject.activeSelf)
         {
-            print("¥Í¿Ω æ÷≥ πÃ∂˚");
+            //print("¥Í¿Ω æ÷≥ πÃ∂˚");
             overlap = true;
         }
     }
