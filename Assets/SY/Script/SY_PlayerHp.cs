@@ -51,9 +51,9 @@ public class SY_PlayerHp : MonoBehaviour
             else if (lc.IsCharging)
             {
                 // 체력 감소
-                //SetHP(GetHP() - 2);
-                //isKnock = true; //-> 추후 캐릭터 애니매시션을 통해 KnockBack 구현
-                Debug.Log("Isknock " + !isKnock);
+                SetHP(GetHP() - 2);
+                isKnock = true; //-> 추후 캐릭터 애니매시션을 통해 KnockBack 구현
+                Debug.Log("Isknock " + isKnock);
             }
             // 차징 아닐 때는, HP감소
             else
@@ -76,9 +76,9 @@ public class SY_PlayerHp : MonoBehaviour
             else if (rc.IsCharging)
             {
                 // 체력 감소
-                //SetHP(GetHP() - 2);
-                //isKnock = true; //-> 추후 캐릭터 애니매시션을 통해 KnockBack 구현
-                Debug.Log("Isknock " + !isKnock);
+                SetHP(GetHP() - 2);
+                isKnock = true; //-> 추후 캐릭터 애니매시션을 통해 KnockBack 구현
+                Debug.Log("Isknock " + isKnock);
             }
             // 차징 아닐 때는, HP감소
             else
