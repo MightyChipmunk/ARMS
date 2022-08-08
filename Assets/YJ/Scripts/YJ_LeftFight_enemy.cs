@@ -93,7 +93,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         #endregion
 
         #region 잡기
-        if (!fire && CCCC)
+        if (!fire && InputManager.Instance.EnemyGrap)
         {
             if (play > 7)
             {
@@ -129,7 +129,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         #region 왼쪽공격
 
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (!overlap && !grap && !fire && AAAA)// && !trigger.gameObject.activeSelf)
+        if (!overlap && !grap && !fire && InputManager.Instance.EnemyFire1)// && !trigger.gameObject.activeSelf)
         {
             targetPos = playertarget.transform.position;
 

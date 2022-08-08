@@ -40,6 +40,7 @@ public class JH_PlayerMove : MonoBehaviour
     #endregion
 
     #region 에너미 필요 속성
+    YJ_LeftFight_enemy elf;
     SY_EnemyHp eh;
     #endregion 
 
@@ -87,7 +88,6 @@ public class JH_PlayerMove : MonoBehaviour
     float dashCool = 1f;
     bool canDash = true;
     bool isDash = false;
-    bool changeAct = true;
     bool hitted = false;
 
     [SerializeField]
@@ -107,7 +107,7 @@ public class JH_PlayerMove : MonoBehaviour
         if (isEnemy)
         {
             eh = GetComponent<SY_EnemyHp>();
-            lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
+            elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
             rf = transform.Find("Right").GetComponent<YJ_RightFight>();
             lc = transform.Find("Left").GetComponent<SY_LeftCharge>(); // 이 셋은 교체예정
 
@@ -359,21 +359,21 @@ public class JH_PlayerMove : MonoBehaviour
             //    anim.SetTrigger("Fall");
             //}
         }
-        else if (lf.Fire/* || rf.Fire*/)
-        {
-            if (State != PlayerState.Attack)
-                State = PlayerState.Attack;
-        }
-        else if (lf.Grapp)
-        {
-            if (State != PlayerState.Grap)
-                State = PlayerState.Grap;
-        }
-        else if (lc.IsGuard)
-        {
-            if (State != PlayerState.Guard)
-                State = PlayerState.Guard;
-        }
+        //else if (elf.Fire/* || rf.Fire*/)
+        //{
+        //    if (State != PlayerState.Attack)
+        //        State = PlayerState.Attack;
+        //}
+        //else if (elf.Grapp)
+        //{
+        //    if (State != PlayerState.Grap)
+        //        State = PlayerState.Grap;
+        //}
+        //else if (lc.IsGuard)
+        //{
+        //    if (State != PlayerState.Guard)
+        //        State = PlayerState.Guard;
+        //}
     }
 
     public bool IsCanMove()
@@ -386,7 +386,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove(bool isEnemy)
     {
-        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (/*rf.Fire == false && */elf.Fire == false && lc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;

@@ -43,6 +43,13 @@ public class InputManager : MonoBehaviour
     bool enemyJump;
     public bool EnemyJump { get { return enemyJump; } }
 
+    bool enemyFire1;
+    public bool EnemyFire1 { get { return enemyFire1; } }
+    bool enemyFire2;
+    public bool EnemyFire2 { get { return enemyFire2; } }
+    bool enemyGrap;
+    public bool EnemyGrap { get { return enemyGrap; } }
+
 
     bool changeAct = true;
     int ran = 0;
@@ -63,7 +70,7 @@ public class InputManager : MonoBehaviour
 
         if (changeAct)
         {
-            ran = UnityEngine.Random.Range(1, 10);
+            ran = UnityEngine.Random.Range(1, 17);
             StartCoroutine("RandomAct");
         }
 
@@ -72,7 +79,11 @@ public class InputManager : MonoBehaviour
         enemyRight = (ran >= 4 && ran <= 6) ? true : false;
         enemyLeft = (ran >= 6 && ran <= 8) ? true : false;
         enemyDash = ran <= 3 ? true : false;
-        enemyJump = ran > 8 ? true : false;
+        enemyJump = (ran >= 9 && ran <= 10) ? true : false;
+
+        enemyFire1 = (ran >= 11 && ran <= 12) ? true : false;   
+        enemyFire2 = (ran >= 13 && ran <= 14) ? true : false;
+        enemyGrap = ran > 14 ? true : false;
     }
 
     IEnumerator RandomAct()

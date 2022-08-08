@@ -93,7 +93,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (!click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && BBBB)
+        if (!click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && InputManager.Instance.EnemyFire2)
         {
             targetPos = targetCamera.transform.position;
             fire = true;
