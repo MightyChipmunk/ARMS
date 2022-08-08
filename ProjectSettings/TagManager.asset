@@ -37,7 +37,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - EnemyHand
   - PlayerHand
   m_SortingLayers:
   - name: Default

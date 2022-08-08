@@ -15,13 +15,14 @@ public class YJ_LeftFight_enemy : MonoBehaviour
     public GameObject trigger; // 가운데 선
     public GameObject playertarget;
     // 공격 속도
-    float leftspeed = 10f;
+    float leftspeed = 5f;
     // 되돌아오는 속도
     float backspeed = 15f;
 
     // 타겟
     GameObject target;
     GameObject me;
+    GameObject player;
 
 
     // 타겟위치
@@ -33,6 +34,8 @@ public class YJ_LeftFight_enemy : MonoBehaviour
     {
         get { return fire; }
     }
+    bool AAAA = false;
+    bool CCCC = false;
     bool click = false;
     bool overlap = false; // 플레이어랑 닿았을때
     public bool grap = false; // 잡기 하고있는지
@@ -52,14 +55,15 @@ public class YJ_LeftFight_enemy : MonoBehaviour
     Vector3 leftOriginLocalPos;
     Vector3 rightOriginLocalPos;
 
-    YJ_Trigger yj_trigger;
+    YJ_Trigger_enemy yj_trigger;
 
     void Start()
     {
         // 타겟의 위치 찾기
         // 애너미의 처음위치로
-        target = GameObject.Find("Player");
+        target = playertarget;
         me = GameObject.Find("Enemy");
+        player = GameObject.Find("Player");
         //originPos = target.transform;
 
         // 로컬좌표의 값을 저장
@@ -67,34 +71,40 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         // 이동 좌표를 저장할 리스트
         leftPath = new List<Vector3>();
 
-        yj_trigger = trigger.GetComponent<YJ_Trigger>();
+        yj_trigger = trigger.GetComponent<YJ_Trigger_enemy>();
 
     }
 
     float currentTime = 0;
-    int play = 0;
+    public int play = 0;
     void Update()
     {
-        //print("로컬포지션" + leftOriginLocalPos);
-        //transform.localRotation = me.transform.localRotation;
-        print("fire : " + fire + " grap : " + grap + " overlap : " + overlap);
         #region 랜덤 숫자 3초마다만들기
-        if(!fire && !grap && !overlap)
+        if(!click && !fire && !grap && !overlap && !turn)
         {
             currentTime += Time.deltaTime;
+            if(currentTime > 3)
+            {
+                play = UnityEngine.Random.Range(0, 10);
+                print(play);
+            }
             //print(currentTime);
         }
         #endregion
 
         #region 잡기
-        if (Input.GetMouseButtonDown(2))
+        if (!fire && CCCC)
         {
-            grap = true;
-            leftOriginLocalPos = transform.localPosition;
-            rightOriginLocalPos = right.transform.localPosition;
-            targetPos = target.transform.localPosition + new Vector3(-1.23f, 0f, 0f);
-            trigger.gameObject.SetActive(true);
-
+            if (play > 7)
+            {
+                grap = true;
+                leftOriginLocalPos = transform.localPosition;
+                print("진짜값" + leftOriginLocalPos);
+                rightOriginLocalPos = right.transform.localPosition;
+                targetPos = target.transform.position + new Vector3(1.23f, 0f, 0f);
+                trigger.gameObject.SetActive(true);
+                play = 0;
+            }
         }
         if (grap)
         {
@@ -119,18 +129,15 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         #region 왼쪽공격
 
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (currentTime > 1 && !overlap && !grap && !fire)// && !trigger.gameObject.activeSelf)
+        if (!overlap && !grap && !fire && AAAA)// && !trigger.gameObject.activeSelf)
         {
             targetPos = playertarget.transform.position;
-            play = UnityEngine.Random.Range(0, 10);
-            print(play);
 
-            if(play < 3)
+            if(play > 0 && play < 8)
             {
                 fire = true;
+                play = 0;
             } 
-            else
-                currentTime = 0;
 
         }
         if (fire)
@@ -166,9 +173,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
 
                 transform.position += dir * leftspeed * Time.deltaTime;
                 
-                if (Vector3.Distance(transform.position, targetPos) < 1f)
-                { Return(); }
-                //transform.position += transform.TransformDirection(dir * leftspeed * Time.deltaTime);
             }
         }
 
@@ -222,7 +226,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
             if(Vector3.Distance(transform.localPosition, leftOriginLocalPos) < 0.05f)
             {
                 transform.localPosition = leftOriginLocalPos;
-                //currentTime = 0;
+                currentTime = 0;
                 
                 fire = false;
             }
@@ -272,19 +276,20 @@ public class YJ_LeftFight_enemy : MonoBehaviour
             transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
             right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
 
-            if (Vector3.Distance(trigger.transform.position, target.transform.position) > 5f &&
-                !yj_trigger.enemyGo)
+            if (Vector3.Distance(trigger.transform.position, player.transform.position) > 5f &&!yj_trigger.enemyGo)
             {
                 trigger.gameObject.SetActive(false);
             }
-            if (Vector3.Distance(transform.position, me.transform.position) < 1.7f && Vector3.Distance(right.transform.position, me.transform.position) < 1.7f)
+            if (Vector3.Distance(transform.position, me.transform.position) < 1.9f && Vector3.Distance(right.transform.position, me.transform.position) < 1.9f)
             {
+                print("야 여기안들어와???");
                 transform.localPosition = leftOriginLocalPos;
                 right.transform.localPosition = rightOriginLocalPos;
                 timer = 0;
-                turn = false;
-                grap = false;
                 leftspeed = 10f;
+                currentTime = 0;
+                grap = false;
+                turn = false;
             }
         }
     }

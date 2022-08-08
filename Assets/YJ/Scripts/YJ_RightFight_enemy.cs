@@ -21,7 +21,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
     float backspeed = 15f;
 
     // 타겟
-    GameObject target;
     GameObject me;
 
 
@@ -35,6 +34,8 @@ public class YJ_RightFight_enemy : MonoBehaviour
 
     // 애너미랑 닿았을때
     bool overlap = false;
+
+    bool BBBB = false;
 
     // 이동방향
     Vector3 dir;
@@ -63,7 +64,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
         rightPath = new List<Vector3>();
 
         leftFight = left.GetComponent<YJ_LeftFight_enemy>();
-
     }
 
     
@@ -80,6 +80,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
 
         if (overlap)
         {
+            print("overlap 가동");
             Return();
 
             if(Vector3.Distance(transform.position, me.transform.position) < 1.9f)
@@ -92,18 +93,10 @@ public class YJ_RightFight_enemy : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (currentTime > 1 &&!click && !overlap && !leftFight.grap )//&& !trigger.gameObject.activeSelf)
+        if (!click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && BBBB)
         {
             targetPos = targetCamera.transform.position;
-            play = UnityEngine.Random.Range(0, 10);
-            print(play);
-
-            if (play < 3)
-            {
-                fire = true;
-            }
-            else
-                currentTime = 0;
+            fire = true;
 
         }
         if (fire)
@@ -199,7 +192,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!trigger.gameObject.activeSelf) //other.gameObject.name == "Player" && 
+        if(other.gameObject.name == "Player" && !trigger.gameObject.activeSelf)
         {
             overlap = true;
         }

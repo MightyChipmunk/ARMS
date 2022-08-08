@@ -89,7 +89,7 @@ public class YJ_LeftFight : MonoBehaviour
             leftOriginLocalPos = transform.localPosition;
             rightOriginLocalPos = right.transform.localPosition;
             //targetPos = target.transform.position + new Vector3(-1.23f, 0f, 0f);
-            targetPos = enemyCamera.transform.localPosition + new Vector3(-1.23f, 0f, 0f);
+            targetPos = enemyCamera.transform.position + new Vector3(-1.23f, 0f, 0f);
             trigger.gameObject.SetActive(true);
             
         }
@@ -150,8 +150,8 @@ public class YJ_LeftFight : MonoBehaviour
                 //transform.position += dir * leftspeed * Time.deltaTime;
 
                 mousePos = Input.mousePosition;
+                // 외각
                 Vector3 cross = Vector3.Cross(dir, transform.up);
-                print("-------------------------s" + cross.magnitude);
                 print(mousePos.x - mouseOrigin.x);
 
                 if (mousePos.x - mouseOrigin.x > 0)
@@ -189,8 +189,6 @@ public class YJ_LeftFight : MonoBehaviour
                 fire = false;
                 click = false;
                 leftspeed = 10f;
-                //isLeftROnce = false;
-                //isLeftLOnce = false;
                 transform.localPosition = leftOriginLocalPos;
             }
 
@@ -272,7 +270,7 @@ public class YJ_LeftFight : MonoBehaviour
         if (turn)
         {
             // 양손 불러오기
-            transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed); 
             right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
 
             if(Vector3.Distance(trigger.transform.position, target.transform.position) > 5f && 

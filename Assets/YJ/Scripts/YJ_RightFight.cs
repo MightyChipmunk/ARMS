@@ -11,7 +11,7 @@ using UnityEngine;
 public class YJ_RightFight : MonoBehaviour
 {
     public GameObject left;
-    public GameObject targetCamera;
+    public GameObject enemyCamera;
     public GameObject trigger;
     YJ_LeftFight leftFight;
 
@@ -90,7 +90,7 @@ public class YJ_RightFight : MonoBehaviour
         {
             fire = true;
             mouseOrigin = Input.mousePosition;
-            targetPos = targetCamera.transform.position;
+            targetPos = enemyCamera.transform.position;
             
         }
         if (fire)
@@ -121,38 +121,24 @@ public class YJ_RightFight : MonoBehaviour
                 }
 
                 // 이동
-                dir = targetPos - transform.localPosition;
+                dir = targetPos - transform.position;
                 dir.Normalize();
-                
 
+                Vector3 cross = Vector3.Cross(dir, transform.up);
                 mousePos = Input.mousePosition;
 
                 // 마우스가 오른쪽을 향하면
                 if (mousePos.x - mouseOrigin.x > 0)
                 {
-                    dir.x += 0.5f;
-                    //if (!isRightROnce)
-                    //{
-                    //    rightrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
-                    //    rightrg.AddForce(Vector3.right * 5, ForceMode.Impulse); // 초기화 이후 addforce
-                    //    isRightROnce = true; // 왼손 오른쪽으로 휨
-                    //    isRightLOnce = false; // 왼손 왼쪽으로 휘지 않음.
-                    //}
+                    dir -= cross * 0.5f;
                 }
 
                 // 마우스가 왼쪽을 향하면
                 else if (mousePos.x - mouseOrigin.x < 0)
                 {
-                    dir.x -= 0.5f;
-                    //if (!isRightLOnce)
-                    //{
-                    //    rightrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
-                    //    rightrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // 초기화 이후 addforce
-                    //    isRightLOnce = true; // 오른손 왼쪽으로 휨
-                    //    isRightROnce = false; // 오른손 오른쪽으로 휘지 않음.
-                    //}
+                    dir += cross * 0.5f;
                 }
-                transform.position += transform.TransformDirection(dir * rightspeed * Time.deltaTime);
+                transform.position += dir * rightspeed * Time.deltaTime;
             }
         }
         // 캐릭터로부터 n만큼 떨어졌다면

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class YJ_Trigger : MonoBehaviour
+public class YJ_Trigger_enemy : MonoBehaviour
 {
     Vector3 localpos;
     GameObject enemy;
@@ -20,8 +20,8 @@ public class YJ_Trigger : MonoBehaviour
     {
         enemy = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
-        jh_PlayerMove = enemy.GetComponent<JH_PlayerMove>();
-        cc = enemy.GetComponent<CharacterController>();
+        jh_PlayerMove = player.GetComponent<JH_PlayerMove>();
+        cc = player.GetComponent<CharacterController>();
         localpos = transform.localPosition;
         gameObject.SetActive(false);
     }
@@ -31,9 +31,10 @@ public class YJ_Trigger : MonoBehaviour
     {
         if(enemyCome)
         {
-            enemy.transform.position = transform.position - new Vector3(0,0.5f,0);
+            print("´ê¾Æ¼­ enemyCome True");
+            player.transform.position = transform.position - new Vector3(0,0.5f,0);
 
-            if (Vector3.Distance(enemy.transform.position, player.transform.position) < 1.16f)
+            if (Vector3.Distance(player.transform.position, enemy.transform.position) < 1.16f)
             {
                 enemyCome = false;
                 enemyGo = true;
@@ -41,7 +42,7 @@ public class YJ_Trigger : MonoBehaviour
         }
         if(enemyGo)
         {
-            Vector3 dir = Camera.main.transform.forward + (Vector3.up * 0.2f);
+            Vector3 dir = -Camera.main.transform.forward + (Vector3.up * 0.2f);
 
             if(cc.collisionFlags == CollisionFlags.Sides)
             {
@@ -49,7 +50,7 @@ public class YJ_Trigger : MonoBehaviour
             }
             cc.Move(dir * backspeed * Time.deltaTime);
 
-            if( !jh_PlayerMove.enabled && enemy.transform.position.y < 0.7f )
+            if( player.transform.position.y < 0.7f )
             {
                 backspeed = 0;
 
@@ -57,20 +58,23 @@ public class YJ_Trigger : MonoBehaviour
                 currentTime += Time.deltaTime;
                 if( currentTime > 1f )
                 {
-                    //jh_PlayerMove.enabled = true;
-                    enemyGo = false;
+                    //cc.enabled = true;
+                    jh_PlayerMove.enabled = true;
                     backspeed = 20f;
                     gameObject.SetActive(false);
                     currentTime = 0;
+                    enemyGo = false;
                 }
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name.Contains("Enemy"))
+        print(other.name);
+        if (other.gameObject.name.Contains("Player"))
         {
-            //jh_PlayerMove.enabled = false;
+            //cc.enabled = false;
+            jh_PlayerMove.enabled = false;
             enemyCome = true;
         }
     }
