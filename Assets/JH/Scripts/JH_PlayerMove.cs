@@ -9,15 +9,9 @@ public class JH_PlayerMove : MonoBehaviour
     public enum PlayerState
     {
         Idle,
-        Forward,
-        Backward,
-        Right,
-        FrontRight,
-        BackRight,
-        Left,
-        FrontLeft,
-        BackLeft,
+        Move,
         Jump,
+        Fall,
         Guard,
         Charge,
         Attack,
@@ -58,32 +52,11 @@ public class JH_PlayerMove : MonoBehaviour
                 case PlayerState.Idle:
                     anim.SetInteger("StateNum", 0);
                     break;
-                case PlayerState.Forward:
-                    anim.SetInteger("StateNum", 3);
-                    break;
-                case PlayerState.FrontRight:
-                    anim.SetInteger("StateNum", 4);
-                    break;
-                case PlayerState.Right:
-                    anim.SetInteger("StateNum", 4);
-                    break;
-                case PlayerState.BackRight:
-                    anim.SetInteger("StateNum", 4);
-                    break;
-                case PlayerState.FrontLeft:
+                case PlayerState.Move:
                     anim.SetInteger("StateNum", 1);
                     break;
-                case PlayerState.Left:
-                    anim.SetInteger("StateNum", 1);
-                    break;
-                case PlayerState.BackLeft:
-                    anim.SetInteger("StateNum", 1);
-                    break;
-                case PlayerState.Backward:
+                case PlayerState.Fall:
                     anim.SetInteger("StateNum", 2);
-                    break;
-                case PlayerState.Jump:
-                    anim.SetInteger("StateNum", 5);
                     break;
                 case PlayerState.Guard:
                     anim.SetInteger("StateNum", 7);
@@ -249,6 +222,7 @@ public class JH_PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
         {
             yVelocity = jumpPower;
+            anim.SetTrigger("Jump");
         }
     }
 
@@ -257,6 +231,7 @@ public class JH_PlayerMove : MonoBehaviour
         if (ran > 8 && cc.isGrounded)
         {
             yVelocity = jumpPower;
+            anim.SetTrigger("Jump");
         }
     }
 
@@ -278,29 +253,16 @@ public class JH_PlayerMove : MonoBehaviour
 
     void SetPlayerState()
     {
-
         if (cc.isGrounded && !isDash)
         {
             // moveDir의 앵글을 계산해서 애니메이션 재생
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
-            if (finalAngle >= -1f && finalAngle <= 1f)
-                State = PlayerState.Forward;
-            else if (finalAngle > 1f && finalAngle <= 89f)
-                State = PlayerState.FrontRight;
-            else if (finalAngle > 89 && finalAngle < 91)
-                State = PlayerState.Right;
-            else if (finalAngle > 91 && finalAngle < 179)
-                State = PlayerState.BackRight;
-            else if (finalAngle < -1f && finalAngle >= -89f)
-                State = PlayerState.FrontLeft;
-            else if (finalAngle < -89 && finalAngle > -91)
-                State = PlayerState.Left;
-            else if (finalAngle < -91 && finalAngle > -179)
-                State = PlayerState.BackLeft;
-            else if (finalAngle >= 179 || finalAngle <= -179)
-                State = PlayerState.Backward;
+            float radian = finalAngle * Mathf.PI / 180;
+
+            anim.SetFloat("PosX", Mathf.Lerp(anim.GetFloat("PosX"), Mathf.Sin(radian), Time.deltaTime * 5));
+            anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
 
             if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
                   Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Space))
@@ -308,11 +270,13 @@ public class JH_PlayerMove : MonoBehaviour
                 State = PlayerState.Idle;
             else if (ran == 9 && isEnemy)
                 State = PlayerState.Idle;
+            else
+                State = PlayerState.Move;
         }
         else if (!cc.isGrounded && !isDash)
         {
             // 공중에 있다면 점프 모션 재생
-            State = PlayerState.Jump;
+            State = PlayerState.Fall;
         }
 
         if (ph.IsKnock)
