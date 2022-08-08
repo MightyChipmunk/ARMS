@@ -84,6 +84,7 @@ public class JH_PlayerMove : MonoBehaviour
     bool canDash = true;
     bool isDash = false;
     bool changeAct = true;
+    bool hitted = false;
     int ran = 0;
 
     [SerializeField]
@@ -317,10 +318,16 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove()
     {
-        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;
+    }
+
+    public void Hitted()
+    {
+        anim.SetTrigger("Hitted");
+        StartCoroutine("HittedEvent");
     }
 
     IEnumerator IncreaseSpeed()
@@ -370,22 +377,17 @@ public class JH_PlayerMove : MonoBehaviour
         canDash = true;
     }
 
+    IEnumerator HittedEvent()
+    {
+        hitted = true;
+        yield return new WaitForSeconds(0.5f);
+        hitted = false;
+    }
+
     IEnumerator RandomAct()
     {
         changeAct = false;
         yield return new WaitForSeconds(0.5f);
         changeAct = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        // 적 팔에 닿으면 충돌 이벤트 구현
-        if (other.gameObject.tag == "EnemyArms")
-        {
-            if ((ph.IsKnock || lc.IsGuard) /*차지 안된 공격 받으면 피격모션 재생*/ )
-            {
-                anim.SetTrigger("Hitted");
-            }
-        }
     }
 }

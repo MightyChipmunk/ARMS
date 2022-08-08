@@ -11,6 +11,7 @@ public class SY_PlayerHp : MonoBehaviour
     public Coroutine coroutine;
     SY_LeftCharge lc;
     SY_RightCharge rc;
+    JH_PlayerMove pm;
 
     bool canUp = false;
     public bool CanUp
@@ -36,7 +37,7 @@ public class SY_PlayerHp : MonoBehaviour
     }
     void Start()
     {
-
+        pm = GetComponent<JH_PlayerMove>();
         sliderHp.maxValue = maxHp;
         SetHP(maxHp);
     }
@@ -70,7 +71,7 @@ public class SY_PlayerHp : MonoBehaviour
                 SetHP(GetHP() - 1);
                 //isKnock = false;
                 Debug.Log("Isknock " + isKnock);
-
+                pm.Hitted();
             }
         }
         else if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_RightCharge>(out rc))
@@ -95,6 +96,7 @@ public class SY_PlayerHp : MonoBehaviour
                 SetHP(GetHP() - 1);
                 //isKnock = false;
                 Debug.Log("Isknock " + isKnock);
+                pm.Hitted();
             }
         }
 
