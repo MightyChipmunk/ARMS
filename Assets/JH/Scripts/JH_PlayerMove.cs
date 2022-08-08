@@ -29,15 +29,22 @@ public class JH_PlayerMove : MonoBehaviour
 
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
+
+    #region 공용 필요 속성
     GameObject target;
     CharacterController cc;
     Animator anim;
-    JH_CameraMove cm;
     TrailRenderer tr;
+    #endregion
+
+    #region 플레이어 필요 속성
     YJ_LeftFight lf;
     YJ_RightFight rf;
     SY_LeftCharge lc;
     SY_PlayerHp ph;
+    JH_CameraMove cm;
+    #endregion
+
     PlayerState state;
     public PlayerState State
     {
@@ -121,7 +128,7 @@ public class JH_PlayerMove : MonoBehaviour
         ph = GetComponent<SY_PlayerHp>();
         tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
         lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
-        rf = transform.Find("Left").GetComponent<YJ_RightFight>();
+        rf = transform.Find("Right").GetComponent<YJ_RightFight>();
         lc = transform.Find("Left").GetComponent<SY_LeftCharge>();
 
         if (isEnemy)
