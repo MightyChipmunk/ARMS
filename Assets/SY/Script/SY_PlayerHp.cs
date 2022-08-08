@@ -61,8 +61,7 @@ public class SY_PlayerHp : MonoBehaviour
             {
                 // ü�� ����
                 SetHP(GetHP() - 2);
-                isKnock = true; //-> ���� ĳ���� �ִϸŽü��� ���� KnockBack ����
-                Debug.Log("Isknock " + isKnock);
+                isKnock = true;
             }
             // ��¡ �ƴ� ����, HP����
             else
@@ -70,7 +69,6 @@ public class SY_PlayerHp : MonoBehaviour
                 // ü�� ����ww
                 SetHP(GetHP() - 1);
                 //isKnock = false;
-                Debug.Log("Isknock " + isKnock);
                 pm.Hitted();
             }
         }
@@ -86,16 +84,13 @@ public class SY_PlayerHp : MonoBehaviour
             {
                 // ü�� ����
                 SetHP(GetHP() - 2);
-                isKnock = true; //-> ���� ĳ���� �ִϸŽü��� ���� KnockBack ����
-                Debug.Log("Isknock " + isKnock);
+                isKnock = true;
             }
             // ��¡ �ƴ� ����, HP����
             else
             {
                 // ü�� ����
                 SetHP(GetHP() - 1);
-                //isKnock = false;
-                Debug.Log("Isknock " + isKnock);
                 pm.Hitted();
             }
         }
