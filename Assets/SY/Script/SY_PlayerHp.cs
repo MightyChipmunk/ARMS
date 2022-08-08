@@ -8,6 +8,7 @@ public class SY_PlayerHp : MonoBehaviour
     int hp;
     public int maxHp = 6;
     public Slider sliderHp;
+    public Coroutine coroutine;
     SY_LeftCharge lc;
     SY_RightCharge rc;
 
