@@ -39,6 +39,10 @@ public class JH_PlayerMove : MonoBehaviour
     JH_CameraMove cm;
     #endregion
 
+    #region 에너미 필요 속성
+    SY_EnemyHp eh;
+    #endregion 
+
     PlayerState state;
     public PlayerState State
     {
@@ -85,7 +89,6 @@ public class JH_PlayerMove : MonoBehaviour
     bool isDash = false;
     bool changeAct = true;
     bool hitted = false;
-    int ran = 0;
 
     [SerializeField]
     float speed = 2.0f;
@@ -99,18 +102,24 @@ public class JH_PlayerMove : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
-        ph = GetComponent<SY_PlayerHp>();
         tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
-        lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
-        rf = transform.Find("Right").GetComponent<YJ_RightFight>();
-        lc = transform.Find("Left").GetComponent<SY_LeftCharge>();
 
         if (isEnemy)
         {
+            eh = GetComponent<SY_EnemyHp>();
+            lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
+            rf = transform.Find("Right").GetComponent<YJ_RightFight>();
+            lc = transform.Find("Left").GetComponent<SY_LeftCharge>(); // 이 셋은 교체예정
+
             target = GameObject.Find("Main Camera");
         }
         else
         {
+            ph = GetComponent<SY_PlayerHp>();
+            lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
+            rf = transform.Find("Right").GetComponent<YJ_RightFight>();
+            lc = transform.Find("Left").GetComponent<SY_LeftCharge>();
+
             cm = transform.Find("Main Camera").GetComponent<JH_CameraMove>();
             target = GameObject.Find("Enemy Camera");
         }
@@ -132,21 +141,16 @@ public class JH_PlayerMove : MonoBehaviour
             Jump();
             Move();
             Dash();
+            SetPlayerState();
         }
         else
         {
-            if (changeAct)
-            {
-                ran = Random.Range(1, 10);
-                StartCoroutine("RandomAct");
-            }
-
-            Jump(ran);
-            Move(ran);
-            Dash(ran);
+            Jump(isEnemy);
+            Move(isEnemy);
+            Dash(isEnemy);
+            SetEnemyState();
         }
         LookEnemy();
-        SetPlayerState();
     }
 
     void LookEnemy()
@@ -163,19 +167,19 @@ public class JH_PlayerMove : MonoBehaviour
 
         if (IsCanMove())
         {
-            if (Input.GetKey(KeyCode.W) && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
+            if (InputManager.Instance.Front && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
             {
                 moveDir += dir;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (InputManager.Instance.Back)
             {
                 moveDir -= dir;
             }
-            if (Input.GetKey(KeyCode.A))
+            if (InputManager.Instance.Left)
             {
                 moveDir -= transform.right;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (InputManager.Instance.Right)
             {
                 moveDir += transform.right;
             }
@@ -187,26 +191,26 @@ public class JH_PlayerMove : MonoBehaviour
         cc.Move(Vector3.up * yVelocity * Time.deltaTime);
     }
 
-    void Move(int ran)
+    void Move(bool isEnemy)
     {
         if (cc.isGrounded)
             moveDir = Vector3.zero;
 
-        if (IsCanMove())
+        if (IsCanMove(isEnemy))
         {
-            if (ran <= 2 && Vector3.Magnitude(target.transform.position - transform.position) >= 5.0f + Vector3.Distance(new Vector3(0, 2.5f, -2), Vector3.zero))
+            if (InputManager.Instance.EnemyFront && Vector3.Magnitude(target.transform.position - transform.position) >= 5.0f + Vector3.Distance(new Vector3(0, 2.5f, -2), Vector3.zero))
             {
                 moveDir += dir;
             }
-            if (ran >= 3 && ran <= 4)
+            if (InputManager.Instance.EnemyBack)
             {
                 moveDir -= dir;
             }
-            if (ran >= 4 && ran <= 6)
+            if (InputManager.Instance.EnemyRight)
             {
                 moveDir -= transform.right;
             }
-            if (ran >= 6 && ran <= 8)
+            if (InputManager.Instance.EnemyLeft)
             {
                 moveDir += transform.right;
             }
@@ -220,16 +224,16 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
+        if (InputManager.Instance.Jump && cc.isGrounded && IsCanMove())
         {
             yVelocity = jumpPower;
             anim.SetTrigger("Jump");
         }
     }
 
-    void Jump(int ran)
+    void Jump(bool isEnemy)
     {
-        if (ran > 8 && cc.isGrounded)
+        if (InputManager.Instance.EnemyJump && cc.isGrounded && IsCanMove(isEnemy))
         {
             yVelocity = jumpPower;
             anim.SetTrigger("Jump");
@@ -238,15 +242,15 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Dash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+        if (InputManager.Instance.Dash && canDash)
         {
             StartCoroutine("IncreaseSpeed");
         }
     }
 
-    void Dash(int ran)
+    void Dash(bool isEnemy)
     {
-        if (canDash && ran <= 3)
+        if (canDash && InputManager.Instance.EnemyDash)
         {
             StartCoroutine("IncreaseSpeedEnemy");
         }
@@ -265,11 +269,8 @@ public class JH_PlayerMove : MonoBehaviour
             anim.SetFloat("PosX", Mathf.Lerp(anim.GetFloat("PosX"), Mathf.Sin(radian), Time.deltaTime * 5));
             anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
 
-            if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
-                  Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Space))
-                && !isEnemy)
-                State = PlayerState.Idle;
-            else if (ran == 9 && isEnemy)
+            if (!(InputManager.Instance.Front || InputManager.Instance.Left ||
+                  InputManager.Instance.Back || InputManager.Instance.Right || Input.GetKey(KeyCode.Space)))
                 State = PlayerState.Idle;
             else
                 State = PlayerState.Move;
@@ -316,9 +317,76 @@ public class JH_PlayerMove : MonoBehaviour
         }
     }
 
+    void SetEnemyState()
+    {
+        if (cc.isGrounded && !isDash)
+        {
+            // moveDir의 앵글을 계산해서 애니메이션 재생
+            float angle = Vector3.Angle(moveDir, transform.forward);
+            float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
+            float finalAngle = sign * angle;
+            float radian = finalAngle * Mathf.PI / 180;
+
+            anim.SetFloat("PosX", Mathf.Lerp(anim.GetFloat("PosX"), Mathf.Sin(radian), Time.deltaTime * 5));
+            anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
+
+            if (moveDir == Vector3.zero)
+                State = PlayerState.Idle;
+            else
+                State = PlayerState.Move;
+        }
+        else if (!cc.isGrounded && !isDash)
+        {
+            // 공중에 있다면 점프 모션 재생
+            State = PlayerState.Fall;
+        }
+
+        if (eh.IsKnock)
+        {
+            //if (State != PlayerState.KnockBack)
+            //    State = PlayerState.KnockBack;
+
+            //if (eh.CanUp && ran == 8)
+            //{
+            //    if (ph.coroutine != null)
+            //    {
+            //        ph.StopCoroutine(ph.coroutine);
+            //    }
+            //    ph.IsKnock = false;
+            //    ph.CanUp = false;
+            //    //StartCoroutine("IncreaseSpeed");
+            //    StartCoroutine("Fall");
+            //    anim.SetTrigger("Fall");
+            //}
+        }
+        else if (lf.Fire/* || rf.Fire*/)
+        {
+            if (State != PlayerState.Attack)
+                State = PlayerState.Attack;
+        }
+        else if (lf.Grapp)
+        {
+            if (State != PlayerState.Grap)
+                State = PlayerState.Grap;
+        }
+        else if (lc.IsGuard)
+        {
+            if (State != PlayerState.Guard)
+                State = PlayerState.Guard;
+        }
+    }
+
     public bool IsCanMove()
     {
         if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+            return true;
+        else
+            return false;
+    }
+
+    public bool IsCanMove(bool isEnemy)
+    {
+        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;
@@ -384,10 +452,4 @@ public class JH_PlayerMove : MonoBehaviour
         hitted = false;
     }
 
-    IEnumerator RandomAct()
-    {
-        changeAct = false;
-        yield return new WaitForSeconds(0.5f);
-        changeAct = true;
-    }
 }
