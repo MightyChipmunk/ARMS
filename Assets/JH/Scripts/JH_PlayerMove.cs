@@ -322,6 +322,7 @@ public class JH_PlayerMove : MonoBehaviour
                 }
                 ph.IsKnock = false;
                 ph.CanUp = false;
+                //StartCoroutine("IncreaseSpeed");
                 StartCoroutine("Fall");
                 anim.SetTrigger("Fall");
             }
@@ -388,12 +389,14 @@ public class JH_PlayerMove : MonoBehaviour
     {
         float tmpSpeed = speed;
         float tmpAngle = cm.Angle;
+        canDash = false;
         speed *= 7;
         cm.Angle *= 2;
-        yield return new WaitForSeconds(dashTime);
+        yield return new WaitForSeconds(0.15f);
         speed = tmpSpeed;
         cm.Angle = tmpAngle;
-        yield return new WaitForSeconds(dashCool - dashTime);
+        yield return new WaitForSeconds(0.35f);
+        canDash = true;
     }
 
     IEnumerator RandomAct()
