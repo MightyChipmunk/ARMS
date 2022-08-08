@@ -66,7 +66,7 @@ public class YJ_LeftFight : MonoBehaviour
         player = GameObject.Find("Player");
         originPos = player.transform;
 
-        print(Vector3.Distance(transform.position, player.transform.position));
+        //print(Vector3.Distance(transform.position, player.transform.position));
 
 
         // 로컬좌표의 값을 저장

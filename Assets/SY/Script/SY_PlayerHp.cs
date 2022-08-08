@@ -11,10 +11,17 @@ public class SY_PlayerHp : MonoBehaviour
     SY_LeftCharge lc;
     SY_RightCharge rc;
 
-    bool isKnock;
+    bool canUp = false;
+    public bool CanUp
+    {
+        get { return canUp; }
+        set { canUp = value; }
+    }
+    bool isKnock = false;
     public bool IsKnock
     {
         get { return isKnock; }
+        set { isKnock = value; }
     }
 
     public void SetHP(int value)
@@ -35,30 +42,30 @@ public class SY_PlayerHp : MonoBehaviour
 
     void Update()
     {
-       
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Àû ÆÈ¿¡ ´êÀ¸¸é Ãæµ¹ ÀÌº¥Æ® ±¸Çö
+        // ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_LeftCharge>(out lc))
         {
             if (Input.GetKey(KeyCode.F) || IsKnock)
             {
-               
+
             }
-            // Â÷Â¡ÀÏ ¶§´Â, KnockBack½ÇÇà
+            // ï¿½ï¿½Â¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, KnockBackï¿½ï¿½ï¿½ï¿½
             else if (lc.IsCharging)
             {
-                // Ã¼·Â °¨¼Ò
+                // Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 SetHP(GetHP() - 2);
-                isKnock = true; //-> ÃßÈÄ Ä³¸¯ÅÍ ¾Ö´Ï¸Å½Ã¼ÇÀ» ÅëÇØ KnockBack ±¸Çö
+                isKnock = true; //-> ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸Å½Ã¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ KnockBack ï¿½ï¿½ï¿½ï¿½
                 Debug.Log("Isknock " + isKnock);
             }
-            // Â÷Â¡ ¾Æ´Ò ¶§´Â, HP°¨¼Ò
+            // ï¿½ï¿½Â¡ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½, HPï¿½ï¿½ï¿½ï¿½
             else
             {
-                // Ã¼·Â °¨¼Òww
+                // Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ww
                 SetHP(GetHP() - 1);
                 //isKnock = false;
                 Debug.Log("Isknock " + isKnock);
@@ -70,20 +77,20 @@ public class SY_PlayerHp : MonoBehaviour
 
             if (Input.GetKey(KeyCode.F) || IsKnock)
             {
-                
+
             }
-            // Â÷Â¡ÀÏ ¶§´Â, KnockBack½ÇÇà
+            // ï¿½ï¿½Â¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, KnockBackï¿½ï¿½ï¿½ï¿½
             else if (rc.IsCharging)
             {
-                // Ã¼·Â °¨¼Ò
+                // Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 SetHP(GetHP() - 2);
-                isKnock = true; //-> ÃßÈÄ Ä³¸¯ÅÍ ¾Ö´Ï¸Å½Ã¼ÇÀ» ÅëÇØ KnockBack ±¸Çö
+                isKnock = true; //-> ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸Å½Ã¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ KnockBack ï¿½ï¿½ï¿½ï¿½
                 Debug.Log("Isknock " + isKnock);
             }
-            // Â÷Â¡ ¾Æ´Ò ¶§´Â, HP°¨¼Ò
+            // ï¿½ï¿½Â¡ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½, HPï¿½ï¿½ï¿½ï¿½
             else
             {
-                // Ã¼·Â °¨¼Ò
+                // Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 SetHP(GetHP() - 1);
                 //isKnock = false;
                 Debug.Log("Isknock " + isKnock);
@@ -92,15 +99,18 @@ public class SY_PlayerHp : MonoBehaviour
 
         if (isKnock != false)
         {
-            StartCoroutine(Ondamaged());
+            coroutine = StartCoroutine(Ondamaged());
         }
-        
+
     }
 
-    // ³Ë¹é ÈÄ 5ÃÊµ¿¾È ¹«Àû»óÅÂ
-    IEnumerator Ondamaged()
+    // ï¿½Ë¹ï¿½ ï¿½ï¿½ 10ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public IEnumerator Ondamaged()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(2.0f);
+        canUp = true;
+        yield return new WaitForSeconds(3.0f);
         isKnock = false;
+        canUp = false;
     }
 }

@@ -9,37 +9,36 @@ public class JH_PlayerMove : MonoBehaviour
     public enum PlayerState
     {
         Idle,
-        Forward,
-        Backward,
-        Right,
-        FrontRight,
-        BackRight,
-        Left,
-        FrontLeft,
-        BackLeft,
+        Move,
         Jump,
-        DashForward,
-        DashBackward,
-        DashRight,
-        DashFrontRight,
-        DashBackRight,
-        DashLeft,
-        DashFrontLeft,
-        DashBackLeft,
+        Fall,
         Guard,
         Charge,
-        AttackLeft,
-        AttackRight,
+        Attack,
         Hitted,
+        KnockBack,
+        Grap,
+        Grapped,
     }
 
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
+
+    #region 공용 필요 속성
     GameObject target;
     CharacterController cc;
-    JH_CameraMove cm;
+    Animator anim;
     TrailRenderer tr;
+    #endregion
+
+    #region 플레이어 필요 속성
     YJ_LeftFight lf;
+    YJ_RightFight rf;
+    SY_LeftCharge lc;
+    SY_PlayerHp ph;
+    JH_CameraMove cm;
+    #endregion
+
     PlayerState state;
     public PlayerState State
     {
@@ -48,66 +47,32 @@ public class JH_PlayerMove : MonoBehaviour
         {
             state = value;
 
-            Animator anim = GetComponent<Animator>();
             switch (state)
             {
                 case PlayerState.Idle:
                     anim.SetInteger("StateNum", 0);
                     break;
-                case PlayerState.Forward:
-                    anim.SetInteger("StateNum", 3);
-                    break;
-                case PlayerState.FrontRight:
-                    anim.SetInteger("StateNum", 4);
-                    break;
-                case PlayerState.Right:
-                    anim.SetInteger("StateNum", 4);
-                    break;
-                case PlayerState.BackRight:
-                    anim.SetInteger("StateNum", 4);
-                    break;
-                case PlayerState.FrontLeft:
+                case PlayerState.Move:
                     anim.SetInteger("StateNum", 1);
                     break;
-                case PlayerState.Left:
-                    anim.SetInteger("StateNum", 1);
-                    break;
-                case PlayerState.BackLeft:
-                    anim.SetInteger("StateNum", 1);
-                    break;
-                case PlayerState.Backward:
+                case PlayerState.Fall:
                     anim.SetInteger("StateNum", 2);
                     break;
-                case PlayerState.Jump:
-                    anim.SetInteger("StateNum", 5);
-                    break;
-                case PlayerState.DashForward:
-                    break;
-                case PlayerState.DashFrontRight:
-                    break;
-                case PlayerState.DashRight:
-                    break;
-                case PlayerState.DashBackRight:
-                    break;
-                case PlayerState.DashFrontLeft:
-                    break;
-                case PlayerState.DashLeft:
-                    break;
-                case PlayerState.DashBackLeft:
-                    break;
-                case PlayerState.DashBackward:
-                    break;
                 case PlayerState.Guard:
+                    anim.SetInteger("StateNum", 7);
                     break;
                 case PlayerState.Charge:
                     break;
-                case PlayerState.AttackLeft:
-                    anim.SetTrigger("Attack");
+                case PlayerState.Attack:
                     anim.SetInteger("StateNum", 6);
                     break;
-                case PlayerState.AttackRight:
-                    break;
                 case PlayerState.Hitted:
+                    break;
+                case PlayerState.Grap:
+                    anim.SetInteger("StateNum", 9);
+                    break;
+                case PlayerState.KnockBack:
+                    anim.SetInteger("StateNum", 8);
                     break;
             }
         }
@@ -131,10 +96,13 @@ public class JH_PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        anim = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
+        ph = GetComponent<SY_PlayerHp>();
         tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
         lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
+        rf = transform.Find("Right").GetComponent<YJ_RightFight>();
+        lc = transform.Find("Left").GetComponent<SY_LeftCharge>();
 
         if (isEnemy)
         {
@@ -154,13 +122,9 @@ public class JH_PlayerMove : MonoBehaviour
     {
 
         if (!cc.isGrounded)
-        {
             yVelocity += gravity * Time.deltaTime;
-        }
         else
-        {
             yVelocity = -1f;
-        }
 
         if (!isEnemy)
         {
@@ -181,7 +145,6 @@ public class JH_PlayerMove : MonoBehaviour
             Dash(ran);
         }
         LookEnemy();
-
         SetPlayerState();
     }
 
@@ -259,6 +222,7 @@ public class JH_PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
         {
             yVelocity = jumpPower;
+            anim.SetTrigger("Jump");
         }
     }
 
@@ -267,6 +231,7 @@ public class JH_PlayerMove : MonoBehaviour
         if (ran > 8 && cc.isGrounded)
         {
             yVelocity = jumpPower;
+            anim.SetTrigger("Jump");
         }
     }
 
@@ -288,29 +253,16 @@ public class JH_PlayerMove : MonoBehaviour
 
     void SetPlayerState()
     {
-
         if (cc.isGrounded && !isDash)
         {
             // moveDir의 앵글을 계산해서 애니메이션 재생
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
-            if (finalAngle >= -1f && finalAngle <= 1f)
-                State = PlayerState.Forward;
-            else if (finalAngle > 1f && finalAngle <= 89f)
-                State = PlayerState.FrontRight;
-            else if (finalAngle > 89 && finalAngle < 91)
-                State = PlayerState.Right;
-            else if (finalAngle > 91 && finalAngle < 179)
-                State = PlayerState.BackRight;
-            else if (finalAngle < -1f && finalAngle >= -89f)
-                State = PlayerState.FrontLeft;
-            else if (finalAngle < -89 && finalAngle > -91)
-                State = PlayerState.Left;
-            else if (finalAngle < -91 && finalAngle > -179)
-                State = PlayerState.BackLeft;
-            else if (finalAngle >= 179 || finalAngle <= -179)
-                State = PlayerState.Backward;
+            float radian = finalAngle * Mathf.PI / 180;
+
+            anim.SetFloat("PosX", Mathf.Lerp(anim.GetFloat("PosX"), Mathf.Sin(radian), Time.deltaTime * 5));
+            anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
 
             if (!(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
                   Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Space))
@@ -318,47 +270,54 @@ public class JH_PlayerMove : MonoBehaviour
                 State = PlayerState.Idle;
             else if (ran == 9 && isEnemy)
                 State = PlayerState.Idle;
+            else
+                State = PlayerState.Move;
         }
         else if (!cc.isGrounded && !isDash)
         {
             // 공중에 있다면 점프 모션 재생
-            State = PlayerState.Jump;
-        }
-        else if (isDash)
-        {
-            // 대쉬 중이라면 공중이라도 대쉬 모션 재생
-            float angle = Vector3.Angle(moveDir, transform.forward);
-            float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
-            float finalAngle = sign * angle;
-            if (finalAngle >= -1f && finalAngle <= 1f)
-                State = PlayerState.DashForward;
-            else if (finalAngle > 1f && finalAngle <= 89f)
-                State = PlayerState.DashFrontRight;
-            else if (finalAngle > 89 && finalAngle < 91)
-                State = PlayerState.DashRight;
-            else if (finalAngle > 91 && finalAngle < 179)
-                State = PlayerState.DashBackRight;
-            else if (finalAngle < -1f && finalAngle >= -89f)
-                State = PlayerState.DashFrontLeft;
-            else if (finalAngle < -89 && finalAngle > -91)
-                State = PlayerState.DashLeft;
-            else if (finalAngle < -91 && finalAngle > -179)
-                State = PlayerState.DashBackLeft;
-            else if (finalAngle >= 179 || finalAngle <= -179)
-                State = PlayerState.DashBackward;
+            State = PlayerState.Fall;
         }
 
-
-        if (lf.Fire)
+        if (ph.IsKnock)
         {
-            if (State != PlayerState.AttackLeft) 
-                State = PlayerState.AttackLeft;
+            if (State != PlayerState.KnockBack)
+                State = PlayerState.KnockBack;
+
+            if (ph.CanUp && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)
+                || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+            {
+                if (ph.coroutine != null)
+                {
+                    ph.StopCoroutine(ph.coroutine);
+                }
+                ph.IsKnock = false;
+                ph.CanUp = false;
+                //StartCoroutine("IncreaseSpeed");
+                StartCoroutine("Fall");
+                anim.SetTrigger("Fall");
+            }
+        }
+        else if (lf.Fire/* || rf.Fire*/)
+        {
+            if (State != PlayerState.Attack) 
+                State = PlayerState.Attack;
+        }
+        else if (lf.Grapp)
+        {
+            if (State != PlayerState.Grap)
+                State = PlayerState.Grap;
+        }
+        else if (lc.IsGuard)
+        {
+            if (State != PlayerState.Guard)
+                State = PlayerState.Guard;
         }
     }
 
     public bool IsCanMove()
     {
-        if (lf.Fire == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;
@@ -397,10 +356,36 @@ public class JH_PlayerMove : MonoBehaviour
         canDash = true;
     }
 
+    IEnumerator Fall()
+    {
+        float tmpSpeed = speed;
+        float tmpAngle = cm.Angle;
+        canDash = false;
+        speed *= 7;
+        cm.Angle *= 2;
+        yield return new WaitForSeconds(0.15f);
+        speed = tmpSpeed;
+        cm.Angle = tmpAngle;
+        yield return new WaitForSeconds(0.35f);
+        canDash = true;
+    }
+
     IEnumerator RandomAct()
     {
         changeAct = false;
         yield return new WaitForSeconds(0.5f);
         changeAct = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // 적 팔에 닿으면 충돌 이벤트 구현
+        if (other.gameObject.tag == "EnemyArms")
+        {
+            if ((ph.IsKnock || lc.IsGuard) /*차지 안된 공격 받으면 피격모션 재생*/ )
+            {
+                anim.SetTrigger("Hitted");
+            }
+        }
     }
 }
