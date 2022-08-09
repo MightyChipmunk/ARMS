@@ -41,6 +41,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     #region 에너미 필요 속성
     YJ_LeftFight_enemy elf;
+    YJ_RightFight_enemy erf;
+    SY_EnemyLeftCharge elc;
     SY_EnemyHp eh;
     #endregion 
 
@@ -108,8 +110,8 @@ public class JH_PlayerMove : MonoBehaviour
         {
             eh = GetComponent<SY_EnemyHp>();
             elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
-            rf = transform.Find("Right").GetComponent<YJ_RightFight>();
-            lc = transform.Find("Left").GetComponent<SY_LeftCharge>(); // 이 셋은 교체예정
+            erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
+            elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>(); 
 
             target = GameObject.Find("Player");
         }
@@ -369,7 +371,7 @@ public class JH_PlayerMove : MonoBehaviour
             if (State != PlayerState.Grap)
                 State = PlayerState.Grap;
         }
-        else if (lc.IsGuard)
+        else if (elc.IsGuard)
         {
             if (State != PlayerState.Guard)
                 State = PlayerState.Guard;
@@ -386,7 +388,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove(bool isEnemy)
     {
-        if (/*rf.Fire == false && */elf.Fire == false && lc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (/*rf.Fire == false && */elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;

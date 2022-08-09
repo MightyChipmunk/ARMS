@@ -186,18 +186,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8554293681995370388}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &45656328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8554293681995370388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4d103034e127794a96c86e8acb5ee12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &155753559
 GameObject:
   m_ObjectHideFlags: 0
@@ -2651,18 +2639,6 @@ Transform:
   m_Father: {fileID: 3309725804747765468}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &673893110091940853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8554293680189073258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917f9ae8a5ad3d048a11f4b37c62e61c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &694847540894194648
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7551,8 +7527,8 @@ GameObject:
   - component: {fileID: 8554293680189073301}
   - component: {fileID: 8554293680189073302}
   - component: {fileID: 8554293680189073303}
-  - component: {fileID: 673893110091940853}
   - component: {fileID: 8554293680189073304}
+  - component: {fileID: 8554293680189073305}
   m_Layer: 30
   m_Name: Right
   m_TagString: EnemyArms
@@ -7654,6 +7630,18 @@ MonoBehaviour:
   targetCamera: {fileID: 2102634343}
   trigger: {fileID: 9217974470826123690}
   rightPath: []
+--- !u!114 &8554293680189073305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554293680189073258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cecf6cda15d656641b6404efd176478e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &8554293680533531153
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7726,8 +7714,8 @@ GameObject:
   - component: {fileID: 17235900}
   - component: {fileID: 17235899}
   - component: {fileID: 17235898}
-  - component: {fileID: 45656328}
   - component: {fileID: 8554293681995370389}
+  - component: {fileID: 8554293681995370390}
   m_Layer: 30
   m_Name: Left
   m_TagString: EnemyArms
@@ -7753,6 +7741,18 @@ MonoBehaviour:
   grap: 0
   leftPath: []
   play: 0
+--- !u!114 &8554293681995370390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554293681995370388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adfba2df221ce6c4983463c371197d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8560064583508987570
 Transform:
   m_ObjectHideFlags: 0
