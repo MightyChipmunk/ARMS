@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +8,9 @@ public class SY_EnemyHp : MonoBehaviour
     int hp;
     public int maxHp = 6;
     public Slider sliderHp;
+    // Player ì°¨ì§•
+    SY_RightCharge prc;
+    SY_LeftCharge plc;
 
     bool isKnock;
     public bool IsKnock
@@ -33,21 +36,50 @@ public class SY_EnemyHp : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.F) || IsKnock)
-        {
-
-        }
+       
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Àû ÆÈ¿¡ ´êÀ¸¸é Ãæµ¹ ÀÌº¥Æ® ±¸Çö
-        if (other.gameObject.tag == "PlayerAmrs")
+
+        // PlayerArmsì— ë‹¿ê³  chargingëœ í”Œë ˆì´ì–´ íŒ”ì— ë§ìœ¼ë©´
+        if (other.gameObject.CompareTag("PlayerArms") && other.TryGetComponent<SY_RightCharge>(out prc))
         {
+
+            if (Input.GetKey(KeyCode.F) || IsKnock)
             {
-                // Ã¼·Â °¨¼Ò
+
+            }
+            // ì°¨ì§•ì¼ ë•Œ, HP -2 / ë„‰ë°± ì‹¤í–‰
+            else if (prc.IsCharging)
+            {
+                SetHP(GetHP() - 2);
+                isKnock = true;
+            }
+            // ì°¨ì§•ì•„ë‹ ë•Œ, HP -1
+            else
+            {
                 SetHP(GetHP() - 1);
-                isKnock = true; //-> ÃßÈÄ Ä³¸¯ÅÍ ¾Ö´Ï¸Å½Ã¼ÇÀ» ÅëÇØ KnockBack ±¸Çö
+                //isKnock = false;
+            }
+        }
+        else if (other.gameObject.CompareTag("PlayerArms") && other.TryGetComponent<SY_LeftCharge>(out plc))
+        {
+
+            if (Input.GetKey(KeyCode.F) || IsKnock)
+            {
+
+            }
+            // ì°¨ì§•ì¼ ë•Œ, HP -2 / ë„‰ë°± ì‹¤í–‰
+            else if (plc.IsCharging)
+            {
+                SetHP(GetHP() - 2);
+                isKnock = true;
+            }
+            // ì°¨ì§•ì•„ë‹ ë•Œ, HP -1
+            else
+            {
+                SetHP(GetHP() - 1);
             }
         }
 
@@ -58,7 +90,7 @@ public class SY_EnemyHp : MonoBehaviour
         
     }
 
-    // ³Ë¹é ÈÄ 5ÃÊµ¿¾È ¹«Àû»óÅÂ
+    // ë„‰ë°± í›„ 5ì´ˆë™ì•ˆ ë¬´ì ìƒíƒœ
     IEnumerator Ondamaged()
     {
         yield return new WaitForSeconds(5.0f);
