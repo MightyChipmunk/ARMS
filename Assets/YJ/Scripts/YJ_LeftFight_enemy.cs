@@ -86,7 +86,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
             if(currentTime > 3)
             {
                 play = UnityEngine.Random.Range(0, 10);
-                print(play);
+                //print(play);
             }
             //print(currentTime);
         }
@@ -180,7 +180,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         // 캐릭터로부터 n만큼 떨어졌다면
         if (click)
         {
-            print("돌아왔니?" + Vector3.Distance(transform.position, me.transform.position));
+            //print("돌아왔니?" + Vector3.Distance(transform.position, me.transform.position));
             // 다 되돌아왔으면 원점으로 만들기
             if (Vector3.Distance(transform.position, me.transform.position) < 1.9f)
             {
@@ -222,7 +222,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
             leftPath.Clear();
-            print("거리" + Vector3.Distance(transform.position, me.transform.position));
+            //print("거리" + Vector3.Distance(transform.position, me.transform.position));
             if(Vector3.Distance(transform.localPosition, leftOriginLocalPos) < 0.05f)
             {
                 transform.localPosition = leftOriginLocalPos;

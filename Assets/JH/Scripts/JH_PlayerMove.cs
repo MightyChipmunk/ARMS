@@ -147,7 +147,7 @@ public class JH_PlayerMove : MonoBehaviour
             Move();
             Dash();
             SetPlayerState();
-            Debug.Log("IsCanMove: " + IsCanMove());
+            //Debug.Log("IsCanMove: " + IsCanMove());
         }
         else
         {

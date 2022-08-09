@@ -269,19 +269,21 @@ public class YJ_LeftFight : MonoBehaviour
         // 다시 되돌아오기
         if (turn)
         {
-            // 양손 불러오기
-            transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed); 
-            right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
-
-            if(Vector3.Distance(trigger.transform.position, target.transform.position) > 5f && 
-                !yj_trigger.enemyGo)
+            // 양손 불러오기 ( 바로앞까지말고 조금 더 앞쪽으로 부르기 )
+            transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0,0,1f), Time.deltaTime * backspeed); 
+            right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 1f), Time.deltaTime * backspeed);
+            print("적이랑 트리거 거리는? :" + Vector3.Distance(trigger.transform.position, target.transform.position));
+            if(Vector3.Distance(trigger.transform.position, target.transform.position) > 2f && 
+                !yj_trigger.enemyCome)
             {
+                print("들어오니?");
                 trigger.gameObject.SetActive(false);
             }
-            if(Vector3.Distance(transform.position, player.transform.position) < 1.7f && Vector3.Distance(right.transform.position, player.transform.position) < 1.7f)
+            if(Vector3.Distance(transform.position, player.transform.position) < 2.7f && Vector3.Distance(right.transform.position, player.transform.position) < 2.7f)
             {
-                transform.localPosition = leftOriginLocalPos;
-                right.transform.localPosition = rightOriginLocalPos;
+                print("여기는?");
+                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
+                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
                 timer = 0;
                 turn = false;
                 grap = false;

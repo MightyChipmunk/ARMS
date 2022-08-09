@@ -33,7 +33,7 @@ public class YJ_Trigger : MonoBehaviour
         {
             enemy.transform.position = transform.position - new Vector3(0,0.5f,0);
 
-            if (Vector3.Distance(enemy.transform.position, player.transform.position) < 1.16f)
+            if (Vector3.Distance(enemy.transform.position, player.transform.position) < 2.8f)
             {
                 enemyCome = false;
                 enemyGo = true;
