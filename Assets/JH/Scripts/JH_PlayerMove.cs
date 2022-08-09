@@ -34,6 +34,7 @@ public class JH_PlayerMove : MonoBehaviour
     #region 플레이어 필요 속성
     YJ_LeftFight lf;
     YJ_RightFight rf;
+    YJ_Trigger_enemy trigger;
     SY_LeftCharge lc;
     SY_PlayerHp ph;
     JH_CameraMove cm;
@@ -42,6 +43,7 @@ public class JH_PlayerMove : MonoBehaviour
     #region 에너미 필요 속성
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
+    YJ_Trigger etrigger;
     SY_EnemyLeftCharge elc;
     SY_EnemyHp eh;
     #endregion 
@@ -121,6 +123,7 @@ public class JH_PlayerMove : MonoBehaviour
             lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
             rf = transform.Find("Right").GetComponent<YJ_RightFight>();
             lc = transform.Find("Left").GetComponent<SY_LeftCharge>();
+            trigger = GameObject.Find("Enemy").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger_enemy>();
 
             cm = transform.Find("Main Camera").GetComponent<JH_CameraMove>();
             target = GameObject.Find("Enemy Camera");
@@ -144,6 +147,7 @@ public class JH_PlayerMove : MonoBehaviour
             Move();
             Dash();
             SetPlayerState();
+            Debug.Log("IsCanMove: " + IsCanMove());
         }
         else
         {
@@ -153,6 +157,7 @@ public class JH_PlayerMove : MonoBehaviour
             SetEnemyState();
         }
         LookEnemy();
+
     }
 
     void LookEnemy()
@@ -361,7 +366,7 @@ public class JH_PlayerMove : MonoBehaviour
             //    anim.SetTrigger("Fall");
             //}
         }
-        else if (elf.Fire/* || rf.Fire*/)
+        else if (elf.Fire/* || erf.Fire*/)
         {
             if (State != PlayerState.Attack)
                 State = PlayerState.Attack;
@@ -380,7 +385,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove()
     {
-        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false &&
+            trigger.enemyCome == false && trigger.enemyGo == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;
@@ -388,7 +394,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove(bool isEnemy)
     {
-        if (/*rf.Fire == false && */elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (/*erf.Fire == false && */elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
             return true;
         else
             return false;

@@ -12,13 +12,14 @@ public class JH_CameraMove : MonoBehaviour
     float lerp = 0;
 
     JH_PlayerMove pm;
+    GameObject target;
 
     Vector3 delta;
     // Start is called before the first frame update
     void Start()
     {
         pm = transform.parent.GetComponent<JH_PlayerMove>();
-
+        target = GameObject.Find("Enemy");
         delta = transform.localPosition;
     }
 
@@ -30,12 +31,13 @@ public class JH_CameraMove : MonoBehaviour
 
     void CamMove()
     {
-        if (Input.GetKey(KeyCode.A) && pm.IsCanMove())
+        if (InputManager.Instance.Left && pm.IsCanMove())
             lerp = Mathf.Lerp(lerp, angle, Time.deltaTime * speed);
-        else if (Input.GetKey(KeyCode.D) && pm.IsCanMove())
+        else if (InputManager.Instance.Right && pm.IsCanMove())
             lerp = Mathf.Lerp(lerp, -angle, Time.deltaTime * speed);
         else
             lerp = Mathf.Lerp(lerp, 0, Time.deltaTime * speed);
+
 
         CamBetweenWall();
     }

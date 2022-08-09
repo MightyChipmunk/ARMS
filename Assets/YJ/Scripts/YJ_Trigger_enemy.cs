@@ -59,7 +59,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
                 if( currentTime > 1f )
                 {
                     //cc.enabled = true;
-                    jh_PlayerMove.enabled = true;
+                    //jh_PlayerMove.enabled = true;
                     backspeed = 20f;
                     gameObject.SetActive(false);
                     currentTime = 0;
@@ -74,7 +74,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
         if (other.gameObject.name.Contains("Player"))
         {
             //cc.enabled = false;
-            jh_PlayerMove.enabled = false;
+            //jh_PlayerMove.enabled = false;
             enemyCome = true;
         }
     }

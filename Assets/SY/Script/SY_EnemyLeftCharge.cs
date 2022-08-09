@@ -78,7 +78,7 @@ public class SY_EnemyLeftCharge : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         //mat.color = new Color(1, 1, 1);
         isCharging = false;
-        Debug.Log("EnemyLeftCharging: " + isCharging);
+        //Debug.Log("EnemyLeftCharging: " + isCharging);
     }
 
     private void OnTriggerEnter(Collider other)
