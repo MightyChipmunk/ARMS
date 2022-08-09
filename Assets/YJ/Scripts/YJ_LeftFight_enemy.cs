@@ -74,8 +74,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
 
     }
 
-    float currentTime = 0;
-    public int play = 0;
     void Update()
     {
         #region 잡기
@@ -105,7 +103,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
                 print("안들어오니");
                 transform.localPosition = leftOriginLocalPos;
                 leftPath.Clear();
-                currentTime = 0;
                 overlap = false;
             }
         }
@@ -113,16 +110,10 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         #region 왼쪽공격
         //print("overlap :" + overlap + " grap :" + grap + " fire :" + fire + " trigger :" + trigger.gameObject.activeSelf);
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (!overlap && !grap && !fire && InputManager.Instance.EnemyFire1 && !trigger.gameObject.activeSelf)
+        if (InputManager.Instance.EnemyFire1 && !overlap && !grap && !fire && !trigger.gameObject.activeSelf)
         {
             targetPos = playertarget.transform.position;
-
-            if (play > 0 && play < 8)
-            {
-                fire = true;
-                play = 0;
-            }
-
+            fire = true;
         }
         if (fire)
         {
@@ -210,8 +201,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
             if (Vector3.Distance(transform.localPosition, leftOriginLocalPos) < 0.05f)
             {
                 transform.localPosition = leftOriginLocalPos;
-                currentTime = 0;
-
                 fire = false;
             }
         }
@@ -221,10 +210,14 @@ public class YJ_LeftFight_enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other);
-        if (!trigger.gameObject.activeSelf) //other.gameObject.name == "Player" && 
+        // 잡기 상태가 아닐때
+        if (!trigger.gameObject.activeSelf)
         {
-            overlap = true;
+            // 애너미레이어와 닿았을 때
+            if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                overlap = true;
+            }
         }
     }
 
@@ -261,8 +254,8 @@ public class YJ_LeftFight_enemy : MonoBehaviour
             if (Vector3.Distance(transform.position, me.transform.position) > 2f && Vector3.Distance(right.transform.position, me.transform.position) > 2f)
             {
                 // 양손 불러오기 ( 바로앞까지말고 조금 더 앞쪽으로 부르기 )
-                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * backspeed);
-                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * backspeed);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
+                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
             }
             // 좀 더 가까워졌을때 아예 로컬로 가져오기
             if (Vector3.Distance(transform.position, me.transform.position) < 2.1f && Vector3.Distance(right.transform.position, me.transform.position) < 2.1f

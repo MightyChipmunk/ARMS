@@ -90,6 +90,7 @@ public class InputManager : MonoBehaviour
         {
             ran = UnityEngine.Random.Range(1, 20);
             StartCoroutine("RandomAct");
+            print(ran);
         }
 
         enemyFront = ran <= 2 ? true : false;

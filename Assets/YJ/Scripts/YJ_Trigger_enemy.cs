@@ -65,7 +65,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
         else if (!enemyCome && !enemyGo)
         {
             currentTime += Time.deltaTime;
-            if (currentTime > 0.5f)
+            if (currentTime > 0.2f)
             {
                 // 1초 후 스피드 복구, 게임 오브젝트 끄기
                 currentTime = 0;

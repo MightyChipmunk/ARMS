@@ -17,7 +17,7 @@ public class YJ_LeftFight : MonoBehaviour
     // 공격 속도
     float leftspeed = 10f;
     // 되돌아오는 속도
-    float backspeed = 10f;
+    float backspeed = 15f;
 
     // 타겟
     GameObject target;
@@ -84,7 +84,7 @@ public class YJ_LeftFight : MonoBehaviour
     {
         // 내 회전값은 카메라를 따라감
         transform.localRotation = Camera.main.transform.localRotation;
-
+        #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
         if (Input.GetMouseButtonDown(2))
         {
@@ -95,24 +95,32 @@ public class YJ_LeftFight : MonoBehaviour
             // Trigger 활성화
             trigger.gameObject.SetActive(true);
             yj_trigger.mr.enabled = true;
-
         }
+        #endregion
         // 휠버튼을 눌렀다면
         if (grap)
         {
             Grap();
         }
-
+        #region 주먹이 애너미에 닿았을때
+        // 잡기상태가 아닌데 애너미랑 닿았을경우
         if (overlap)
         {
+            // 되돌아오기
             Return();
+            // 거의 다 돌아왔다면
             if (Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
+                // 오리진포스로 옮기기
                 transform.localPosition = leftOriginLocalPos;
+                // 저장된 Vector3 리스트 지우기
                 leftPath.Clear();
+                // 상태종료
                 overlap = false;
             }
         }
+        #endregion
+        #region 왼손공격 (왼쪽마우스클릭)
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (Input.GetMouseButtonDown(0) && !click && !overlap && !grap && !trigger.gameObject.activeSelf)
         {
@@ -125,10 +133,11 @@ public class YJ_LeftFight : MonoBehaviour
         {
             LeftFight();
         }
+        #endregion
     }
-    bool b;
+    #region 왼손공격
     void LeftFight()
-    {
+    {        
         if (!click)
         {
             // 만약에 캐릭터로부터 n만큼 앞으로 갔다면 정지
@@ -149,10 +158,8 @@ public class YJ_LeftFight : MonoBehaviour
                 }
 
                 // 이동
-                //dir = targetPos - transform.localPosition;
                 dir = enemyCamera.transform.position - transform.position;
                 dir.Normalize();
-                //transform.position += dir * leftspeed * Time.deltaTime;
 
                 mousePos = Input.mousePosition;
                 // 외각
@@ -177,8 +184,6 @@ public class YJ_LeftFight : MonoBehaviour
                     //isLeftROnce = false; // 왼손 오른쪽으로 휘지 않음.
                     //}
                 }
-                //print(dir.x); TransformDirection = 로컬좌표를 월드좌표로 전환
-                //transform.position += transform.TransformDirection(dir * leftspeed * Time.deltaTime);
                 transform.position += dir * leftspeed * Time.deltaTime;
             }
 
@@ -211,7 +216,8 @@ public class YJ_LeftFight : MonoBehaviour
             }
         }
     }
-
+    #endregion
+    #region 왼손공격 후 돌아오기
     void LeftBack(int i)
     {
         if (i != -1)
@@ -229,30 +235,30 @@ public class YJ_LeftFight : MonoBehaviour
             leftPath.Clear();
             print(click);
         }
-
     }
-
+    #endregion
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.name == "Enemy" && !trigger.gameObject.activeSelf)
-        if (other.gameObject.name == "Enemy" && !trigger.gameObject.activeSelf)
+        // 잡기 상태가 아닐때
+        if(!trigger.gameObject.activeSelf)
         {
-            overlap = true;
+            // 애너미레이어와 닿았을 때
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                overlap = true;
+            }
         }
     }
-
+    #region 트리거 후 돌아오기
     void Return()
     {
-        //leftrg.velocity = Vector3.zero;
         fire = false;
         click = false;
         leftspeed = 10f;
-        //isLeftROnce = false;
-        //isLeftLOnce = false;
         transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
-
     }
-
+    #endregion
+    #region 잡기실행
     float timer;
     bool turn = false;
     void Grap()
@@ -278,8 +284,8 @@ public class YJ_LeftFight : MonoBehaviour
             if (Vector3.Distance(transform.position, player.transform.position) > 2f && Vector3.Distance(right.transform.position, player.transform.position) > 2f)
             {
                 // 양손 불러오기 ( 바로앞까지말고 조금 더 앞쪽으로 부르기 )
-                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * backspeed);
-                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * backspeed);
+                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
+                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
             }
             // 좀 더 가까워졌을때 아예 로컬로 가져오기
             if (Vector3.Distance(transform.position, player.transform.position) < 2.1f && Vector3.Distance(right.transform.position, player.transform.position) < 2.1f
@@ -298,6 +304,6 @@ public class YJ_LeftFight : MonoBehaviour
             }
         }
     }
-
+    #endregion
 }
 
