@@ -111,7 +111,7 @@ public class JH_PlayerMove : MonoBehaviour
             rf = transform.Find("Right").GetComponent<YJ_RightFight>();
             lc = transform.Find("Left").GetComponent<SY_LeftCharge>(); // 이 셋은 교체예정
 
-            target = GameObject.Find("Main Camera");
+            target = GameObject.Find("Player");
         }
         else
         {
@@ -198,7 +198,7 @@ public class JH_PlayerMove : MonoBehaviour
 
         if (IsCanMove(isEnemy))
         {
-            if (InputManager.Instance.EnemyFront && Vector3.Magnitude(target.transform.position - transform.position) >= 5.0f + Vector3.Distance(new Vector3(0, 2.5f, -2), Vector3.zero))
+            if (InputManager.Instance.EnemyFront && Vector3.Magnitude(target.transform.position - transform.position) >= 5.0f)
             {
                 moveDir += dir;
             }
@@ -359,21 +359,21 @@ public class JH_PlayerMove : MonoBehaviour
             //    anim.SetTrigger("Fall");
             //}
         }
-        //else if (elf.Fire/* || rf.Fire*/)
-        //{
-        //    if (State != PlayerState.Attack)
-        //        State = PlayerState.Attack;
-        //}
-        //else if (elf.Grapp)
-        //{
-        //    if (State != PlayerState.Grap)
-        //        State = PlayerState.Grap;
-        //}
-        //else if (lc.IsGuard)
-        //{
-        //    if (State != PlayerState.Guard)
-        //        State = PlayerState.Guard;
-        //}
+        else if (elf.Fire/* || rf.Fire*/)
+        {
+            if (State != PlayerState.Attack)
+                State = PlayerState.Attack;
+        }
+        else if (elf.Grapp)
+        {
+            if (State != PlayerState.Grap)
+                State = PlayerState.Grap;
+        }
+        else if (lc.IsGuard)
+        {
+            if (State != PlayerState.Guard)
+                State = PlayerState.Guard;
+        }
     }
 
     public bool IsCanMove()
