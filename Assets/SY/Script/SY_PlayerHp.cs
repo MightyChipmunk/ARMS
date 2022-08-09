@@ -9,8 +9,9 @@ public class SY_PlayerHp : MonoBehaviour
     public int maxHp = 6;
     public Slider sliderHp;
     public Coroutine coroutine;
-    SY_LeftCharge lc;
-    SY_RightCharge rc;
+    SY_EnemyRightCharge erc;
+    SY_EnemyLeftCharge elc;
+
     JH_PlayerMove pm;
 
     bool canUp = false;
@@ -49,47 +50,46 @@ public class SY_PlayerHp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // �� �ȿ� ������ �浹 �̺�Ʈ ����
-        if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_LeftCharge>(out lc))
+        // "EnemyArms"에 닿고 charging 된 에너미 팔에 맞으면
+        if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_EnemyRightCharge>(out erc))  // =>
         {
             if (Input.GetKey(KeyCode.F) || IsKnock)
             {
 
             }
-            // ��¡�� ����, KnockBack����
-            else if (lc.IsCharging)
+            // 차징일 때, HP -2 / 넉백 실행
+            else if (erc.IsCharging)
             {
-                // ü�� ����
+                
                 SetHP(GetHP() - 2);
                 isKnock = true;
             }
-            // ��¡ �ƴ� ����, HP����
+            // 차징아닐 때, HP -1
             else
             {
-                // ü�� ����ww
+               
                 SetHP(GetHP() - 1);
                 //isKnock = false;
                 pm.Hitted();
             }
         }
-        else if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_RightCharge>(out rc))
+        else if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_EnemyLeftCharge>(out elc))
         {
 
             if (Input.GetKey(KeyCode.F) || IsKnock)
             {
 
             }
-            // ��¡�� ����, KnockBack����
-            else if (rc.IsCharging)
+            // 차징일 때, HP -2 / 넉백 실행
+            else if (elc.IsCharging)
             {
-                // ü�� ����
+                
                 SetHP(GetHP() - 2);
                 isKnock = true;
             }
-            // ��¡ �ƴ� ����, HP����
+            // 차징아닐 때, HP -1
             else
             {
-                // ü�� ����
                 SetHP(GetHP() - 1);
                 pm.Hitted();
             }
@@ -102,7 +102,7 @@ public class SY_PlayerHp : MonoBehaviour
 
     }
 
-    // �˹� �� 10�ʵ��� ��������
+    // 넉백 시간 
     public IEnumerator Ondamaged()
     {
         yield return new WaitForSeconds(2.0f);
