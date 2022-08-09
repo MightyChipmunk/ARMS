@@ -113,7 +113,8 @@ public class JH_PlayerMove : MonoBehaviour
             eh = GetComponent<SY_EnemyHp>();
             elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
             erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
-            elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>(); 
+            elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>();
+            etrigger = GameObject.Find("Player").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
 
             target = GameObject.Find("Player");
         }
@@ -147,7 +148,6 @@ public class JH_PlayerMove : MonoBehaviour
             Move();
             Dash();
             SetPlayerState();
-            Debug.Log("IsCanMove: " + IsCanMove());
         }
         else
         {
@@ -163,6 +163,7 @@ public class JH_PlayerMove : MonoBehaviour
     void LookEnemy()
     {
         dir = target.transform.position - transform.position;
+        dir.y = 0;
         dir.Normalize();
         transform.rotation = Quaternion.LookRotation(dir);
     }
@@ -277,7 +278,7 @@ public class JH_PlayerMove : MonoBehaviour
             anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
 
             if (!(InputManager.Instance.Front || InputManager.Instance.Left ||
-                  InputManager.Instance.Back || InputManager.Instance.Right || Input.GetKey(KeyCode.Space)))
+                  InputManager.Instance.Back || InputManager.Instance.Right || InputManager.Instance.Jump))
                 State = PlayerState.Idle;
             else
                 State = PlayerState.Move;
@@ -293,8 +294,8 @@ public class JH_PlayerMove : MonoBehaviour
             if (State != PlayerState.KnockBack)
                 State = PlayerState.KnockBack;
 
-            if (ph.CanUp && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)
-                || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+            if (ph.CanUp && (InputManager.Instance.Front || InputManager.Instance.Left ||
+                  InputManager.Instance.Back || InputManager.Instance.Right))
             {
                 if (ph.coroutine != null)
                 {
@@ -307,7 +308,7 @@ public class JH_PlayerMove : MonoBehaviour
                 anim.SetTrigger("Fall");
             }
         }
-        else if (lf.Fire/* || rf.Fire*/)
+        else if (lf.Fire || rf.Fire)
         {
             if (State != PlayerState.Attack) 
                 State = PlayerState.Attack;
@@ -350,8 +351,8 @@ public class JH_PlayerMove : MonoBehaviour
 
         if (eh.IsKnock)
         {
-            //if (State != PlayerState.KnockBack)
-            //    State = PlayerState.KnockBack;
+            if (State != PlayerState.KnockBack)
+                State = PlayerState.KnockBack;
 
             //if (eh.CanUp && ran == 8)
             //{
@@ -364,9 +365,9 @@ public class JH_PlayerMove : MonoBehaviour
             //    //StartCoroutine("IncreaseSpeed");
             //    StartCoroutine("Fall");
             //    anim.SetTrigger("Fall");
-            //}
+            //} // 에너미 낙법 추후에 구현
         }
-        else if (elf.Fire/* || erf.Fire*/)
+        else if (elf.Fire || erf.Fire)
         {
             if (State != PlayerState.Attack)
                 State = PlayerState.Attack;
@@ -385,8 +386,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove()
     {
-        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false &&
-            trigger.enemyCome == false && trigger.enemyGo == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (rf.Fire == false && lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false &&
+            trigger.enemyCome == false && trigger.enemyGo == false) // 가드, 넉백 당할때, 잡기 당할때
             return true;
         else
             return false;
@@ -394,7 +395,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove(bool isEnemy)
     {
-        if (/*erf.Fire == false && */elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false) // 가드, 넉백 당할때, 잡기 당할때 추가해야됨
+        if (erf.Fire == false && elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false &&
+            etrigger.enemyCome == false && etrigger.enemyGo == false) // 가드, 넉백 당할때, 잡기 당할때
             return true;
         else
             return false;
@@ -403,6 +405,9 @@ public class JH_PlayerMove : MonoBehaviour
     public void Hitted()
     {
         anim.SetTrigger("Hitted");
+        //iTween.MoveTo(cm.gameObject, iTween.Hash("x", cm.transform.position.x, "y", cm.transform.position.y + 0.1f, "z", cm.transform.position.z,
+        //    "time", 0.3f, "easetype", iTween.EaseType.easeOutElastic));
+        //cm.transform.position = new Vector3(cm.transform.position.x, cm.transform.position.y - 0.1f, cm.transform.position.z);
         StartCoroutine("HittedEvent");
     }
 
