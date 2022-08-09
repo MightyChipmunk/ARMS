@@ -308,6 +308,10 @@ public class JH_PlayerMove : MonoBehaviour
                 anim.SetTrigger("Fall");
             }
         }
+        else if (hitted)
+        {
+            State = PlayerState.Idle;
+        }
         else if (lf.Fire || rf.Fire)
         {
             if (State != PlayerState.Attack) 
@@ -367,6 +371,10 @@ public class JH_PlayerMove : MonoBehaviour
             //    anim.SetTrigger("Fall");
             //} // 에너미 낙법 추후에 구현
         }
+        else if (hitted)
+        {
+            State = PlayerState.Idle;
+        }
         else if (elf.Fire || erf.Fire)
         {
             if (State != PlayerState.Attack)
@@ -405,9 +413,8 @@ public class JH_PlayerMove : MonoBehaviour
     public void Hitted()
     {
         anim.SetTrigger("Hitted");
-        //iTween.MoveTo(cm.gameObject, iTween.Hash("x", cm.transform.position.x, "y", cm.transform.position.y + 0.1f, "z", cm.transform.position.z,
-        //    "time", 0.3f, "easetype", iTween.EaseType.easeOutElastic));
-        //cm.transform.position = new Vector3(cm.transform.position.x, cm.transform.position.y - 0.1f, cm.transform.position.z);
+        if (!isEnemy)
+            cm.CamHit();
         StartCoroutine("HittedEvent");
     }
 
@@ -464,5 +471,4 @@ public class JH_PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         hitted = false;
     }
-
 }
