@@ -30,6 +30,10 @@ public class YJ_RightFight_enemy : MonoBehaviour
     Transform originPos;
     // 버튼 눌림확인
     public bool fire = false; // 오른쪽
+    public bool Fire
+    {
+        get { return fire; }
+    }
     bool click = false;
 
     // 애너미랑 닿았을때
