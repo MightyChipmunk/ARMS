@@ -134,7 +134,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &17235899
 MeshRenderer:
@@ -2117,7 +2117,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2102634343}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: -10}
+  m_LocalPosition: {x: 0, y: 0.86, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2682,7 +2682,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &694847540894194651
 MeshRenderer:
@@ -2770,14 +2770,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 694847541729853383}
-  m_LocalRotation: {x: 0.08715578, y: -0, z: -0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 2.5, z: -2}
+  m_LocalRotation: {x: 0.007411102, y: -0, z: -0, w: 0.9999725}
+  m_LocalPosition: {x: 0, y: 1.84, z: -2.1}
   m_LocalScale: {x: 0.83333325, y: 0.99400544, z: 0.8375424}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 694847541859531203}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.849, y: 0, z: 0}
 --- !u!114 &694847541729853379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2964,7 +2964,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &694847541913652787
 GameObject:
@@ -7636,7 +7636,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8554293680189073304
 MonoBehaviour:
@@ -7653,6 +7653,7 @@ MonoBehaviour:
   left: {fileID: 8554293681995370388}
   targetCamera: {fileID: 2102634343}
   trigger: {fileID: 9217974470826123690}
+  fire: 0
   rightPath: []
 --- !u!143 &8554293680533531153
 CharacterController:
@@ -7980,7 +7981,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882962586491105467, guid: 7c99c480e84d4634fa14880915657ece, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7
+      value: 0.66
       objectReference: {fileID: 0}
     - target: {fileID: 8882962586491105467, guid: 7c99c480e84d4634fa14880915657ece, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8214,7 +8215,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.24
+  m_Radius: 2.57
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
