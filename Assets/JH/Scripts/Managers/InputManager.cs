@@ -25,6 +25,12 @@ public class InputManager : MonoBehaviour
     bool jump;
     public bool Jump { get { return jump; } }
 
+    bool guard;
+    public bool Guard { get { return guard; } }
+
+    bool guardUp;
+    public bool GuardUp { get { return guardUp; } }
+
     bool enemyFront;
     public bool EnemyFront { get { return enemyFront; } }
 
@@ -50,9 +56,19 @@ public class InputManager : MonoBehaviour
     bool enemyGrap;
     public bool EnemyGrap { get { return enemyGrap; } }
 
+    bool enemyGuard;
+    public bool EnemyGuard { get { return enemyGuard; } }
+
+    bool enemyGuardUp;
+    public bool EnemyGuardUp { get { return enemyGuardUp; } }
 
     bool changeAct = true;
+
     int ran = 0;
+
+    //int moveRan = 0;
+    //int atkRan = 0;
+    //int defRan = 0;
 
     void Awake()
     {
@@ -67,10 +83,12 @@ public class InputManager : MonoBehaviour
         left = Input.GetKey(KeyCode.A);
         dash = Input.GetKeyDown(KeyCode.LeftShift);
         jump = Input.GetKeyDown(KeyCode.Space);
+        guard = Input.GetKey(KeyCode.F);
+        guardUp = Input.GetKeyUp(KeyCode.F);
 
         if (changeAct)
         {
-            ran = UnityEngine.Random.Range(1, 17);
+            ran = UnityEngine.Random.Range(1, 20);
             StartCoroutine("RandomAct");
         }
 
@@ -83,7 +101,10 @@ public class InputManager : MonoBehaviour
 
         enemyFire1 = (ran >= 11 && ran <= 12) ? true : false;   
         enemyFire2 = (ran >= 13 && ran <= 14) ? true : false;
-        enemyGrap = ran > 14 ? true : false;
+        enemyGrap = (ran >= 15 && ran <= 17) ? true : false;
+
+        enemyGuard = (ran >= 18) ? true : false;
+        enemyGuardUp = (ran < 18) ? true : false;
     }
 
     IEnumerator RandomAct()
