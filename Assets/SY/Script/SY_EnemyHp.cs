@@ -12,6 +12,8 @@ public class SY_EnemyHp : MonoBehaviour
     SY_RightCharge prc;
     SY_LeftCharge plc;
 
+    JH_PlayerMove pm;
+
     bool isKnock;
     public bool IsKnock
     {
@@ -29,7 +31,7 @@ public class SY_EnemyHp : MonoBehaviour
     }
     void Start()
     {
-
+        pm = GetComponent<JH_PlayerMove>();
         sliderHp.maxValue = maxHp;
         SetHP(maxHp);
     }
@@ -60,7 +62,7 @@ public class SY_EnemyHp : MonoBehaviour
             else
             {
                 SetHP(GetHP() - 1);
-                //isKnock = false;
+                pm.Hitted();
             }
         }
         else if (other.gameObject.CompareTag("PlayerArms") && other.TryGetComponent<SY_LeftCharge>(out plc))
@@ -80,6 +82,7 @@ public class SY_EnemyHp : MonoBehaviour
             else
             {
                 SetHP(GetHP() - 1);
+                pm.Hitted();
             }
         }
 
