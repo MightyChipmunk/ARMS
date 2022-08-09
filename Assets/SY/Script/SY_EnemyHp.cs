@@ -48,7 +48,7 @@ public class SY_EnemyHp : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerArms") && other.TryGetComponent<SY_RightCharge>(out prc))
         {
 
-            if (Input.GetKey(KeyCode.F) || IsKnock)
+            if (InputManager.Instance.EnemyGuard || IsKnock)
             {
 
             }
@@ -68,7 +68,7 @@ public class SY_EnemyHp : MonoBehaviour
         else if (other.gameObject.CompareTag("PlayerArms") && other.TryGetComponent<SY_LeftCharge>(out plc))
         {
 
-            if (Input.GetKey(KeyCode.F) || IsKnock)
+            if (InputManager.Instance.EnemyGuard || IsKnock)
             {
 
             }

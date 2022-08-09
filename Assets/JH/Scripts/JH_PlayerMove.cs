@@ -24,14 +24,14 @@ public class JH_PlayerMove : MonoBehaviour
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
 
-    #region °ø¿ë ÇÊ¿ä ¼Ó¼º
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½Ó¼ï¿½
     GameObject target;
     CharacterController cc;
     Animator anim;
     TrailRenderer tr;
     #endregion
 
-    #region ÇÃ·¹ÀÌ¾î ÇÊ¿ä ¼Ó¼º
+    #region ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ê¿ï¿½ ï¿½Ó¼ï¿½
     YJ_LeftFight lf;
     YJ_RightFight rf;
     YJ_Trigger_enemy trigger;
@@ -40,13 +40,13 @@ public class JH_PlayerMove : MonoBehaviour
     JH_CameraMove cm;
     #endregion
 
-    #region ¿¡³Ê¹Ì ÇÊ¿ä ¼Ó¼º
+    #region ï¿½ï¿½ï¿½Ê¹ï¿½ ï¿½Ê¿ï¿½ ï¿½Ó¼ï¿½
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
     YJ_Trigger etrigger;
     SY_EnemyLeftCharge elc;
     SY_EnemyHp eh;
-    #endregion 
+    #endregion
 
     PlayerState state;
     public PlayerState State
@@ -113,7 +113,8 @@ public class JH_PlayerMove : MonoBehaviour
             eh = GetComponent<SY_EnemyHp>();
             elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
             erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
-            elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>(); 
+            elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>();
+            etrigger = GameObject.Find("Player").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
 
             target = GameObject.Find("Player");
         }
@@ -147,7 +148,6 @@ public class JH_PlayerMove : MonoBehaviour
             Move();
             Dash();
             SetPlayerState();
-            //Debug.Log("IsCanMove: " + IsCanMove());
         }
         else
         {
@@ -163,6 +163,7 @@ public class JH_PlayerMove : MonoBehaviour
     void LookEnemy()
     {
         dir = target.transform.position - transform.position;
+        dir.y = 0;
         dir.Normalize();
         transform.rotation = Quaternion.LookRotation(dir);
     }
@@ -267,7 +268,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
-            // moveDirÀÇ ¾Þ±ÛÀ» °è»êÇØ¼­ ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            // moveDirï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
@@ -277,14 +278,14 @@ public class JH_PlayerMove : MonoBehaviour
             anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
 
             if (!(InputManager.Instance.Front || InputManager.Instance.Left ||
-                  InputManager.Instance.Back || InputManager.Instance.Right || Input.GetKey(KeyCode.Space)))
+                  InputManager.Instance.Back || InputManager.Instance.Right || InputManager.Instance.Jump))
                 State = PlayerState.Idle;
             else
                 State = PlayerState.Move;
         }
         else if (!cc.isGrounded && !isDash)
         {
-            // °øÁß¿¡ ÀÖ´Ù¸é Á¡ÇÁ ¸ð¼Ç Àç»ý
+            // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             State = PlayerState.Fall;
         }
 
@@ -293,8 +294,8 @@ public class JH_PlayerMove : MonoBehaviour
             if (State != PlayerState.KnockBack)
                 State = PlayerState.KnockBack;
 
-            if (ph.CanUp && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)
-                || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+            if (ph.CanUp && (InputManager.Instance.Front || InputManager.Instance.Left ||
+                  InputManager.Instance.Back || InputManager.Instance.Right))
             {
                 if (ph.coroutine != null)
                 {
@@ -307,9 +308,9 @@ public class JH_PlayerMove : MonoBehaviour
                 anim.SetTrigger("Fall");
             }
         }
-        else if (lf.Fire/* || rf.Fire*/)
+        else if (lf.Fire || rf.Fire)
         {
-            if (State != PlayerState.Attack) 
+            if (State != PlayerState.Attack)
                 State = PlayerState.Attack;
         }
         else if (lf.Grapp)
@@ -328,7 +329,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
-            // moveDirÀÇ ¾Þ±ÛÀ» °è»êÇØ¼­ ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            // moveDirï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
@@ -344,14 +345,14 @@ public class JH_PlayerMove : MonoBehaviour
         }
         else if (!cc.isGrounded && !isDash)
         {
-            // °øÁß¿¡ ÀÖ´Ù¸é Á¡ÇÁ ¸ð¼Ç Àç»ý
+            // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             State = PlayerState.Fall;
         }
 
         if (eh.IsKnock)
         {
-            //if (State != PlayerState.KnockBack)
-            //    State = PlayerState.KnockBack;
+            if (State != PlayerState.KnockBack)
+                State = PlayerState.KnockBack;
 
             //if (eh.CanUp && ran == 8)
             //{
@@ -364,9 +365,9 @@ public class JH_PlayerMove : MonoBehaviour
             //    //StartCoroutine("IncreaseSpeed");
             //    StartCoroutine("Fall");
             //    anim.SetTrigger("Fall");
-            //}
+            //} // ï¿½ï¿½ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
-        else if (elf.Fire/* || erf.Fire*/)
+        else if (elf.Fire || erf.Fire)
         {
             if (State != PlayerState.Attack)
                 State = PlayerState.Attack;
@@ -385,8 +386,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove()
     {
-        if (/*rf.Fire == false && */lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false &&
-            trigger.enemyCome == false && trigger.enemyGo == false) // °¡µå, ³Ë¹é ´çÇÒ¶§, Àâ±â ´çÇÒ¶§ Ãß°¡ÇØ¾ßµÊ
+        if (rf.Fire == false && lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false &&
+            trigger.enemyCome == false && trigger.enemyGo == false) // ï¿½ï¿½ï¿½ï¿½, ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½
             return true;
         else
             return false;
@@ -394,7 +395,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove(bool isEnemy)
     {
-        if (/*erf.Fire == false && */elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false) // °¡µå, ³Ë¹é ´çÇÒ¶§, Àâ±â ´çÇÒ¶§ Ãß°¡ÇØ¾ßµÊ
+        if (erf.Fire == false && elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false &&
+            etrigger.enemyCome == false && etrigger.enemyGo == false) // ï¿½ï¿½ï¿½ï¿½, ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½
             return true;
         else
             return false;
@@ -403,6 +405,9 @@ public class JH_PlayerMove : MonoBehaviour
     public void Hitted()
     {
         anim.SetTrigger("Hitted");
+        //iTween.MoveTo(cm.gameObject, iTween.Hash("x", cm.transform.position.x, "y", cm.transform.position.y + 0.1f, "z", cm.transform.position.z,
+        //    "time", 0.3f, "easetype", iTween.EaseType.easeOutElastic));
+        //cm.transform.position = new Vector3(cm.transform.position.x, cm.transform.position.y - 0.1f, cm.transform.position.z);
         StartCoroutine("HittedEvent");
     }
 
