@@ -29,13 +29,11 @@ public class YJ_RightFight_enemy : MonoBehaviour
 
     Transform originPos;
     // 버튼 눌림확인
-    bool fire = false; // 오른쪽
+    public bool fire = false; // 오른쪽
     bool click = false;
 
     // 애너미랑 닿았을때
     bool overlap = false;
-
-    bool BBBB = false;
 
     // 이동방향
     Vector3 dir;
@@ -44,9 +42,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
     float rightTime = 0.5f; // 좌표저장 카운터
     [SerializeField] private List<Vector3> rightPath; // 위치가 들어갈 리스트
     Vector3 rightOriginLocalPos;
-
-    float currentTime = 0;
-    int play = 0;
 
     void Start()
     {
@@ -70,14 +65,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
     void Update()
     {
 
-        #region 랜덤 숫자 3초마다만들기
-        if (!fire  && !overlap)
-        {
-            currentTime += Time.deltaTime;
-            //print(currentTime);
-        }
-        #endregion
-
         if (overlap)
         {
             print("overlap 가동");
@@ -87,13 +74,13 @@ public class YJ_RightFight_enemy : MonoBehaviour
             {
                 transform.localPosition = rightOriginLocalPos;
                 rightPath.Clear();
-                currentTime = 0;
                 overlap = false;
             }
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (!click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && InputManager.Instance.EnemyFire2)
+        print("overlap :" + overlap + " grap :" + leftFight.grap + " fire :" + fire + " trigger :" + trigger.gameObject.activeSelf);
+        if (!click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && InputManager.Instance.EnemyFire2 && !fire)
         {
             targetPos = targetCamera.transform.position;
             fire = true;

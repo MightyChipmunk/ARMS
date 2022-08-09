@@ -34,8 +34,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
     {
         get { return fire; }
     }
-    bool AAAA = false;
-    bool CCCC = false;
     bool click = false;
     bool overlap = false; // 플레이어랑 닿았을때
     public bool grap = false; // 잡기 하고있는지
@@ -56,6 +54,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
     Vector3 rightOriginLocalPos;
 
     YJ_Trigger_enemy yj_trigger;
+    YJ_RightFight_enemy yj_right;
 
     void Start()
     {
@@ -72,6 +71,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         leftPath = new List<Vector3>();
 
         yj_trigger = trigger.GetComponent<YJ_Trigger_enemy>();
+        yj_right = right.GetComponent<YJ_RightFight_enemy>();
 
     }
 
@@ -93,7 +93,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         #endregion
 
         #region 잡기
-        if (!fire && InputManager.Instance.EnemyGrap)
+        if (!fire && InputManager.Instance.EnemyGrap && !yj_right.fire)
         {
             if (play > 7)
             {
@@ -127,9 +127,9 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         }
 
         #region 왼쪽공격
-
+        //print("overlap :" + overlap + " grap :" + grap + " fire :" + fire + " trigger :" + trigger.gameObject.activeSelf);
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (!overlap && !grap && !fire && InputManager.Instance.EnemyFire1)// && !trigger.gameObject.activeSelf)
+        if (!overlap && !grap && !fire && InputManager.Instance.EnemyFire1 && !trigger.gameObject.activeSelf)
         {
             targetPos = playertarget.transform.position;
 
