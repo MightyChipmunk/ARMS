@@ -10,14 +10,14 @@ using UnityEngine;
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
 public class YJ_LeftFight : MonoBehaviour
 {
-    
+
     public GameObject right; // 오른손
     public GameObject trigger; // 가운데 선
     public GameObject enemyCamera;
     // 공격 속도
     float leftspeed = 10f;
     // 되돌아오는 속도
-    float backspeed = 15f;
+    float backspeed = 10f;
 
     // 타겟
     GameObject target;
@@ -69,8 +69,9 @@ public class YJ_LeftFight : MonoBehaviour
         //print(Vector3.Distance(transform.position, player.transform.position));
 
 
-        // 로컬좌표의 값을 저장
+        // 로컬 포지션을 저장
         leftOriginLocalPos = transform.localPosition;
+        rightOriginLocalPos = right.transform.localPosition;
         // 이동 좌표를 저장할 리스트
         leftPath = new List<Vector3>();
         mouseOrigin = Vector3.zero;
@@ -81,18 +82,22 @@ public class YJ_LeftFight : MonoBehaviour
 
     void Update()
     {
+        // 내 회전값은 카메라를 따라감
         transform.localRotation = Camera.main.transform.localRotation;
 
+        // 휠버튼을 누르면
         if (Input.GetMouseButtonDown(2))
         {
+            // 그랩을 켜고
             grap = true;
-            leftOriginLocalPos = transform.localPosition;
-            rightOriginLocalPos = right.transform.localPosition;
-            //targetPos = target.transform.position + new Vector3(-1.23f, 0f, 0f);
+            // 타겟의 위치는 Trigger가 가운데 갈 수 있도록 x값 수정하여 지정
             targetPos = enemyCamera.transform.position + new Vector3(-1.23f, 0f, 0f);
+            // Trigger 활성화
             trigger.gameObject.SetActive(true);
-            
+            yj_trigger.mr.enabled = true;
+
         }
+        // 휠버튼을 눌렀다면
         if (grap)
         {
             Grap();
@@ -113,7 +118,7 @@ public class YJ_LeftFight : MonoBehaviour
         {
             fire = true;
             mouseOrigin = Input.mousePosition;
-            targetPos = enemyCamera.transform.position ;
+            targetPos = enemyCamera.transform.position;
 
         }
         if (fire)
@@ -163,13 +168,13 @@ public class YJ_LeftFight : MonoBehaviour
                 else if (mousePos.x - mouseOrigin.x < 0)
                 {
                     dir += cross * 0.5f;
-                        //dir.x -= 0.5f;
+                    //dir.x -= 0.5f;
                     //if (!isLeftLOnce)
                     //{
-                        //leftrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
-                        //leftrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // 초기화 이후 addforce
-                        //isLeftLOnce = true; // 왼손 왼쪽으로 휨
-                        //isLeftROnce = false; // 왼손 오른쪽으로 휘지 않음.
+                    //leftrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
+                    //leftrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // 초기화 이후 addforce
+                    //isLeftLOnce = true; // 왼손 왼쪽으로 휨
+                    //isLeftROnce = false; // 왼손 오른쪽으로 휘지 않음.
                     //}
                 }
                 //print(dir.x); TransformDirection = 로컬좌표를 월드좌표로 전환
@@ -252,10 +257,11 @@ public class YJ_LeftFight : MonoBehaviour
     bool turn = false;
     void Grap()
     {
+        // 방향은 타겟방향으로
         Vector3 dir = targetPos - transform.position;
+        // 왼손과 오른손을 움직인다
         transform.position += dir * leftspeed * Time.deltaTime;
         right.transform.position += dir * leftspeed * Time.deltaTime;
-
         // 양손이 플레이어에서 10만큼 떨어지거나 가운데 고리에 애너미가 닿으면 0.3초동안 멈추기
         if (Vector3.Distance(transform.position, player.transform.position) > 10f && Vector3.Distance(right.transform.position, player.transform.position) > 10f || yj_trigger.enemyCome)
         {
@@ -269,22 +275,23 @@ public class YJ_LeftFight : MonoBehaviour
         // 다시 되돌아오기
         if (turn)
         {
-            // 양손 불러오기 ( 바로앞까지말고 조금 더 앞쪽으로 부르기 )
-            transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0,0,1f), Time.deltaTime * backspeed); 
-            right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 1f), Time.deltaTime * backspeed);
-            print("적이랑 트리거 거리는? :" + Vector3.Distance(trigger.transform.position, target.transform.position));
-            if(Vector3.Distance(trigger.transform.position, target.transform.position) > 2f && 
-                !yj_trigger.enemyCome)
+            if (Vector3.Distance(transform.position, player.transform.position) > 2f && Vector3.Distance(right.transform.position, player.transform.position) > 2f)
             {
-                print("들어오니?");
-                trigger.gameObject.SetActive(false);
+                // 양손 불러오기 ( 바로앞까지말고 조금 더 앞쪽으로 부르기 )
+                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * backspeed);
+                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * backspeed);
             }
-            if(Vector3.Distance(transform.position, player.transform.position) < 2.7f && Vector3.Distance(right.transform.position, player.transform.position) < 2.7f)
+            // 좀 더 가까워졌을때 아예 로컬로 가져오기
+            if (Vector3.Distance(transform.position, player.transform.position) < 2.1f && Vector3.Distance(right.transform.position, player.transform.position) < 2.1f
+                && Vector3.Distance(transform.position, player.transform.position) > 1.7f && Vector3.Distance(right.transform.position, player.transform.position) > 1.7f)
             {
-                print("여기는?");
-                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
-                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
+                transform.localPosition = leftOriginLocalPos;
+                right.transform.localPosition = rightOriginLocalPos;
                 timer = 0;
+            }
+            // 완전히 가까워지면 끄기
+            if (Vector3.Distance(transform.position, player.transform.position) < 1.7f && Vector3.Distance(right.transform.position, player.transform.position) < 1.7f)
+            {
                 turn = false;
                 grap = false;
                 leftspeed = 10f;

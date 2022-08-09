@@ -40,12 +40,12 @@ public class SY_EnemyRightCharge : MonoBehaviour
         if (isCharging)
         {
             TrailRenderer trail = GetComponent<TrailRenderer>();
-            trail.emitting = true;
+            //trail.emitting = true;
         }
         else
         {
             TrailRenderer trail = GetComponent<TrailRenderer>();
-            trail.emitting = false;
+            //trail.emitting = false;
         }
     }
 

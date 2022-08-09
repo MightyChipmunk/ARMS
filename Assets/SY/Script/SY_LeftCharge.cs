@@ -46,7 +46,7 @@ public class SY_LeftCharge: MonoBehaviour
         else
         {
             TrailRenderer trail = GetComponent<TrailRenderer>();
-            trail.emitting = false;
+            //trail.emitting = false;
         }
     }
 

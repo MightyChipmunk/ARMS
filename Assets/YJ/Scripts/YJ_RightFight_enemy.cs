@@ -83,8 +83,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        //print("overlap :" + overlap + " grap :" + leftFight.grap + " fire :" + fire + " trigger :" + trigger.gameObject.activeSelf);
-        if (!click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && InputManager.Instance.EnemyFire2 && !fire)
+        if ( InputManager.Instance.EnemyFire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf)
         {
             targetPos = targetCamera.transform.position;
             fire = true;
@@ -170,7 +169,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
             rightPath.Clear();
-            print("거리" + Vector3.Distance(transform.position, me.transform.position));
             if (Vector3.Distance(transform.localPosition, rightOriginLocalPos) < 0.05f)
             {
                 transform.localPosition = rightOriginLocalPos;
