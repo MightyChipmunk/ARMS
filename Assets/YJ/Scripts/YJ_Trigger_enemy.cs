@@ -88,26 +88,31 @@ public class YJ_Trigger_enemy : MonoBehaviour
             // 방향으로 움직이게하기
             cc.Move(dir * backspeed * Time.deltaTime);
 
-            // y값이 0.7 이하로 떨어지면 (바닥에 거의 닿으면)
-            if (player.transform.position.y < 0.7f)
+            currentTime += Time.deltaTime;
+            if (currentTime > 0.2f)
             {
-                // 멈추게하기
-                backspeed = 0;
-                dir = Vector3.zero;
-                // mr 잠깐 꺼주기
-                mr.enabled = false;
-
-                // 1초동안 못움직이게하기
-                currentTime += Time.deltaTime;
-                if (currentTime > 1f)
+                // y값이 0.7 이하로 떨어지면 (바닥에 거의 닿으면)
+                if (enemy.transform.position.y < 1f)
                 {
-                    // 1초 후 스피드 복구, 게임 오브젝트 끄기
-                    enemyGo = false;
-                    backspeed = 20f;
-                    currentTime = 0;
-                    gameObject.SetActive(false);
+                    // 멈추게하기
+                    backspeed = 0;
+                    dir = Vector3.zero;
+                    // mr 잠깐 꺼주기
+                    mr.enabled = false;
+
+                    // 1초동안 못움직이게하기
+                    currentTime += Time.deltaTime;
+                    if (currentTime > 1f)
+                    {
+                        // 1초 후 스피드 복구, 게임 오브젝트 끄기
+                        enemyGo = false;
+                        backspeed = 20f;
+                        currentTime = 0;
+                        gameObject.SetActive(false);
+                    }
                 }
             }
+
         }
         #endregion
     }
