@@ -12,6 +12,7 @@ public class JH_CameraMove : MonoBehaviour
     float xLerp = 0;
     float yLerp = 2;
     float zLerp = -1.5f;
+    float hitShake = 0;
 
     JH_PlayerMove pm;
     GameObject target;
@@ -36,6 +37,14 @@ public class JH_CameraMove : MonoBehaviour
         CamMove();
         CamBetweenWall();
         CamRot();
+
+        if (pm.hittedp)
+            CamHit();
+        else
+        {
+            totalTime = 0;
+            hitShake = 0;
+        }
     }
 
     void CamMove()
@@ -76,7 +85,7 @@ public class JH_CameraMove : MonoBehaviour
     // 캠이 벽 뒤로 갈 때 벽 앞으로 위치시키기
     void CamBetweenWall()
     {
-        delta = new Vector3(xLerp, yLerp, zLerp);
+        delta = new Vector3(xLerp + hitShake, yLerp + hitShake, zLerp);
         RaycastHit hit;
         Vector3 dir = transform.position - transform.parent.position;
 
@@ -108,10 +117,22 @@ public class JH_CameraMove : MonoBehaviour
         transform.rotation *= Quaternion.AngleAxis(-finalAngle, Vector3.right);
     }
 
+    float currentTime = 0;
+    float shakeTime = 0.06f;
+    float totalTime = 0;
     public void CamHit()
     {
-        //iTween.MoveTo(gameObject, iTween.Hash("x", lerp, "y", yLerp + 0.1f, "z", delta.z, "islocal", true,
-        //    "time", 0.01f, "easetype", iTween.EaseType.easeOutElastic));
-        //transform.localPosition -= Vector3.up * 0.1f;
+        currentTime += Time.deltaTime;
+        totalTime += Time.deltaTime;
+
+        if (currentTime > shakeTime * 2 && totalTime < 0.2f)
+        {
+            hitShake = -0.014f;
+            currentTime = 0;
+        }
+        else if (currentTime > shakeTime && totalTime < 0.2f)
+        {
+            hitShake = 0.014f;
+        }
     }
 }

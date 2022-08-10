@@ -28,7 +28,8 @@ public class JH_PlayerMove : MonoBehaviour
     GameObject target;
     CharacterController cc;
     Animator anim;
-    TrailRenderer tr;
+    JH_Effect effect;
+    //TrailRenderer tr;
     #endregion
 
     #region 플레이어 필요 속성
@@ -92,7 +93,26 @@ public class JH_PlayerMove : MonoBehaviour
     float dashCool = 0.5f;
     bool canDash = true;
     bool isDash = false;
+    public bool IsDash 
+    { 
+        get 
+        { 
+            return isDash; 
+        } 
+        set
+        {
+            if (value != isDash)
+            {
+                effect.DashEffect(value);
+            }
+            isDash = value;
+        }
+    }
     bool hitted = false;
+    public bool hittedp
+    {
+        get { return hitted; }
+    }
 
     [SerializeField]
     float speed = 2.0f;
@@ -104,9 +124,10 @@ public class JH_PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        effect = GetComponent<JH_Effect>();
         anim = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
-        tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
+        //tr = transform.Find("DashTrail").GetComponent<TrailRenderer>();
 
         if (isEnemy)
         {
@@ -250,15 +271,16 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Dash()
     {
-        if (InputManager.Instance.Dash && canDash)
+        if (InputManager.Instance.Dash && canDash && IsCanMove())
         {
+            // 대쉬키만 누르고 방향키 안누를때 처리 필요
             StartCoroutine("IncreaseSpeed");
         }
     }
 
     void Dash(bool isEnemy)
     {
-        if (canDash && InputManager.Instance.EnemyDash)
+        if (canDash && InputManager.Instance.EnemyDash && IsCanMove(isEnemy))
         {
             StartCoroutine("IncreaseSpeedEnemy");
         }
@@ -447,8 +469,6 @@ public class JH_PlayerMove : MonoBehaviour
     public void Hitted()
     {
         anim.SetTrigger("Hitted");
-        if (!isEnemy)
-            cm.CamHit();
         StartCoroutine("HittedEvent");
     }
 
@@ -457,15 +477,15 @@ public class JH_PlayerMove : MonoBehaviour
         float tmpSpeed = speed;
         float tmpAngle = cm.Angle;
         canDash = false;
-        isDash = true;
+        IsDash = true;
         speed *= 7;
         cm.Angle *= 15;
-        tr.emitting = true;
+        //tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;
-        isDash = false;
+        IsDash = false;
         cm.Angle = tmpAngle;
-        tr.emitting = false;
+        //tr.emitting = false;
         yield return new WaitForSeconds(dashCool - dashTime);
         canDash = true;
     }
@@ -474,13 +494,13 @@ public class JH_PlayerMove : MonoBehaviour
     {
         float tmpSpeed = speed;
         canDash = false;
-        isDash = true;
+        IsDash = true;
         speed *= 7;
-        tr.emitting = true;
+        //tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;
-        isDash = false;
-        tr.emitting = false;
+        IsDash = false;
+        //tr.emitting = false;
         yield return new WaitForSeconds(dashCool - dashTime);
         canDash = true;
     }
@@ -502,7 +522,11 @@ public class JH_PlayerMove : MonoBehaviour
     IEnumerator HittedEvent()
     {
         hitted = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
+        anim.speed = 0;
+        yield return new WaitForSeconds(0.1f);
+        anim.speed = 1;
+        yield return new WaitForSeconds(0.3f);
         hitted = false;
     }
 }
