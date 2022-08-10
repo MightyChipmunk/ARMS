@@ -77,7 +77,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
         if (enemyGo)
         {
             // 카메라 반대 방향보다 조금 높은 방향설정
-            Vector3 dir = -Camera.main.transform.forward + (Vector3.up * 0.3f);
+            Vector3 dir = -Camera.main.transform.forward + (Vector3.up * 1f);
 
             // CC의 몸통이 벽에 닿으면
             if (cc.collisionFlags == CollisionFlags.Sides)

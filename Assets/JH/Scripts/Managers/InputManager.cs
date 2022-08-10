@@ -104,7 +104,7 @@ public class InputManager : MonoBehaviour
 
         enemyFire1 = (ran >= 11 && ran <= 12) ? true : false;   
         enemyFire2 = (ran >= 13 && ran <= 14) ? true : false;
-        enemyGrap = (ran >= 17 && ran <= 17) ? true : false;
+        enemyGrap = (ran >= 16 && ran <= 17) ? true : false;
 
         enemyGuard = (ran >= 18) ? true : false;
         enemyGuardUp = (ran < 18) ? true : false;
