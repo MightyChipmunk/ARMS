@@ -102,8 +102,8 @@ public class JH_CameraMove : MonoBehaviour
 
     public void CamHit()
     {
-        iTween.MoveTo(gameObject, iTween.Hash("x", lerp, "y", yLerp + 0.1f, "z", delta.z, "islocal", true,
-            "time", 0.01f, "easetype", iTween.EaseType.easeOutElastic));
-        transform.localPosition -= Vector3.up * 0.1f;
+        //iTween.MoveTo(gameObject, iTween.Hash("x", lerp, "y", yLerp + 0.1f, "z", delta.z, "islocal", true,
+        //    "time", 0.01f, "easetype", iTween.EaseType.easeOutElastic));
+        //transform.localPosition -= Vector3.up * 0.1f;
     }
 }
