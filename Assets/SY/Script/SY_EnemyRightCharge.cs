@@ -40,12 +40,12 @@ public class SY_EnemyRightCharge : MonoBehaviour
         if (isCharging)
         {
             TrailRenderer trail = GetComponent<TrailRenderer>();
-            trail.emitting = true;
+            //trail.emitting = true;
         }
         else
         {
             TrailRenderer trail = GetComponent<TrailRenderer>();
-            trail.emitting = false;
+            //trail.emitting = false;
         }
     }
 
@@ -88,7 +88,7 @@ public class SY_EnemyRightCharge : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         //mat.color = new Color(1, 1, 1);
         isCharging = false;
-        Debug.Log("EnemyRightCharging: " + isCharging);
+        //Debug.Log("EnemyRightCharging: " + isCharging);
     }
 
     private void OnTriggerEnter(Collider other)

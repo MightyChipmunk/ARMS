@@ -193,10 +193,14 @@ public class YJ_RightFight : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Enemy" && !trigger.gameObject.activeSelf)
+        // 잡기 상태가 아닐때
+        if (!trigger.gameObject.activeSelf)
         {
-            //print("닿음 애너미랑");
-            overlap = true;
+            // 애너미레이어와 닿았을 때
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+            {
+                overlap = true;
+            }
         }
     }
 

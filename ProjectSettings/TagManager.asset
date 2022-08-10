@@ -38,8 +38,8 @@ TagManager:
   - 
   - 
   - 
-  - EnemyHand
-  - PlayerHand
+  - EnemyTrigger
+  - PlayerTrigger
   m_SortingLayers:
   - name: Default
     uniqueID: 0

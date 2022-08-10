@@ -24,14 +24,14 @@ public class JH_PlayerMove : MonoBehaviour
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
 
-    #region °ø¿ë ÇÊ¿ä ¼Ó¼º
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½ ï¿½Ó¼ï¿½
     GameObject target;
     CharacterController cc;
     Animator anim;
     TrailRenderer tr;
     #endregion
 
-    #region ÇÃ·¹ÀÌ¾î ÇÊ¿ä ¼Ó¼º
+    #region ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ê¿ï¿½ ï¿½Ó¼ï¿½
     YJ_LeftFight lf;
     YJ_RightFight rf;
     YJ_Trigger_enemy trigger;
@@ -40,13 +40,13 @@ public class JH_PlayerMove : MonoBehaviour
     JH_CameraMove cm;
     #endregion
 
-    #region ¿¡³Ê¹Ì ÇÊ¿ä ¼Ó¼º
+    #region ï¿½ï¿½ï¿½Ê¹ï¿½ ï¿½Ê¿ï¿½ ï¿½Ó¼ï¿½
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
     YJ_Trigger etrigger;
     SY_EnemyLeftCharge elc;
     SY_EnemyHp eh;
-    #endregion 
+    #endregion
 
     PlayerState state;
     public PlayerState State
@@ -268,7 +268,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
-            // moveDirÀÇ ¾Þ±ÛÀ» °è»êÇØ¼­ ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            // moveDirï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
@@ -285,7 +285,7 @@ public class JH_PlayerMove : MonoBehaviour
         }
         else if (!cc.isGrounded && !isDash)
         {
-            // °øÁß¿¡ ÀÖ´Ù¸é Á¡ÇÁ ¸ð¼Ç Àç»ý
+            // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             State = PlayerState.Fall;
         }
 
@@ -314,7 +314,7 @@ public class JH_PlayerMove : MonoBehaviour
         }
         else if (lf.Fire || rf.Fire)
         {
-            if (State != PlayerState.Attack) 
+            if (State != PlayerState.Attack)
                 State = PlayerState.Attack;
         }
         else if (lf.Grapp)
@@ -333,7 +333,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
-            // moveDirÀÇ ¾Þ±ÛÀ» °è»êÇØ¼­ ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            // moveDirï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
@@ -349,7 +349,7 @@ public class JH_PlayerMove : MonoBehaviour
         }
         else if (!cc.isGrounded && !isDash)
         {
-            // °øÁß¿¡ ÀÖ´Ù¸é Á¡ÇÁ ¸ð¼Ç Àç»ý
+            // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             State = PlayerState.Fall;
         }
 
@@ -369,7 +369,7 @@ public class JH_PlayerMove : MonoBehaviour
             //    //StartCoroutine("IncreaseSpeed");
             //    StartCoroutine("Fall");
             //    anim.SetTrigger("Fall");
-            //} // ¿¡³Ê¹Ì ³«¹ý ÃßÈÄ¿¡ ±¸Çö
+            //} // ï¿½ï¿½ï¿½Ê¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
         else if (hitted)
         {
@@ -395,7 +395,7 @@ public class JH_PlayerMove : MonoBehaviour
     public bool IsCanMove()
     {
         if (rf.Fire == false && lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false &&
-            trigger.enemyCome == false && trigger.enemyGo == false) // °¡µå, ³Ë¹é ´çÇÒ¶§, Àâ±â ´çÇÒ¶§
+            trigger.enemyCome == false && trigger.enemyGo == false) // ï¿½ï¿½ï¿½ï¿½, ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½
             return true;
         else
             return false;
@@ -404,7 +404,7 @@ public class JH_PlayerMove : MonoBehaviour
     public bool IsCanMove(bool isEnemy)
     {
         if (erf.Fire == false && elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false &&
-            etrigger.enemyCome == false && etrigger.enemyGo == false) // °¡µå, ³Ë¹é ´çÇÒ¶§, Àâ±â ´çÇÒ¶§
+            etrigger.enemyCome == false && etrigger.enemyGo == false) // ï¿½ï¿½ï¿½ï¿½, ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¶ï¿½
             return true;
         else
             return false;
