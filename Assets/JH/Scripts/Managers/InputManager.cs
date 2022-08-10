@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
@@ -73,6 +74,7 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void Update()
@@ -102,16 +104,21 @@ public class InputManager : MonoBehaviour
 
         enemyFire1 = (ran >= 11 && ran <= 12) ? true : false;   
         enemyFire2 = (ran >= 13 && ran <= 14) ? true : false;
-        enemyGrap = (ran >= 15 && ran <= 17) ? true : false;
+        enemyGrap = (ran >= 17 && ran <= 17) ? true : false;
 
         enemyGuard = (ran >= 18) ? true : false;
         enemyGuardUp = (ran < 18) ? true : false;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
 
     IEnumerator RandomAct()
     {
         changeAct = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         changeAct = true;
     }
 }

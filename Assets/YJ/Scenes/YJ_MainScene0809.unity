@@ -4596,7 +4596,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8554293680533531158}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e73f9468ec4f2444af24bbcdae9298b, type: 3}
   m_Name: 
@@ -7742,7 +7742,6 @@ MonoBehaviour:
   playertarget: {fileID: 2102634343}
   grap: 0
   leftPath: []
-  play: 0
 --- !u!114 &8554293681995370390
 MonoBehaviour:
   m_ObjectHideFlags: 0
