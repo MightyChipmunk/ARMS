@@ -37,17 +37,6 @@ public class SY_LeftCharge: MonoBehaviour
     void Update()
     {
         Charging();
-
-        if (isCharging)
-        {
-            TrailRenderer trail = GetComponent<TrailRenderer>();
-            trail.emitting = true;
-        }
-        else
-        {
-            TrailRenderer trail = GetComponent<TrailRenderer>();
-            //trail.emitting = false;
-        }
     }
 
     void Charging()
@@ -67,7 +56,6 @@ public class SY_LeftCharge: MonoBehaviour
                 StopCoroutine("WaitForIt");
                 Debug.Log("LeftCharging: " + isCharging);
             }
-
         }
         
         // "F"키를 누르면 가드를 해제한다.

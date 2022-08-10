@@ -271,16 +271,17 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Dash()
     {
-        if (InputManager.Instance.Dash && canDash && IsCanMove())
+        if (InputManager.Instance.Dash && canDash && IsCanMove() && 
+            (InputManager.Instance.Front || InputManager.Instance.Left || InputManager.Instance.Back || InputManager.Instance.Right))
         {
-            // 대쉬키만 누르고 방향키 안누를때 처리 필요
             StartCoroutine("IncreaseSpeed");
         }
     }
 
     void Dash(bool isEnemy)
     {
-        if (canDash && InputManager.Instance.EnemyDash && IsCanMove(isEnemy))
+        if (InputManager.Instance.EnemyDash && canDash && IsCanMove(isEnemy) && 
+            (InputManager.Instance.EnemyFront || InputManager.Instance.EnemyLeft || InputManager.Instance.EnemyBack || InputManager.Instance.EnemyRight))
         {
             StartCoroutine("IncreaseSpeedEnemy");
         }

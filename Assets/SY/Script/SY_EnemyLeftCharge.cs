@@ -37,16 +37,6 @@ public class SY_EnemyLeftCharge : MonoBehaviour
     void Update()
     {
         Charging();
-        if (isCharging)
-        {
-            TrailRenderer trail = GetComponent<TrailRenderer>();
-            //trail.emitting = true;
-        }
-        else
-        {
-            TrailRenderer trail = GetComponent<TrailRenderer>();
-            //trail.emitting = false;
-        }
     }
 
     void Charging()

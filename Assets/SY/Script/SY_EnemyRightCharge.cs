@@ -36,17 +36,7 @@ public class SY_EnemyRightCharge : MonoBehaviour
     // "F"를 누르면 차지 실행
     void Update()
     {
-        Charging(); 
-        if (isCharging)
-        {
-            TrailRenderer trail = GetComponent<TrailRenderer>();
-            //trail.emitting = true;
-        }
-        else
-        {
-            TrailRenderer trail = GetComponent<TrailRenderer>();
-            //trail.emitting = false;
-        }
+        Charging();
     }
 
     void Charging()
