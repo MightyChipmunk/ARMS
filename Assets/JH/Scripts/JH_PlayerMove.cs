@@ -24,14 +24,14 @@ public class JH_PlayerMove : MonoBehaviour
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
 
-    #region ���� �ʿ� �Ӽ�
+    #region 공용 필요 속성
     GameObject target;
     CharacterController cc;
     Animator anim;
     TrailRenderer tr;
     #endregion
 
-    #region �÷��̾� �ʿ� �Ӽ�
+    #region 플레이어 필요 속성
     YJ_LeftFight lf;
     YJ_RightFight rf;
     YJ_Trigger_enemy trigger;
@@ -40,7 +40,7 @@ public class JH_PlayerMove : MonoBehaviour
     JH_CameraMove cm;
     #endregion
 
-    #region ���ʹ� �ʿ� �Ӽ�
+    #region 에너미 필요 속성
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
     YJ_Trigger etrigger;
@@ -89,7 +89,7 @@ public class JH_PlayerMove : MonoBehaviour
     float gravity = -9.81f;
     float yVelocity;
     float dashTime = 0.16f;
-    float dashCool = 1f;
+    float dashCool = 0.5f;
     bool canDash = true;
     bool isDash = false;
     bool hitted = false;
@@ -268,7 +268,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
-            // moveDir�� �ޱ��� �����ؼ� �ִϸ��̼� ����
+            // moveDir의 각도를 계산해서 상태 정함
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
@@ -285,7 +285,7 @@ public class JH_PlayerMove : MonoBehaviour
         }
         else if (!cc.isGrounded && !isDash)
         {
-            // ���߿� �ִٸ� ���� ���� ����
+            // 공중에 있을 때 낙하모션 재생
             State = PlayerState.Fall;
         }
 
@@ -333,7 +333,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
-            // moveDir�� �ޱ��� �����ؼ� �ִϸ��̼� ����
+            // moveDir의 각도를 계산해서 상태 정함
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
             float finalAngle = sign * angle;
@@ -349,7 +349,7 @@ public class JH_PlayerMove : MonoBehaviour
         }
         else if (!cc.isGrounded && !isDash)
         {
-            // ���߿� �ִٸ� ���� ���� ����
+            // 공중에 있을 때 낙하모션 재생
             State = PlayerState.Fall;
         }
 
@@ -369,7 +369,7 @@ public class JH_PlayerMove : MonoBehaviour
             //    //StartCoroutine("IncreaseSpeed");
             //    StartCoroutine("Fall");
             //    anim.SetTrigger("Fall");
-            //} // ���ʹ� ���� ���Ŀ� ����
+            //} // 추후에 에너미 낙법 구현
         }
         else if (hitted)
         {
@@ -392,10 +392,45 @@ public class JH_PlayerMove : MonoBehaviour
         }
     }
 
+    public bool IsFire()
+    {
+        if (rf.Fire == true || lf.Fire == true)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public bool IsGrapped()
+    {
+        if (trigger.enemyCome == true || trigger.enemyGo == true)
+            return true;
+        else
+            return false;
+    }
+
+    public bool IsFire(bool isEnemy)
+    {
+        if (erf.Fire == true || elf.Fire == true)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public bool IsGrapped(bool isEnemy)
+    {
+        if (etrigger.enemyCome == true || etrigger.enemyGo == true)
+            return true;
+        else
+            return false;
+    }
+
     public bool IsCanMove()
     {
-        if (rf.Fire == false && lf.Fire == false && lc.IsGuard == false && ph.IsKnock == false && hitted == false &&
-            trigger.enemyCome == false && trigger.enemyGo == false) // ����, �˹� ���Ҷ�, ���� ���Ҷ�
+        if (!IsFire() && lc.IsGuard == false && ph.IsKnock == false && hitted == false && !IsGrapped()) // 공격, 가드, 넉백 시 움직임 불가
             return true;
         else
             return false;
@@ -403,8 +438,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove(bool isEnemy)
     {
-        if (erf.Fire == false && elf.Fire == false && elc.IsGuard == false && eh.IsKnock == false && hitted == false &&
-            etrigger.enemyCome == false && etrigger.enemyGo == false) // ����, �˹� ���Ҷ�, ���� ���Ҷ�
+        if (!IsFire(isEnemy) && elc.IsGuard == false && eh.IsKnock == false && hitted == false && !IsGrapped(isEnemy)) // 공격, 가드, 넉백 시 움직임 불가
             return true;
         else
             return false;
@@ -425,7 +459,7 @@ public class JH_PlayerMove : MonoBehaviour
         canDash = false;
         isDash = true;
         speed *= 7;
-        cm.Angle *= 2;
+        cm.Angle *= 15;
         tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;
@@ -457,7 +491,7 @@ public class JH_PlayerMove : MonoBehaviour
         float tmpAngle = cm.Angle;
         canDash = false;
         speed *= 7;
-        cm.Angle *= 2;
+        cm.Angle *= 15;
         yield return new WaitForSeconds(0.15f);
         speed = tmpSpeed;
         cm.Angle = tmpAngle;
