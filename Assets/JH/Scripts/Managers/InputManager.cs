@@ -82,6 +82,7 @@ public class InputManager : MonoBehaviour
 
     bool canFire1 = true;
     bool canFire2 = true;
+    bool canGrap = true;
 
     //int moveRan = 0;
     //int atkRan = 0;
@@ -157,7 +158,15 @@ public class InputManager : MonoBehaviour
             else if (canFire2 == false)
                 enemyFire2 = false;
 
-            //enemyGrap = (ran >= 16 && ran <= 17) ? true : false;
+            if (ran >= 16 && ran <= 17 && canGrap)
+            {
+                enemyGrap = true;
+                canGrap = false;
+            }
+            else if (!(ran >= 16 && ran <= 17))
+                canGrap = true;
+            else if (canGrap == false)
+                enemyGrap = false;
         }
         else
         {
@@ -169,8 +178,8 @@ public class InputManager : MonoBehaviour
         if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
             && !enemy.GetComponent<JH_PlayerMove>().IsFire(true))
         {
-            enemyGuard = (ran >= 17) ? true : false;
-            enemyGuardUp = (ran < 17) ? true : false;
+            enemyGuard = (ran >= 18) ? true : false;
+            enemyGuardUp = (ran < 18) ? true : false;
         }
         else
         {
