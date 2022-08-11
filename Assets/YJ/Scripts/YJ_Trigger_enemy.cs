@@ -18,26 +18,26 @@ public class YJ_Trigger_enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // ¾Ö³Ê¹Ì, ÇÃ·¹ÀÌ¾î
+        // ï¿½Ö³Ê¹ï¿½, ï¿½Ã·ï¿½ï¿½Ì¾ï¿½
         enemy = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
-        // ¹«ºê¿Í ÀÌ¾îÁú °Í
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½
         jh_PlayerMove = player.GetComponent<JH_PlayerMove>();
-        // ÇÃ·¹ÀÌ¾î cc
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ cc
         cc = player.GetComponent<CharacterController>();
-        // °ÔÀÓ¿ÀºêÁ§Æ® ²ô°í½ÃÀÛÇÏ±â
+        // ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
         gameObject.SetActive(false);
-        // Àá±ñ ²ø mr
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ mr
         mr = GetComponent<MeshRenderer>();
     }
 
-    #region 1. ´ê¾ÒÀ»¶§ ¾Ö³Ê¹ÌÀÎ½Ä
+    #region 1. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö³Ê¹ï¿½ï¿½Î½ï¿½
     private void OnTriggerEnter(Collider other)
     {
-        // ´êÀº otherÀÇ ÀÌ¸§ÀÌ PlayerÀÏ°æ¿ì
+        // ï¿½ï¿½ï¿½ï¿½ otherï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ Playerï¿½Ï°ï¿½ï¿½ï¿½
         if (other.gameObject.name.Contains("Player"))
         {
-            // ÇÃ·¹ÀÌ¾î°¡ ¿À°ÔÇÏ´Â ±â´É ÄÑ±â
+            // ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½
             enemyCome = true;
         }
     }
@@ -45,66 +45,66 @@ public class YJ_Trigger_enemy : MonoBehaviour
 
     void Update()
     {
-        #region 2. ÇÃ·¹ÀÌ¾î ´ç°Ü¿À±â
+        #region 2. ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½
         if (enemyCome)
         {
-            // ÇÃ·¹ÀÌ¾î¸¦ ³»À§Ä¡·Î ²ø¾î¿À±â
+            // ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             player.transform.position = transform.position - new Vector3(0, 0.5f, 0);
 
-            // ¾Ö³Ê¹Ì¿Í ÇÃ·¹ÀÌ¾îÀÇ °Å¸®°¡ 4 ÀÌÇÏÀÏ¶§
+            // ï¿½Ö³Ê¹Ì¿ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ 4 ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½
             if (Vector3.Distance(player.transform.position, enemy.transform.position) < 2f)
             {
-                // ±×¸¸´ç°Ü¿À°í
+                // ï¿½×¸ï¿½ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½
                 enemyCome = false;
-                // ¹Ð¾î³»±âÁØºñ
+                // ï¿½Ð¾î³»ï¿½ï¿½ï¿½Øºï¿½
                 enemyGo = true;
             }
         }
         #endregion
-        #region ÇÃ·¹ÀÌ¾î ¸øÀâ¾ÒÀ»¶§ Àá½Ã ÈÄ ²¨Áö°ÔÇÏ±â
+        #region ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
         else if (!enemyCome && !enemyGo)
         {
             currentTime += Time.deltaTime;
             if (currentTime > 0.2f)
             {
-                // 1ÃÊ ÈÄ ½ºÇÇµå º¹±¸, °ÔÀÓ ¿ÀºêÁ§Æ® ²ô±â
+                // 1ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
                 currentTime = 0;
                 gameObject.SetActive(false);
             }
         }
         #endregion
-        #region 3. ÇÃ·¹ÀÌ¾î ´øÁö±â
+        #region 3. ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (enemyGo)
         {
-            // Ä«¸Þ¶ó ¹Ý´ë ¹æÇâº¸´Ù Á¶±Ý ³ôÀº ¹æÇâ¼³Á¤
-            Vector3 dir = -Camera.main.transform.forward + (Vector3.up * 1f);
+            // Ä«ï¿½Þ¶ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½âº¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½â¼³ï¿½ï¿½
+            Vector3 dir = transform.forward + (Vector3.up * 1f);
 
-            // CCÀÇ ¸öÅëÀÌ º®¿¡ ´êÀ¸¸é
+            // CCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (cc.collisionFlags == CollisionFlags.Sides)
             {
-                // y°ªÀ» ´õÇØÁà¼­ ¶³¾îÁö°ÔÇÏ±â
-                dir.y -= 0.5f;
+                // yï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½à¼­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
+                dir.y -= 2f;
             }
-            // ¹æÇâÀ¸·Î ¿òÁ÷ÀÌ°ÔÇÏ±â
-            cc.Move(dir * backspeed * Time.deltaTime);
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ï¿½Ï±ï¿½
+            cc.Move(dir * 30f * Time.deltaTime);
 
             currentTime += Time.deltaTime;
             if (currentTime > 0.2f)
             {
-                // y°ªÀÌ 0.7 ÀÌÇÏ·Î ¶³¾îÁö¸é (¹Ù´Ú¿¡ °ÅÀÇ ´êÀ¸¸é)
+                // yï¿½ï¿½ï¿½ï¿½ 0.7 ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½Ù´Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
                 if (enemy.transform.position.y < 1f)
                 {
-                    // ¸ØÃß°ÔÇÏ±â
+                    // ï¿½ï¿½ï¿½ß°ï¿½ï¿½Ï±ï¿½
                     backspeed = 0;
                     dir = Vector3.zero;
-                    // mr Àá±ñ ²¨ÁÖ±â
+                    // mr ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
                     mr.enabled = false;
 
-                    // 1ÃÊµ¿¾È ¸ø¿òÁ÷ÀÌ°ÔÇÏ±â
+                    // 1ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ï¿½Ï±ï¿½
                     currentTime += Time.deltaTime;
                     if (currentTime > 1f)
                     {
-                        // 1ÃÊ ÈÄ ½ºÇÇµå º¹±¸, °ÔÀÓ ¿ÀºêÁ§Æ® ²ô±â
+                        // 1ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Çµï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
                         enemyGo = false;
                         backspeed = 20f;
                         currentTime = 0;

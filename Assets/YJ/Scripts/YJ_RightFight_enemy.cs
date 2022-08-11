@@ -18,7 +18,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
     // 공격 속도
     float rightspeed = 10f;
     // 되돌아오는 속도
-    float backspeed = 15f;
+    float backspeed = 20f;
 
     // 타겟
     GameObject me;

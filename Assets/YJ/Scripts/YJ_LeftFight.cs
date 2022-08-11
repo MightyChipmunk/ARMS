@@ -17,7 +17,7 @@ public class YJ_LeftFight : MonoBehaviour
     // 공격 속도
     float leftspeed = 10f;
     // 되돌아오는 속도
-    float backspeed = 15f;
+    float backspeed = 20f;
 
     // 타겟
     GameObject target;
@@ -79,7 +79,7 @@ public class YJ_LeftFight : MonoBehaviour
         yj_trigger = trigger.GetComponent<YJ_Trigger>();
     }
 
-
+    bool graphands = false; //잡으러갈때
     void Update()
     {
         // 내 회전값은 카메라를 따라감
@@ -90,6 +90,7 @@ public class YJ_LeftFight : MonoBehaviour
         {
             // 그랩을 켜고
             grap = true;
+            graphands = true;
             // 타겟의 위치는 Trigger가 가운데 갈 수 있도록 x값 수정하여 지정
             targetPos = enemyCamera.transform.position + new Vector3(-1.23f, 0f, 0f);
             // Trigger 활성화
@@ -136,16 +137,19 @@ public class YJ_LeftFight : MonoBehaviour
         #endregion
     }
     #region 왼손공격
+    // 이동값 저장
+    float leftDistance = 0;
     void LeftFight()
     {        
         if (!click)
         {
             // 만약에 캐릭터로부터 n만큼 앞으로 갔다면 정지
-            if (Vector3.Distance(transform.position, player.transform.position) > 10f)
+            if (leftDistance > 9.2f)
             {
                 //leftrg.velocity = Vector3.zero;
                 leftspeed = 0f;
                 click = true;
+                leftDistance = 0;
             }
             else
             {
@@ -185,6 +189,7 @@ public class YJ_LeftFight : MonoBehaviour
                     //}
                 }
                 transform.position += dir * leftspeed * Time.deltaTime;
+                leftDistance += leftspeed * Time.deltaTime;
             }
 
 
@@ -261,31 +266,70 @@ public class YJ_LeftFight : MonoBehaviour
     #region 잡기실행
     float timer;
     bool turn = false;
+
+    // 베이지곡선을 실행할 로컬포지션
+    Vector3 p1origin;
+    Vector3 p1_left;
+    Vector3 p1_right;
+    Vector3 p2_left;
+    Vector3 p2_right;
+    public Transform p3_left;
+    public Transform p3_right;
+    float currentTime = 0;
+    float positionNom = 0;
     void Grap()
     {
-        // 방향은 타겟방향으로
-        Vector3 dir = targetPos - transform.position;
-        // 왼손과 오른손을 움직인다
-        transform.position += dir * leftspeed * Time.deltaTime;
-        right.transform.position += dir * leftspeed * Time.deltaTime;
-        // 양손이 플레이어에서 10만큼 떨어지거나 가운데 고리에 애너미가 닿으면 0.3초동안 멈추기
-        if (Vector3.Distance(transform.position, player.transform.position) > 10f && Vector3.Distance(right.transform.position, player.transform.position) > 10f || yj_trigger.enemyCome)
+        if (graphands)
         {
-            timer += Time.deltaTime;
-            leftspeed = 0f;
-            if (timer > 0.3f)
+            positionNom += leftspeed * Time.deltaTime;
+            // 방향은 타겟방향으로
+            Vector3 dir = targetPos - transform.position;
+            // 왼손과 오른손을 움직인다
+            transform.position += dir * leftspeed * Time.deltaTime;
+            right.transform.position += dir * leftspeed * Time.deltaTime;
+
+            // 양손이 플레이어에서 10만큼 떨어지거나 가운데 고리에 애너미가 닿으면 0.3초동안 멈추기
+            //if (Vector3.Distance(transform.position, player.transform.position) > 10f && Vector3.Distance(right.transform.position, player.transform.position) > 10f || yj_trigger.enemyCome)
+            if (positionNom > 0.45f && positionNom > 0.45f || yj_trigger.enemyCome)
             {
-                turn = true;
+                timer += Time.deltaTime;
+                leftspeed = 0f;
+                p1_left = transform.position;
+                p2_left = transform.position + new Vector3(0, 6f, 0);
+                p1_right = right.transform.position;
+                p2_right = right.transform.position + new Vector3(0, 6f, 0);
+                if (timer > 0.3f)
+                {
+                    turn = true;
+                    graphands = false;
+                }
             }
         }
         // 다시 되돌아오기
         if (turn)
         {
+            print(graphands);
+            List<Vector3> list = new List<Vector3>();
+            list.Clear();
+            for (int i = 0; i < 100; i++)
+            {
+                Vector3 p = Go_left(0.01f * i);
+                list.Add(p);
+            }
+            for (int i = 0; i < 99; i++)
+            {
+                Debug.DrawLine(list[i], list[i + 1], Color.red);
+            }
+
+            currentTime += Time.deltaTime;
+
             if (Vector3.Distance(transform.position, player.transform.position) > 2f && Vector3.Distance(right.transform.position, player.transform.position) > 2f)
             {
+                transform.position = Go_left(currentTime * 1.5f);
+                right.transform.position = Go_right(currentTime * 1.5f);
                 // 양손 불러오기 ( 바로앞까지말고 조금 더 앞쪽으로 부르기 )
-                transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
-                right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
+                //transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
+                //right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
             }
             // 좀 더 가까워졌을때 아예 로컬로 가져오기
             if (Vector3.Distance(transform.position, player.transform.position) < 2.1f && Vector3.Distance(right.transform.position, player.transform.position) < 2.1f
@@ -298,12 +342,33 @@ public class YJ_LeftFight : MonoBehaviour
             // 완전히 가까워지면 끄기
             if (Vector3.Distance(transform.position, player.transform.position) < 1.7f && Vector3.Distance(right.transform.position, player.transform.position) < 1.7f)
             {
+                currentTime = 0;
+                leftspeed = 10;
+                positionNom = 0;
                 turn = false;
                 grap = false;
-                leftspeed = 10f;
             }
         }
     }
     #endregion
+    Vector3 Go_left(float ratio)
+    {
+        Vector3 pp1 = Vector3.Lerp(p1_left, p2_left, ratio);
+        Vector3 pp2 = Vector3.Lerp(p2_left, p3_left.position, ratio);
+        Vector3 ppp1 = Vector3.Lerp(pp1, pp2, ratio);
+
+        return ppp1;
+    }
+
+    Vector3 Go_right(float ratio)
+    {
+        Vector3 pp1 = Vector3.Lerp(p1_right, p2_right, ratio);
+        Vector3 pp2 = Vector3.Lerp(p2_right, p3_right.position, ratio);
+        Vector3 ppp2 = Vector3.Lerp(pp1, pp2, ratio);
+
+        return ppp2;
+    }
+    // 오른손 왼손이 위아래로 왔다갔다하며 때리고싶다.
+
 }
 
