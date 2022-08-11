@@ -158,15 +158,15 @@ public class InputManager : MonoBehaviour
             else if (canFire2 == false)
                 enemyFire2 = false;
 
-            if (ran >= 16 && ran <= 17 && canGrap)
-            {
-                enemyGrap = true;
-                canGrap = false;
-            }
-            else if (!(ran >= 16 && ran <= 17))
-                canGrap = true;
-            else if (canGrap == false)
-                enemyGrap = false;
+            //if (ran >= 16 && ran <= 17 && canGrap)
+            //{
+            //    enemyGrap = true;
+            //    canGrap = false;
+            //}
+            //else if (!(ran >= 16 && ran <= 17))
+            //    canGrap = true;
+            //else if (canGrap == false)
+            //    enemyGrap = false;
         }
         else
         {

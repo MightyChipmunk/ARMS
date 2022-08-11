@@ -131,6 +131,7 @@ public class JH_PlayerMove : MonoBehaviour
             if (value != knocked)
             {
                 effect.HittedEffect(value);
+                StartCoroutine("KnockedEvent");
             }
             knocked = value;
         }
@@ -580,9 +581,17 @@ public class JH_PlayerMove : MonoBehaviour
         hittedp = true;
         yield return new WaitForSeconds(0.1f);
         anim.speed = 0;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
         anim.speed = 1;
         yield return new WaitForSeconds(0.3f);
         hittedp = false;
+    }
+
+    IEnumerator KnockedEvent()
+    {
+        anim.speed = 0;
+        yield return new WaitForSeconds(0.3f);
+        anim.speed = 1;
+        yield return new WaitForSeconds(0.3f);
     }
 }
