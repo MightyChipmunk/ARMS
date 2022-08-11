@@ -80,6 +80,9 @@ public class InputManager : MonoBehaviour
     int ran = 0;
     int actRan = 0;
 
+    bool canFire1 = true;
+    bool canFire2 = true;
+
     //int moveRan = 0;
     //int atkRan = 0;
     //int defRan = 0;
@@ -132,9 +135,28 @@ public class InputManager : MonoBehaviour
 
         if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
             && !enemy.transform.Find("Left").GetComponent<SY_EnemyLeftCharge>().IsGuard)
-        {
-            enemyFire1 = (ran >= 12 && ran <= 13) ? true : false;   
-            enemyFire2 = (ran >= 14 && ran <= 15) ? true : false;
+        { 
+            // GetKeyDown 구현
+            if (ran >= 12 && ran <= 13 && canFire1)
+            {
+                enemyFire1 = true;
+                canFire1 = false;
+            }
+            else if (!(ran >= 12 && ran <= 13))
+                canFire1 = true;
+            else if (canFire1 == false)
+                enemyFire1 = false;
+            // GetKeyDown 구현
+            if (ran >= 14 && ran <= 15 && canFire2)
+            {
+                enemyFire2 = true;
+                canFire2 = false;
+            }
+            else if (!(ran >= 14 && ran <= 15))
+                canFire2 = true;
+            else if (canFire2 == false)
+                enemyFire2 = false;
+
             //enemyGrap = (ran >= 16 && ran <= 17) ? true : false;
         }
         else
@@ -154,11 +176,6 @@ public class InputManager : MonoBehaviour
         {
             enemyGuard = false ;
             enemyGuardUp = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Main");
         }
     }
 

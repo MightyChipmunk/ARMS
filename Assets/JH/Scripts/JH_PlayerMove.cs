@@ -280,7 +280,8 @@ public class JH_PlayerMove : MonoBehaviour
     void Dash()
     {
         if (InputManager.Instance.Dash && canDash && IsCanMove() && 
-            (InputManager.Instance.Front || InputManager.Instance.Left || InputManager.Instance.Back || InputManager.Instance.Right))
+            ((InputManager.Instance.Front && Vector3.Magnitude(target.transform.position - transform.position) >= 5f) 
+            || InputManager.Instance.Left || InputManager.Instance.Back || InputManager.Instance.Right))
         {
             StartCoroutine("IncreaseSpeed");
         }
@@ -289,7 +290,8 @@ public class JH_PlayerMove : MonoBehaviour
     void Dash(bool isEnemy)
     {
         if (InputManager.Instance.EnemyDash && canDash && IsCanMove(isEnemy) && 
-            (InputManager.Instance.EnemyFront || InputManager.Instance.EnemyLeft || InputManager.Instance.EnemyBack || InputManager.Instance.EnemyRight))
+            ((InputManager.Instance.EnemyFront && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
+            || InputManager.Instance.EnemyLeft || InputManager.Instance.EnemyBack || InputManager.Instance.EnemyRight))
         {
             StartCoroutine("IncreaseSpeedEnemy");
         }
