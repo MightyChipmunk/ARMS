@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class InputManager : MonoBehaviour
 {
+    GameObject player;
+    GameObject enemy;
     public static InputManager Instance { get; private set; }
 
+    #region 플레이어 입력
     bool front;
     public bool Front { get { return front; } }
 
@@ -32,6 +35,16 @@ public class InputManager : MonoBehaviour
     bool guardUp;
     public bool GuardUp { get { return guardUp; } }
 
+    bool fire1;
+    public bool Fire1 { get { return fire1; } }
+
+    bool fire2;
+    public bool Fire2 { get { return fire2; } }
+
+    bool grap;
+    public bool Grap { get { return grap; } }
+    #endregion
+    #region 에너미 입력
     bool enemyFront;
     public bool EnemyFront { get { return enemyFront; } }
 
@@ -62,11 +75,11 @@ public class InputManager : MonoBehaviour
 
     bool enemyGuardUp;
     public bool EnemyGuardUp { get { return enemyGuardUp; } }
+    #endregion
 
     bool changeAct = true;
-
     int ran = 0;
-    int dashRan = 0;
+    int actRan = 0;
 
     //int moveRan = 0;
     //int atkRan = 0;
@@ -75,6 +88,8 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        player = GameObject.Find("Player").gameObject;
+        enemy = GameObject.Find("Enemy").gameObject;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -86,29 +101,59 @@ public class InputManager : MonoBehaviour
         left = Input.GetKey(KeyCode.A);
         dash = Input.GetKeyDown(KeyCode.LeftShift);
         jump = Input.GetKeyDown(KeyCode.Space);
-        guard = Input.GetKey(KeyCode.F);
-        guardUp = Input.GetKeyUp(KeyCode.F);
+
+        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp)
+        {
+            fire1 = Input.GetMouseButtonDown(0);
+            fire2 = Input.GetMouseButtonDown(1);
+            grap = Input.GetMouseButtonDown(2);
+        }
+
+        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
+            && !player.GetComponent<JH_PlayerMove>().IsFire())
+        {
+            guard = Input.GetKey(KeyCode.F);
+            guardUp = Input.GetKeyUp(KeyCode.F);
+        }
 
         if (changeAct)
         {
             ran = UnityEngine.Random.Range(1, 20);
-            dashRan = UnityEngine.Random.Range(1, 10);
+            actRan = UnityEngine.Random.Range(1, 10);
             StartCoroutine("RandomAct");
         }
 
         enemyFront = ran <= 2 ? true : false;
-        enemyBack = (ran >= 3 && ran <= 4) ? true : false;
-        enemyRight = (ran >= 4 && ran <= 6) ? true : false;
-        enemyLeft = (ran >= 6 && ran <= 8) ? true : false;
-        enemyDash = dashRan <= 3 ? true : false;
-        enemyJump = (ran >= 9 && ran <= 10) ? true : false;
+        enemyBack = (ran >= 3 && ran <= 5) ? true : false;
+        enemyRight = (ran >= 6 && ran <= 8) ? true : false;
+        enemyLeft = (ran >= 9 && ran <= 11) ? true : false;
+        enemyDash = actRan <= 3 ? true : false;
+        enemyJump = actRan >= 8 ? true : false;
 
-        enemyFire1 = (ran >= 11 && ran <= 12) ? true : false;   
-        enemyFire2 = (ran >= 13 && ran <= 14) ? true : false;
-        //enemyGrap = (ran >= 16 && ran <= 17) ? true : false;
+        if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp)
+        {
+            enemyFire1 = (ran >= 12 && ran <= 13) ? true : false;   
+            enemyFire2 = (ran >= 14 && ran <= 15) ? true : false;
+            //enemyGrap = (ran >= 16 && ran <= 17) ? true : false;
+        }
+        else
+        {
+            enemyFire1 = false;
+            enemyFire2 = false;
+            //enemyGrap = false;
+        }
 
-        enemyGuard = (ran >= 18) ? true : false;
-        enemyGuardUp = (ran < 18) ? true : false;
+        if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
+            && !enemy.GetComponent<JH_PlayerMove>().IsFire(true))
+        {
+            enemyGuard = (ran >= 17) ? true : false;
+            enemyGuardUp = (ran < 17) ? true : false;
+        }
+        else
+        {
+            enemyGuard = false ;
+            enemyGuardUp = false;
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -119,7 +164,7 @@ public class InputManager : MonoBehaviour
     IEnumerator RandomAct()
     {
         changeAct = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.7f);
         changeAct = true;
     }
 }

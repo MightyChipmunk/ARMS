@@ -53,7 +53,7 @@ public class SY_PlayerHp : MonoBehaviour
         // "EnemyArms"에 닿고 charging 된 에너미 팔에 맞으면
         if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_EnemyRightCharge>(out erc))  // =>
         {
-            if (Input.GetKey(KeyCode.F) || IsKnock)
+            if (InputManager.Instance.Guard || IsKnock)
             {
 
             }
@@ -76,7 +76,7 @@ public class SY_PlayerHp : MonoBehaviour
         else if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_EnemyLeftCharge>(out elc))
         {
 
-            if (Input.GetKey(KeyCode.F) || IsKnock)
+            if (InputManager.Instance.Guard || IsKnock)
             {
 
             }

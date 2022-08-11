@@ -90,7 +90,7 @@ public class YJ_RightFight : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (Input.GetMouseButtonDown(1) && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf)
+        if (InputManager.Instance.Fire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf)
         {
             fire = true;
             mouseOrigin = Input.mousePosition;

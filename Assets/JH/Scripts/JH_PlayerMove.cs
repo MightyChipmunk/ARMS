@@ -339,6 +339,15 @@ public class JH_PlayerMove : MonoBehaviour
         {
             if (State != PlayerState.Attack)
                 State = PlayerState.Attack;
+
+            if (lf.Fire)
+                anim.SetFloat("PunchLeft", Mathf.Lerp(anim.GetFloat("PunchLeft"), 1, Time.deltaTime * 5));
+            else
+                anim.SetFloat("PunchLeft", Mathf.Lerp(anim.GetFloat("PunchLeft"), 0, Time.deltaTime * 5));
+            if (rf.Fire)
+                anim.SetFloat("PunchRight", Mathf.Lerp(anim.GetFloat("PunchRight"), 1, Time.deltaTime * 5));
+            else
+                anim.SetFloat("PunchRight", Mathf.Lerp(anim.GetFloat("PunchRight"), 0, Time.deltaTime * 5));
         }
         else if (lf.Grapp)
         {
@@ -381,18 +390,19 @@ public class JH_PlayerMove : MonoBehaviour
             if (State != PlayerState.KnockBack)
                 State = PlayerState.KnockBack;
 
-            //if (eh.CanUp && ran == 8)
-            //{
-            //    if (ph.coroutine != null)
-            //    {
-            //        ph.StopCoroutine(ph.coroutine);
-            //    }
-            //    ph.IsKnock = false;
-            //    ph.CanUp = false;
-            //    //StartCoroutine("IncreaseSpeed");
-            //    StartCoroutine("Fall");
-            //    anim.SetTrigger("Fall");
-            //} // 추후에 에너미 낙법 구현
+            if (eh.CanUp && (InputManager.Instance.EnemyFront || InputManager.Instance.EnemyLeft
+                || InputManager.Instance.EnemyRight || InputManager.Instance.EnemyBack))
+            {
+                if (eh.coroutine != null)
+                {
+                    eh.StopCoroutine(eh.coroutine);
+                }
+                eh.IsKnock = false;
+                eh.CanUp = false;
+                //StartCoroutine("IncreaseSpeed");
+                StartCoroutine("FallEnemy");
+                anim.SetTrigger("Fall");
+            } 
         }
         else if (hitted)
         {
@@ -402,6 +412,15 @@ public class JH_PlayerMove : MonoBehaviour
         {
             if (State != PlayerState.Attack)
                 State = PlayerState.Attack;
+
+            if (elf.Fire)
+                anim.SetFloat("PunchLeft", Mathf.Lerp(anim.GetFloat("PunchLeft"), 1, Time.deltaTime * 5));
+            else
+                anim.SetFloat("PunchLeft", Mathf.Lerp(anim.GetFloat("PunchLeft"), 0, Time.deltaTime * 5));
+            if (erf.Fire)
+                anim.SetFloat("PunchRight", Mathf.Lerp(anim.GetFloat("PunchRight"), 1, Time.deltaTime * 5));
+            else
+                anim.SetFloat("PunchRight", Mathf.Lerp(anim.GetFloat("PunchRight"), 0, Time.deltaTime * 5));
         }
         else if (elf.Grapp)
         {
@@ -516,6 +535,17 @@ public class JH_PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.15f);
         speed = tmpSpeed;
         cm.Angle = tmpAngle;
+        yield return new WaitForSeconds(0.35f);
+        canDash = true;
+    }
+
+    IEnumerator FallEnemy()
+    {
+        float tmpSpeed = speed;
+        canDash = false;
+        speed *= 7;
+        yield return new WaitForSeconds(0.15f);
+        speed = tmpSpeed;
         yield return new WaitForSeconds(0.35f);
         canDash = true;
     }

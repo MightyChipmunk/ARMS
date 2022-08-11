@@ -86,7 +86,7 @@ public class YJ_LeftFight : MonoBehaviour
         transform.localRotation = Camera.main.transform.localRotation;
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (Input.GetMouseButtonDown(2))
+        if (InputManager.Instance.Grap)
         {
             // 그랩을 켜고
             grap = true;
@@ -122,7 +122,7 @@ public class YJ_LeftFight : MonoBehaviour
         #endregion
         #region 왼손공격 (왼쪽마우스클릭)
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (Input.GetMouseButtonDown(0) && !click && !overlap && !grap && !trigger.gameObject.activeSelf)
+        if (InputManager.Instance.Fire1 && !click && !overlap && !grap && !trigger.gameObject.activeSelf)
         {
             fire = true;
             mouseOrigin = Input.mousePosition;

@@ -42,7 +42,7 @@ public class SY_LeftCharge: MonoBehaviour
     void Charging()
     {
         // "F"키를 누르면 가드를 한다.
-        if (Input.GetKey(KeyCode.F))
+        if (InputManager.Instance.Guard)
         {
             currentTime += Time.deltaTime;
             isGuard = true;
@@ -61,7 +61,7 @@ public class SY_LeftCharge: MonoBehaviour
         // "F"키를 누르면 가드를 해제한다.
         else
         {
-            if (Input.GetKeyUp(KeyCode.F))
+            if (InputManager.Instance.GuardUp)
             {
                 StartCoroutine("WaitForIt");
                 isGuard = false;

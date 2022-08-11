@@ -13,6 +13,7 @@ public class JH_CameraMove : MonoBehaviour
     float yLerp = 2;
     float zLerp = -1.5f;
     float hitShake = 0;
+    float hitShakeE = 0;
 
     JH_PlayerMove pm;
     GameObject target;
@@ -39,11 +40,19 @@ public class JH_CameraMove : MonoBehaviour
         CamRot();
 
         if (pm.hittedp)
-            CamHit();
+            CamHitted();
         else
         {
             totalTime = 0;
             hitShake = 0;
+        }
+
+        if (enemy.GetComponent<JH_PlayerMove>().hittedp)
+            CamHit();
+        else
+        {
+            totalTimeE = 0;
+            hitShakeE = 0;
         }
     }
 
@@ -62,15 +71,15 @@ public class JH_CameraMove : MonoBehaviour
         if (enemyDir.y > 0.1 && (InputManager.Instance.Front || InputManager.Instance.Left || InputManager.Instance.Back ||
             InputManager.Instance.Right || InputManager.Instance.Jump || InputManager.Instance.Guard))
         {
-            yLerp = Mathf.Lerp(yLerp, 2f - 5 / enemyDir.magnitude , Time.deltaTime * speed);
+            yLerp = Mathf.Lerp(yLerp, 2.3f - 5 / enemyDir.magnitude , Time.deltaTime * speed);
         }
         else if (enemyDir.y < -0.1 && (InputManager.Instance.Front || InputManager.Instance.Left || InputManager.Instance.Back ||
             InputManager.Instance.Right || InputManager.Instance.Jump || InputManager.Instance.Guard))
         {
-            yLerp = Mathf.Lerp(yLerp, 2f + 5 / enemyDir.magnitude, Time.deltaTime * speed);
+            yLerp = Mathf.Lerp(yLerp, 2.3f + 5 / enemyDir.magnitude, Time.deltaTime * speed);
         }
         else
-            yLerp = Mathf.Lerp(yLerp, 2f, Time.deltaTime * speed);
+            yLerp = Mathf.Lerp(yLerp, 2.3f, Time.deltaTime * speed);
 
         if (pm.State == JH_PlayerMove.PlayerState.Fall || pm.State == JH_PlayerMove.PlayerState.Grap || pm.IsFire())
         {
@@ -85,7 +94,7 @@ public class JH_CameraMove : MonoBehaviour
     // 캠이 벽 뒤로 갈 때 벽 앞으로 위치시키기
     void CamBetweenWall()
     {
-        delta = new Vector3(xLerp + hitShake, yLerp + hitShake, zLerp);
+        delta = new Vector3(xLerp + hitShake + hitShakeE, yLerp + hitShake + hitShakeE, zLerp);
         RaycastHit hit;
         Vector3 dir = transform.position - transform.parent.position;
 
@@ -120,11 +129,11 @@ public class JH_CameraMove : MonoBehaviour
     float currentTime = 0;
     float shakeTime = 0.06f;
     float totalTime = 0;
-    public void CamHit()
+    public void CamHitted()
     {
         currentTime += Time.deltaTime;
         totalTime += Time.deltaTime;
-
+        Debug.Log(totalTime);
         if (currentTime > shakeTime * 2 && totalTime < 0.2f)
         {
             hitShake = -0.014f;
@@ -133,6 +142,33 @@ public class JH_CameraMove : MonoBehaviour
         else if (currentTime > shakeTime && totalTime < 0.2f)
         {
             hitShake = 0.014f;
+        }
+        else if (totalTime > 0.2f)
+        {
+            hitShake = 0;
+        }
+    }
+
+    float currentTimeE = 0;
+    float shakeTimeE = 0.06f;
+    float totalTimeE = 0;
+    public void CamHit()
+    {
+        currentTimeE += Time.deltaTime;
+        totalTimeE += Time.deltaTime;
+
+        if (currentTimeE > shakeTimeE * 2 && totalTimeE < 0.2f)
+        {
+            hitShakeE = -0.014f;
+            currentTimeE = 0;
+        }
+        else if (currentTimeE > shakeTimeE && totalTimeE < 0.2f)
+        {
+            hitShakeE = 0.014f;
+        }
+        else if (totalTimeE > 0.2f)
+        {
+            hitShakeE = 0;
         }
     }
 }
