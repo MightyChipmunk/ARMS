@@ -39,7 +39,7 @@ public class JH_CameraMove : MonoBehaviour
         CamBetweenWall();
         CamRot();
 
-        if (pm.hittedp)
+        if (pm.hittedp || pm.Knocked)
             CamHitted();
         else
         {
@@ -47,7 +47,7 @@ public class JH_CameraMove : MonoBehaviour
             hitShake = 0;
         }
 
-        if (enemy.GetComponent<JH_PlayerMove>().hittedp)
+        if (enemy.GetComponent<JH_PlayerMove>().hittedp || enemy.GetComponent<JH_PlayerMove>().Knocked)
             CamHit();
         else
         {

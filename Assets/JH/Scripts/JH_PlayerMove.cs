@@ -122,6 +122,20 @@ public class JH_PlayerMove : MonoBehaviour
         }
     }
 
+    bool knocked = false;
+    public bool Knocked
+    {
+        get { return knocked; }
+        set
+        {
+            if (value != knocked)
+            {
+                effect.HittedEffect(value);
+            }
+            knocked = value;
+        }
+    }
+
     [SerializeField]
     float speed = 2.0f;
     [SerializeField]
@@ -177,6 +191,7 @@ public class JH_PlayerMove : MonoBehaviour
             Move();
             Dash();
             SetPlayerState();
+            Knocked = ph.IsKnock;
         }
         else
         {
@@ -184,9 +199,9 @@ public class JH_PlayerMove : MonoBehaviour
             Move(isEnemy);
             Dash(isEnemy);
             SetEnemyState();
+            Knocked = eh.IsKnock;
         }
         LookEnemy();
-
     }
 
     void LookEnemy()
