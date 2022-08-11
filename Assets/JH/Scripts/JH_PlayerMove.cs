@@ -112,6 +112,14 @@ public class JH_PlayerMove : MonoBehaviour
     public bool hittedp
     {
         get { return hitted; }
+        set
+        {
+            if (value != hitted)
+            {
+                effect.HittedEffect(value);
+            }
+            hitted = value;
+        }
     }
 
     [SerializeField]
@@ -552,12 +560,12 @@ public class JH_PlayerMove : MonoBehaviour
 
     IEnumerator HittedEvent()
     {
-        hitted = true;
+        hittedp = true;
         yield return new WaitForSeconds(0.1f);
         anim.speed = 0;
         yield return new WaitForSeconds(0.1f);
         anim.speed = 1;
         yield return new WaitForSeconds(0.3f);
-        hitted = false;
+        hittedp = false;
     }
 }

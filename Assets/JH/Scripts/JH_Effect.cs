@@ -10,6 +10,7 @@ public class JH_Effect : MonoBehaviour
 
     GameObject dash;
     GameObject guard;
+    GameObject hit;
 
     bool trail = false;
     bool isEnemy = false;
@@ -22,6 +23,7 @@ public class JH_Effect : MonoBehaviour
         isEnemy = transform.Find("Left").TryGetComponent<SY_EnemyLeftCharge>(out elc);
         dash = transform.Find("DashEffect").gameObject;
         guard = transform.Find("GuardEffect").gameObject;
+        hit = transform.Find("HitEffect").gameObject;
     }
 
     // Update is called once per frame
@@ -30,6 +32,14 @@ public class JH_Effect : MonoBehaviour
         DashTrail();
         ChargeEffect();
         GuardEffect();
+    }
+
+    public void HittedEffect(bool play)
+    {
+        if (play)
+            hit.GetComponent<ParticleSystem>().Play();
+        else
+            hit.GetComponent<ParticleSystem>().Stop();
     }
 
     public void DashEffect(bool play)

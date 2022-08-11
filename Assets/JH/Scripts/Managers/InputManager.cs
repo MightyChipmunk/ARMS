@@ -102,7 +102,8 @@ public class InputManager : MonoBehaviour
         dash = Input.GetKeyDown(KeyCode.LeftShift);
         jump = Input.GetKeyDown(KeyCode.Space);
 
-        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp)
+        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
+            && !player.transform.Find("Left").GetComponent<SY_LeftCharge>().IsGuard)
         {
             fire1 = Input.GetMouseButtonDown(0);
             fire2 = Input.GetMouseButtonDown(1);
@@ -128,9 +129,10 @@ public class InputManager : MonoBehaviour
         enemyRight = (ran >= 6 && ran <= 8) ? true : false;
         enemyLeft = (ran >= 9 && ran <= 11) ? true : false;
         enemyDash = actRan <= 3 ? true : false;
-        enemyJump = actRan >= 8 ? true : false;
+        enemyJump = actRan >= 9 ? true : false;
 
-        if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp)
+        if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
+            && !enemy.transform.Find("Left").GetComponent<SY_EnemyLeftCharge>().IsGuard)
         {
             enemyFire1 = (ran >= 12 && ran <= 13) ? true : false;   
             enemyFire2 = (ran >= 14 && ran <= 15) ? true : false;
