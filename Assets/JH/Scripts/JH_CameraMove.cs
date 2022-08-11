@@ -81,7 +81,11 @@ public class JH_CameraMove : MonoBehaviour
         else
             yLerp = Mathf.Lerp(yLerp, 2.3f, Time.deltaTime * speed);
 
-        if (pm.State == JH_PlayerMove.PlayerState.Fall || pm.State == JH_PlayerMove.PlayerState.Grap || pm.IsFire())
+        if (pm.State == JH_PlayerMove.PlayerState.Grap || pm.State == JH_PlayerMove.PlayerState.Attack)
+        {
+            zLerp = Mathf.Lerp(zLerp, -1.2f, Time.deltaTime * speed);
+        }
+        else if (pm.State == JH_PlayerMove.PlayerState.Fall)
         {
             zLerp = Mathf.Lerp(zLerp, -3f, Time.deltaTime * speed);
         }

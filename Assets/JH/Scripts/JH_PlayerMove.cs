@@ -507,7 +507,7 @@ public class JH_PlayerMove : MonoBehaviour
         canDash = false;
         IsDash = true;
         speed *= 7;
-        cm.Angle *= 15;
+        cm.Angle *= 10;
         //tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
         speed = tmpSpeed;
@@ -539,7 +539,7 @@ public class JH_PlayerMove : MonoBehaviour
         float tmpAngle = cm.Angle;
         canDash = false;
         speed *= 7;
-        cm.Angle *= 15;
+        cm.Angle *= 10;
         yield return new WaitForSeconds(0.15f);
         speed = tmpSpeed;
         cm.Angle = tmpAngle;

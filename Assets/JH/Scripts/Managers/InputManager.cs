@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -119,8 +118,8 @@ public class InputManager : MonoBehaviour
 
         if (changeAct)
         {
-            ran = UnityEngine.Random.Range(1, 20);
-            actRan = UnityEngine.Random.Range(1, 10);
+            ran = Random.Range(1, 20);
+            actRan = Random.Range(1, 10);
             StartCoroutine("RandomAct");
         }
 
