@@ -16,7 +16,7 @@ public class YJ_RightFight : MonoBehaviour
     YJ_LeftFight leftFight;
 
     // 공격 속도
-    float rightspeed = 10f;
+    float rightspeed = 15f;
     // 되돌아오는 속도
     float backspeed = 20f;
 
@@ -50,7 +50,10 @@ public class YJ_RightFight : MonoBehaviour
     [SerializeField] private List<Vector3> rightPath; // 위치가 들어갈 리스트
     Vector3 rightOriginLocalPos;
 
+    // 필살기 사용가능
+    public YJ_KillerGage yj_KillerGage;
 
+    public YJ_Trigger_enemy yj_trigger_enemy;
 
     void Start()
     {
@@ -75,6 +78,17 @@ public class YJ_RightFight : MonoBehaviour
     
     void Update()
     {
+
+        if( yj_KillerGage.killerModeOn )
+        {
+            rightspeed = 60f;
+            backspeed = 80f;
+        }
+        else
+        {
+            rightspeed = 15f;
+            backspeed = 20f;
+        }
         transform.localRotation = Camera.main.transform.localRotation;
 
         if (overlap)
@@ -90,7 +104,7 @@ public class YJ_RightFight : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (InputManager.Instance.Fire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf)
+        if (InputManager.Instance.Fire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
             fire = true;
             mouseOrigin = Input.mousePosition;
@@ -153,7 +167,7 @@ public class YJ_RightFight : MonoBehaviour
             {
                 fire = false;
                 click = false;
-                rightspeed = 10f;
+                rightspeed = 15f;
                 //isRightROnce = false;
                 //isRightLOnce = false;
                 transform.localPosition = rightOriginLocalPos;
@@ -209,7 +223,7 @@ public class YJ_RightFight : MonoBehaviour
         //rightrg.velocity = Vector3.zero;
         fire = false;
         click = false;
-        rightspeed = 10f;
+        rightspeed = 15f;
         //isRightROnce = false;
         //isRightLOnce = false;
         transform.localPosition = Vector3.Lerp(transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);

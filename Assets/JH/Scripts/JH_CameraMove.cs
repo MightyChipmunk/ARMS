@@ -137,7 +137,6 @@ public class JH_CameraMove : MonoBehaviour
     {
         currentTime += Time.deltaTime;
         totalTime += Time.deltaTime;
-        Debug.Log(totalTime);
         if (currentTime > shakeTime * 2 && totalTime < 0.2f)
         {
             hitShake = -0.014f;

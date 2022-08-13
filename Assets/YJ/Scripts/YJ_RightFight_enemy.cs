@@ -16,9 +16,9 @@ public class YJ_RightFight_enemy : MonoBehaviour
     YJ_LeftFight_enemy leftFight;
 
     // 공격 속도
-    float rightspeed = 10f;
+    float rightspeed = 15f;
     // 되돌아오는 속도
-    float backspeed = 20f;
+    float backspeed = 30f;
 
     // 타겟
     GameObject me;
@@ -47,6 +47,11 @@ public class YJ_RightFight_enemy : MonoBehaviour
     [SerializeField] private List<Vector3> rightPath; // 위치가 들어갈 리스트
     Vector3 rightOriginLocalPos;
 
+    public YJ_Trigger yj_trigger;
+
+    // 필살기 사용 가능
+    public YJ_KillerGage_enemy yj_KillerGage_enemy;
+
     void Start()
     {
         // 타겟의 위치 찾기
@@ -68,6 +73,16 @@ public class YJ_RightFight_enemy : MonoBehaviour
     
     void Update()
     {
+        if (yj_KillerGage_enemy.killerModeOn_enemy)
+        {
+            rightspeed = 60f;
+            backspeed = 80f;
+        }
+        else
+        {
+            rightspeed = 15f;
+            backspeed = 20f;
+        }
 
         if (overlap)
         {
@@ -83,7 +98,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if ( InputManager.Instance.EnemyFire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf)
+        if ( InputManager.Instance.EnemyFire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && !yj_trigger.enemyCome)
         {
             targetPos = targetCamera.transform.position;
             fire = true;
@@ -134,7 +149,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
             {
                 fire = false;
                 click = false;
-                rightspeed = 10f;
+                rightspeed = 15f;
                 transform.localPosition = rightOriginLocalPos;
             }
 
@@ -196,7 +211,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
     {
         fire = false;
         click = false;
-        rightspeed = 10f;
+        rightspeed = 15f;
         transform.localPosition = Vector3.Lerp(transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
     }
 }

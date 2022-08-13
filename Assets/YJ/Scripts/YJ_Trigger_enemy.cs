@@ -18,26 +18,26 @@ public class YJ_Trigger_enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // �ֳʹ�, �÷��̾�
+        // 애너미, 플레이어
         enemy = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
-        // ������ �̾��� ��
+        // 무브와 이어질 것
         jh_PlayerMove = player.GetComponent<JH_PlayerMove>();
-        // �÷��̾� cc
+        // 애너미 cc
         cc = player.GetComponent<CharacterController>();
-        // ���ӿ�����Ʈ ���������ϱ�
+        // 게임오브젝트 끄고시작하기
         gameObject.SetActive(false);
-        // ���� �� mr
+        // 잠깐 끌 mr
         mr = GetComponent<MeshRenderer>();
     }
 
-    #region 1. �������� �ֳʹ��ν�
+    #region 1. 닿았을때 애너미인식
     private void OnTriggerEnter(Collider other)
     {
-        // ���� other�� �̸��� Player�ϰ���
+        // 닿은 other의 이름이 Enemy일경우
         if (other.gameObject.name.Contains("Player"))
         {
-            // �÷��̾ �����ϴ� ���� �ѱ�
+            // 애너미가 오게하는 기능 켜기
             enemyCome = true;
         }
     }
@@ -45,66 +45,67 @@ public class YJ_Trigger_enemy : MonoBehaviour
 
     void Update()
     {
-        #region 2. �÷��̾� ���ܿ���
+        #region 2. 애너미 당겨오기
         if (enemyCome)
         {
-            // �÷��̾ ����ġ�� ��������
+            // 애너미를 내위치로 끌어오기
             player.transform.position = transform.position - new Vector3(0, 0.5f, 0);
 
-            // �ֳʹ̿� �÷��̾��� �Ÿ��� 4 �����϶�
+            // 애너미와 플레이어의 거리가 2 이하일때
             if (Vector3.Distance(player.transform.position, enemy.transform.position) < 2f)
             {
-                // �׸����ܿ���
+                // 그만당겨오고
                 enemyCome = false;
-                // �о���غ�
+                // 밀어내기준비
                 enemyGo = true;
             }
         }
         #endregion
-        #region �÷��̾� ���������� ���� �� �������ϱ�
+        #region 애너미 못잡았을때 잠시 후 꺼지게하기
         else if (!enemyCome && !enemyGo)
         {
             currentTime += Time.deltaTime;
             if (currentTime > 0.2f)
             {
-                // 1�� �� ���ǵ� ����, ���� ������Ʈ ����
+                // 1초 후 스피드 복구, 게임 오브젝트 끄기
                 currentTime = 0;
                 gameObject.SetActive(false);
             }
         }
         #endregion
-        #region 3. �÷��̾� ������
+        #region 3. 애너미 던지기
         if (enemyGo)
         {
-            // ī�޶� �ݴ� ���⺸�� ���� ���� ���⼳��
-            Vector3 dir = transform.forward + (Vector3.up * 1f);
+            // 카메라 방향보다 조금 높은 방향설정
+            Vector3 dir = transform.forward + (Vector3.up * 0.8f);
 
-            // CC�� ������ ���� ������
-            if (cc.collisionFlags == CollisionFlags.Sides)
-            {
-                // y���� �����༭ ���������ϱ�
-                dir.y -= 2f;
-            }
-            // �������� �����̰��ϱ�
+            //// CC�� ������ ���� ������
+            //if (cc.collisionFlags == CollisionFlags.Sides)
+            //{
+            //    // y���� �����༭ ���������ϱ�
+            //    dir.y -= 2f;
+            //}
+
+            // 방향으로 움직이게하기
             cc.Move(dir * 30f * Time.deltaTime);
 
             currentTime += Time.deltaTime;
             if (currentTime > 0.2f)
             {
-                // y���� 0.7 ���Ϸ� �������� (�ٴڿ� ���� ������)
-                if (enemy.transform.position.y < 1f)
+                // 플레이어와 애너미의 거리가 15이상이면 내려주기
+                if (Vector3.Distance(enemy.transform.position, player.transform.position) > 15f)
                 {
-                    // ���߰��ϱ�
-                    backspeed = 0;
+                    // 멈추게하기
+                    //backspeed = 0;
                     dir = Vector3.zero;
-                    // mr ���� ���ֱ�
+                    // mr 잠깐 꺼주기
                     mr.enabled = false;
 
-                    // 1�ʵ��� �������̰��ϱ�
+                    // 1초동안 못움직이게하기
                     currentTime += Time.deltaTime;
                     if (currentTime > 1f)
                     {
-                        // 1�� �� ���ǵ� ����, ���� ������Ʈ ����
+                        // 1초 후 스피드 복구, 게임 오브젝트 끄기
                         enemyGo = false;
                         backspeed = 20f;
                         currentTime = 0;
