@@ -1513,6 +1513,10 @@ PrefabInstance:
       value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6900704511881687557, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900704511881687557, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 5
       objectReference: {fileID: 0}
@@ -2478,6 +2482,10 @@ PrefabInstance:
     - target: {fileID: 6900704511881687557, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
       propertyPath: ShapeModule.radius.value
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6900704511881687557, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 6900704511881687557, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -9473,6 +9481,8 @@ MonoBehaviour:
   speed: 3.5
   jumpPower: 7
   isEnemy: 1
+  leftHandTarget: {fileID: 8440804458082044107}
+  rightHandTarget: {fileID: 8440804457073073446}
 --- !u!4 &4949192126528772258
 Transform:
   m_ObjectHideFlags: 0
@@ -12133,6 +12143,8 @@ MonoBehaviour:
   speed: 3.5
   jumpPower: 7
   isEnemy: 0
+  leftHandTarget: {fileID: 9128531005009121638}
+  rightHandTarget: {fileID: 9128531006547625099}
 --- !u!143 &9128531006493504379
 CharacterController:
   m_ObjectHideFlags: 0

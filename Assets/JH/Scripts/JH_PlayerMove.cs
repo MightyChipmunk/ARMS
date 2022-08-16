@@ -67,7 +67,7 @@ public class JH_PlayerMove : MonoBehaviour
                     anim.SetInteger("StateNum", 1);
                     break;
                 case PlayerState.Fall:
-                    anim.SetInteger("StateNum", 2);
+                    anim.SetBool("Falling", true);
                     break;
                 case PlayerState.Guard:
                     anim.SetInteger("StateNum", 7);
@@ -330,6 +330,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
+            anim.SetBool("Falling", false);
             // moveDir의 각도를 계산해서 상태 정함
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
@@ -404,6 +405,7 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (cc.isGrounded && !isDash)
         {
+            anim.SetBool("Falling", false);
             // moveDir의 각도를 계산해서 상태 정함
             float angle = Vector3.Angle(moveDir, transform.forward);
             float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
@@ -605,5 +607,21 @@ public class JH_PlayerMove : MonoBehaviour
         anim.speed = 0;
         yield return new WaitForSeconds(0.25f);
         anim.speed = 1;
+    }
+
+    public Transform leftHandTarget;
+    public Transform rightHandTarget;
+    private void OnAnimatorIK(int layerIndex)
+    {
+        // 왼손 IK
+        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+        anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHandTarget.position);
+        anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+        anim.SetIKRotation(AvatarIKGoal.LeftHand, leftHandTarget.rotation);
+        // 오른손 IK
+        anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+        anim.SetIKPosition(AvatarIKGoal.RightHand, rightHandTarget.position);
+        anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
+        anim.SetIKRotation(AvatarIKGoal.RightHand, rightHandTarget.rotation);
     }
 }
