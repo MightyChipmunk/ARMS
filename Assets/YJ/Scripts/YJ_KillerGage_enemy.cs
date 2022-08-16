@@ -70,7 +70,7 @@ public class YJ_KillerGage_enemy : MonoBehaviour
         else
         {
             imagecolor.color = Color.yellow;
-            if(Input.GetKeyDown(KeyCode.Z)) // 애너미는 이거 변경해야함
+            if(InputManager.Instance.EnemyKiller) // 애너미는 이거 변경해야함
             {
                 killerModeOn_enemy = true;
                 scaleDown = true;

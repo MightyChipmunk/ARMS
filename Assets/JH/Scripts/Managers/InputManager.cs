@@ -7,6 +7,8 @@ public class InputManager : MonoBehaviour
 {
     GameObject player;
     GameObject enemy;
+    GameObject playerArm;
+    GameObject enemyArm;
     public static InputManager Instance { get; private set; }
 
     #region 플레이어 입력
@@ -42,6 +44,9 @@ public class InputManager : MonoBehaviour
 
     bool grap;
     public bool Grap { get { return grap; } }
+
+    bool killer;
+    public bool Killer { get { return killer; } }
     #endregion
     #region 에너미 입력
     bool enemyFront;
@@ -74,6 +79,9 @@ public class InputManager : MonoBehaviour
 
     bool enemyGuardUp;
     public bool EnemyGuardUp { get { return enemyGuardUp; } }
+
+    bool enemyKiller;
+    public bool EnemyKiller { get { return enemyKiller; } }
     #endregion
 
     bool changeAct = true;
@@ -83,6 +91,7 @@ public class InputManager : MonoBehaviour
     bool canFire1 = true;
     bool canFire2 = true;
     bool canGrap = true;
+    bool canKill = true;
 
     //int moveRan = 0;
     //int atkRan = 0;
@@ -92,7 +101,10 @@ public class InputManager : MonoBehaviour
     {
         Instance = this;
         player = GameObject.Find("Player").gameObject;
+        playerArm = player.transform.Find("Left").gameObject;
         enemy = GameObject.Find("Enemy").gameObject;
+        enemyArm = enemy.transform.Find("Left").gameObject;
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -105,16 +117,17 @@ public class InputManager : MonoBehaviour
         dash = Input.GetKeyDown(KeyCode.LeftShift);
         jump = Input.GetKeyDown(KeyCode.Space);
 
-        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
-            && !player.transform.Find("Left").GetComponent<SY_LeftCharge>().IsGuard)
+        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp 
+            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !playerArm.GetComponent<SY_LeftCharge>().IsGuard)
         {
             fire1 = Input.GetMouseButtonDown(0);
             fire2 = Input.GetMouseButtonDown(1);
             grap = Input.GetMouseButtonDown(2);
+            killer = Input.GetKeyDown(KeyCode.Q);
         }
 
         if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
-            && !player.GetComponent<JH_PlayerMove>().IsFire())
+            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerMove>().IsFire())
         {
             guard = Input.GetKey(KeyCode.F);
             guardUp = Input.GetKeyUp(KeyCode.F);
@@ -122,7 +135,7 @@ public class InputManager : MonoBehaviour
 
         if (changeAct)
         {
-            ran = Random.Range(1, 20);
+            ran = Random.Range(1, 22);
             actRan = Random.Range(1, 10);
             StartCoroutine("RandomAct");
         }
@@ -135,7 +148,7 @@ public class InputManager : MonoBehaviour
         enemyJump = actRan >= 9 ? true : false;
 
         if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
-            && !enemy.transform.Find("Left").GetComponent<SY_EnemyLeftCharge>().IsGuard)
+            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemyArm.GetComponent<SY_EnemyLeftCharge>().IsGuard)
         { 
             // GetKeyDown 구현
             if (ran >= 12 && ran <= 13 && canFire1)
@@ -156,7 +169,17 @@ public class InputManager : MonoBehaviour
             else if (!(ran >= 14 && ran <= 15))
                 canFire2 = true;
             else if (canFire2 == false)
-                enemyFire2 = false;
+                enemyFire2 = false;            
+            // GetKeyDown 구현
+            if (ran >= 16 && ran <= 17 && canKill)
+            {
+                enemyKiller = true;
+                canKill = false;
+            }
+            else if (!(ran >= 16 && ran <= 17))
+                canKill = true;
+            else if (canKill == false)
+                enemyKiller = false;
 
             //if (ran >= 16 && ran <= 17 && canGrap)
             //{
@@ -176,14 +199,14 @@ public class InputManager : MonoBehaviour
         }
 
         if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
-            && !enemy.GetComponent<JH_PlayerMove>().IsFire(true))
+            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_PlayerMove>().IsFire(true))
         {
-            enemyGuard = (ran >= 18) ? true : false;
-            enemyGuardUp = (ran < 18) ? true : false;
+            enemyGuard = (ran >= 20) ? true : false;
+            enemyGuardUp = (ran < 20) ? true : false;
         }
         else
         {
-            enemyGuard = false ;
+            enemyGuard = false;
             enemyGuardUp = false;
         }
     }

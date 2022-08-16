@@ -139,12 +139,12 @@ public class JH_CameraMove : MonoBehaviour
         totalTime += Time.deltaTime;
         if (currentTime > shakeTime * 2 && totalTime < 0.2f)
         {
-            hitShake = -0.014f;
+            hitShake = -0.03f;
             currentTime = 0;
         }
         else if (currentTime > shakeTime && totalTime < 0.2f)
         {
-            hitShake = 0.014f;
+            hitShake = 0.03f;
         }
         else if (totalTime > 0.2f)
         {
@@ -162,12 +162,12 @@ public class JH_CameraMove : MonoBehaviour
 
         if (currentTimeE > shakeTimeE * 2 && totalTimeE < 0.2f)
         {
-            hitShakeE = -0.014f;
+            hitShakeE = -0.03f;
             currentTimeE = 0;
         }
         else if (currentTimeE > shakeTimeE && totalTimeE < 0.2f)
         {
-            hitShakeE = 0.014f;
+            hitShakeE = 0.03f;
         }
         else if (totalTimeE > 0.2f)
         {

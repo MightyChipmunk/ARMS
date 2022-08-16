@@ -7,10 +7,16 @@ public class JH_Effect : MonoBehaviour
     JH_PlayerMove pm;
     SY_LeftCharge lc;
     SY_EnemyLeftCharge elc;
+    YJ_LeftFight lf;
+    YJ_LeftFight_enemy elf;
 
     GameObject dash;
     GameObject guard;
     GameObject hit;
+    GameObject killer;
+
+    GameObject left;
+    GameObject right;
 
     bool trail = false;
     bool isEnemy = false;
@@ -21,9 +27,15 @@ public class JH_Effect : MonoBehaviour
         pm = GetComponent<JH_PlayerMove>();
         transform.Find("Left").TryGetComponent<SY_LeftCharge>(out lc);
         isEnemy = transform.Find("Left").TryGetComponent<SY_EnemyLeftCharge>(out elc);
+        transform.Find("Left").TryGetComponent<YJ_LeftFight>(out lf);
+        transform.Find("Left").TryGetComponent<YJ_LeftFight_enemy>(out elf);
         dash = transform.Find("DashEffect").gameObject;
         guard = transform.Find("GuardEffect").gameObject;
         hit = transform.Find("HitEffect").gameObject;
+        killer = transform.Find("KillerEffect").gameObject;
+
+        left = transform.Find("Left").gameObject;
+        right = transform.Find("Right").gameObject;
     }
 
     // Update is called once per frame
@@ -32,6 +44,7 @@ public class JH_Effect : MonoBehaviour
         DashTrail();
         ChargeEffect();
         GuardEffect();
+        KillerEffect();
     }
 
     public void HittedEffect(bool play)
@@ -70,26 +83,26 @@ public class JH_Effect : MonoBehaviour
         {
             if (elc.IsCharging)
             {
-                transform.Find("Left").transform.Find("ChargeEffect").gameObject.SetActive(true);
-                transform.Find("Right").transform.Find("ChargeEffect").gameObject.SetActive(true);
+                left.transform.Find("ChargeEffect").gameObject.SetActive(true);
+                right.transform.Find("ChargeEffect").gameObject.SetActive(true);
             }
             else
             {
-                transform.Find("Left").transform.Find("ChargeEffect").gameObject.SetActive(false);
-                transform.Find("Right").transform.Find("ChargeEffect").gameObject.SetActive(false);
+                left.transform.Find("ChargeEffect").gameObject.SetActive(false);
+                right.transform.Find("ChargeEffect").gameObject.SetActive(false);
             }
         }
         else
         {
             if (lc.IsCharging)
             {
-                transform.Find("Left").transform.Find("ChargeEffect").gameObject.SetActive(true);
-                transform.Find("Right").transform.Find("ChargeEffect").gameObject.SetActive(true);
+                left.transform.Find("ChargeEffect").gameObject.SetActive(true);
+                right.transform.Find("ChargeEffect").gameObject.SetActive(true);
             }
             else
             {
-                transform.Find("Left").transform.Find("ChargeEffect").gameObject.SetActive(false);
-                transform.Find("Right").transform.Find("ChargeEffect").gameObject.SetActive(false);
+                left.transform.Find("ChargeEffect").gameObject.SetActive(false);
+                right.transform.Find("ChargeEffect").gameObject.SetActive(false);
             }
         }
     }
@@ -116,6 +129,32 @@ public class JH_Effect : MonoBehaviour
             else
             {
                 guard.SetActive(false);
+            }
+        }
+    }
+
+    void KillerEffect()
+    {
+        if (isEnemy)
+        {
+            if (elf.yj_KillerGage_enemy.killerModeOn_enemy)
+            {
+                killer.SetActive(true);
+            }
+            else
+            {
+                killer.SetActive(false);
+            }
+        }
+        else
+        {
+            if (lf.yj_KillerGage.killerModeOn)
+            {
+                killer.SetActive(true);
+            }
+            else
+            {
+                killer.SetActive(false);
             }
         }
     }
