@@ -83,7 +83,6 @@ public class SY_PlayerHp : MonoBehaviour
             // 차징일 때, HP -2 / 넉백 실행
             else if (elc.IsCharging)
             {
-                
                 SetHP(GetHP() - 2);
                 isKnock = true;
             }

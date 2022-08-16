@@ -462,7 +462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &244790215
 Transform:
   m_ObjectHideFlags: 0
@@ -751,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1855340746554395458, guid: 49011e57640af4346b984abcfb1cf581, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1855340746554395458, guid: 49011e57640af4346b984abcfb1cf581, type: 3}
       propertyPath: m_LocalScale.x
@@ -4999,7 +4999,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9128531006493504376}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1925912995
 PrefabInstance:
@@ -9035,8 +9035,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4696511998795678611}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.795436, y: 0.0130313095, z: -0.036198176}
-  m_LocalScale: {x: 0.11507833, y: 0.9999999, z: 0.09903598}
+  m_LocalPosition: {x: 1.7954361, y: 0.0130313095, z: -0.036198102}
+  m_LocalScale: {x: 0.115078345, y: 1, z: 0.099035986}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9128531005009121638}
@@ -10987,7 +10987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8440804457073073446
 Transform:
   m_ObjectHideFlags: 0
@@ -11087,7 +11087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8440804458082044107
 Transform:
   m_ObjectHideFlags: 0
@@ -11767,7 +11767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &9128531006362776952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11886,8 +11886,8 @@ Transform:
   - {fileID: 9128531006547625099}
   - {fileID: 9128531005009121638}
   - {fileID: 575078263}
-  - {fileID: 1920671385}
   - {fileID: 253974130}
+  - {fileID: 1920671385}
   - {fileID: 2102634344}
   - {fileID: 1216576657}
   - {fileID: 301416062}
@@ -12020,7 +12020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &9128531006547625098
 SphereCollider:
   m_ObjectHideFlags: 0
