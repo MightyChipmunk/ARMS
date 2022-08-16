@@ -11,7 +11,7 @@ public class YJ_Trigger : MonoBehaviour
     public MeshRenderer mr;
     public bool enemyCome;
     public bool enemyGo;
-    float backspeed = 20f;
+    //float backspeed = 20f;
     float currentTime = 0;
 
 
@@ -50,7 +50,7 @@ public class YJ_Trigger : MonoBehaviour
         if (enemyCome)
         {
             // 애너미를 내위치로 끌어오기
-            enemy.transform.position = transform.position - new Vector3(0,0.5f,0);
+            enemy.transform.position = transform.position - new Vector3(0, 0.5f, 0);
 
             // 애너미와 플레이어의 거리가 2 이하일때
             if (Vector3.Distance(enemy.transform.position, player.transform.position) < 2f)
@@ -65,7 +65,7 @@ public class YJ_Trigger : MonoBehaviour
         #region 애너미 못잡았을때 잠시 후 꺼지게하기
         else if (!enemyCome && !enemyGo)
         {
-                currentTime += Time.deltaTime;
+            currentTime += Time.deltaTime;
             if (currentTime > 0.2f)
             {
                 // 1초 후 스피드 복구, 게임 오브젝트 끄기
@@ -78,36 +78,29 @@ public class YJ_Trigger : MonoBehaviour
         if (enemyGo)
         {
             // 카메라 방향보다 조금 높은 방향설정
-            Vector3 dir = transform.forward + (Vector3.up * 1f);
+            Vector3 dir = transform.forward + (Vector3.up * 0.8f);
 
-            // CC의 몸통이 벽에 닿으면
-            if(cc.collisionFlags == CollisionFlags.Sides)
-            {
-                // y값을 더해줘서 떨어지게하기
-                dir.y -= 2f;
-            }
             // 방향으로 움직이게하기
             cc.Move(dir * 30f * Time.deltaTime);
 
             currentTime += Time.deltaTime;
             if (currentTime > 0.2f)
             {
-                // y값이 0.7 이하로 떨어지면 (바닥에 거의 닿으면)
-                if ( enemy.transform.position.y < 1f )
+                // 플레이어와 애너미의 거리가 15이상이면 내려주기
+                if (Vector3.Distance(player.transform.position,enemy.transform.position) > 15f)
                 {
                     // 멈추게하기
-                    backspeed = 0;
+                    //backspeed = 0;
                     dir = Vector3.zero;
                     // mr 잠깐 꺼주기
                     mr.enabled = false;
 
                     // 1초동안 못움직이게하기
                     currentTime += Time.deltaTime;
-                    if( currentTime > 1f )
+                    if (currentTime > 1f)
                     {
                         // 1초 후 스피드 복구, 게임 오브젝트 끄기
                         enemyGo = false;
-                        backspeed = 20f;
                         currentTime = 0;
                         gameObject.SetActive(false);
                     }

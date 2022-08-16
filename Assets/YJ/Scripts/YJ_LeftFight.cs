@@ -15,19 +15,17 @@ public class YJ_LeftFight : MonoBehaviour
     public GameObject trigger; // 가운데 선
     public GameObject enemyCamera;
     // 공격 속도
-    float leftspeed = 10f;
+    float leftspeed = 15f;
     // 되돌아오는 속도
-    float backspeed = 20f;
+    float backspeed = 30f;
 
     // 타겟
     GameObject target;
     GameObject player;
 
-
     // 타겟위치
     Vector3 targetPos;
 
-    Transform originPos;
     // 왼쪽, 오른쪽버튼 눌림확인
     bool fire = false; // 왼쪽
     public bool Fire
@@ -49,14 +47,19 @@ public class YJ_LeftFight : MonoBehaviour
     Vector3 mousePos;
     Vector3 dir;
 
-
-
     float leftTime = 0.5f; // 좌표저장 카운터
     [SerializeField] private List<Vector3> leftPath; // 위치가 들어갈 리스트
     Vector3 leftOriginLocalPos;
     Vector3 rightOriginLocalPos;
 
     YJ_Trigger yj_trigger;
+    public YJ_Trigger_enemy yj_trigger_enemy;
+
+    //콜라이더 끄고 켜기위해 불러오기
+    SphereCollider leftCol;
+    SphereCollider rightCol;
+
+    public YJ_KillerGage yj_KillerGage;
 
     void Start()
     {
@@ -64,9 +67,10 @@ public class YJ_LeftFight : MonoBehaviour
         // 애너미의 처음위치로
         target = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
-        originPos = player.transform;
 
-        //print(Vector3.Distance(transform.position, player.transform.position));
+        // 콜라이더 가져오기
+        leftCol = GetComponent<SphereCollider>();
+        rightCol = right.GetComponent<SphereCollider>();
 
 
         // 로컬 포지션을 저장
@@ -82,12 +86,26 @@ public class YJ_LeftFight : MonoBehaviour
     bool graphands = false; //잡으러갈때
     void Update()
     {
+        if (yj_KillerGage.killerModeOn)
+        {
+            leftspeed = 60f;
+            backspeed = 80f;
+        }
+        else
+        {
+            leftspeed = 15f;
+            backspeed = 20f;
+        }
+
+
+
         // 내 회전값은 카메라를 따라감
         transform.localRotation = Camera.main.transform.localRotation;
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (InputManager.Instance.Grap)
+        if (InputManager.Instance.Grap && !yj_trigger_enemy.enemyCome )
         {
+            leftspeed = 15f;
             // 그랩을 켜고
             grap = true;
             graphands = true;
@@ -101,6 +119,9 @@ public class YJ_LeftFight : MonoBehaviour
         // 휠버튼을 눌렀다면
         if (grap)
         {
+            // 콜라이더를 끄고
+            leftCol.enabled = false;
+            rightCol.enabled = false;
             Grap();
         }
         #region 주먹이 애너미에 닿았을때
@@ -109,6 +130,7 @@ public class YJ_LeftFight : MonoBehaviour
         {
             // 되돌아오기
             Return();
+
             // 거의 다 돌아왔다면
             if (Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
@@ -123,7 +145,7 @@ public class YJ_LeftFight : MonoBehaviour
         #endregion
         #region 왼손공격 (왼쪽마우스클릭)
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (InputManager.Instance.Fire1 && !click && !overlap && !grap && !trigger.gameObject.activeSelf)
+        if (InputManager.Instance.Fire1 && !click && !overlap && !grap && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
             fire = true;
             mouseOrigin = Input.mousePosition;
@@ -140,7 +162,7 @@ public class YJ_LeftFight : MonoBehaviour
     // 이동값 저장
     float leftDistance = 0;
     void LeftFight()
-    {        
+    {
         if (!click)
         {
             // 만약에 캐릭터로부터 n만큼 앞으로 갔다면 정지
@@ -203,7 +225,7 @@ public class YJ_LeftFight : MonoBehaviour
             {
                 fire = false;
                 click = false;
-                leftspeed = 10f;
+                leftspeed = 15f;
                 transform.localPosition = leftOriginLocalPos;
             }
 
@@ -245,7 +267,7 @@ public class YJ_LeftFight : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 잡기 상태가 아닐때
-        if(!trigger.gameObject.activeSelf)
+        if (!trigger.gameObject.activeSelf)
         {
             // 애너미레이어와 닿았을 때
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -259,7 +281,7 @@ public class YJ_LeftFight : MonoBehaviour
     {
         fire = false;
         click = false;
-        leftspeed = 10f;
+        leftspeed = 15f;
         transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
     }
     #endregion
@@ -277,6 +299,7 @@ public class YJ_LeftFight : MonoBehaviour
     public Transform p3_right;
     float currentTime = 0;
     float positionNom = 0;
+    float grapspeed = 15f;
     void Grap()
     {
         if (graphands)
@@ -285,15 +308,15 @@ public class YJ_LeftFight : MonoBehaviour
             // 방향은 타겟방향으로
             Vector3 dir = targetPos - transform.position;
             // 왼손과 오른손을 움직인다
-            transform.position += dir * leftspeed * Time.deltaTime;
-            right.transform.position += dir * leftspeed * Time.deltaTime;
+            transform.position += dir * grapspeed * Time.deltaTime;
+            right.transform.position += dir * grapspeed * Time.deltaTime;
 
             // 양손이 플레이어에서 10만큼 떨어지거나 가운데 고리에 애너미가 닿으면 0.3초동안 멈추기
             //if (Vector3.Distance(transform.position, player.transform.position) > 10f && Vector3.Distance(right.transform.position, player.transform.position) > 10f || yj_trigger.enemyCome)
             if (positionNom > 0.45f && positionNom > 0.45f || yj_trigger.enemyCome)
             {
                 timer += Time.deltaTime;
-                leftspeed = 0f;
+                grapspeed = 0f;
                 p1_left = transform.position;
                 p2_left = transform.position + new Vector3(0, 6f, 0);
                 p1_right = right.transform.position;
@@ -335,6 +358,9 @@ public class YJ_LeftFight : MonoBehaviour
             if (Vector3.Distance(transform.position, player.transform.position) < 2.1f && Vector3.Distance(right.transform.position, player.transform.position) < 2.1f
                 && Vector3.Distance(transform.position, player.transform.position) > 1.7f && Vector3.Distance(right.transform.position, player.transform.position) > 1.7f)
             {
+                // 콜라이더를 켜고
+                leftCol.enabled = true;
+                rightCol.enabled = true;
                 transform.localPosition = leftOriginLocalPos;
                 right.transform.localPosition = rightOriginLocalPos;
                 timer = 0;
@@ -343,7 +369,7 @@ public class YJ_LeftFight : MonoBehaviour
             if (Vector3.Distance(transform.position, player.transform.position) < 1.7f && Vector3.Distance(right.transform.position, player.transform.position) < 1.7f)
             {
                 currentTime = 0;
-                leftspeed = 10;
+                grapspeed = 15;
                 positionNom = 0;
                 turn = false;
                 grap = false;
