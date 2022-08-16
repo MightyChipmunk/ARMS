@@ -327,7 +327,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
                 //right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
             }
             // 좀 더 가까워졌을때 아예 로컬로 가져오기
-            if (Vector3.Distance(transform.position, me.transform.position) < 2.1f && Vector3.Distance(right.transform.position, me.transform.position) < 2.1f
+            if (Vector3.Distance(transform.position, me.transform.position) <= 2f && Vector3.Distance(right.transform.position, me.transform.position) <= 2f
                 && Vector3.Distance(transform.position, me.transform.position) > 1.7f && Vector3.Distance(right.transform.position, me.transform.position) > 1.7f)
             {
                 // 콜라이더를 켜고

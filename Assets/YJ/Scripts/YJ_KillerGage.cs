@@ -60,7 +60,7 @@ public class YJ_KillerGage : MonoBehaviour
             }
             if (currentTime > 1f)
             {
-                imageScale.localScale += new Vector3(0.0015f, 0.0015f, 0.0015f);
+                imageScale.localScale += new Vector3(0.0007f, 0.0007f, 0.0007f);
                 if (currentTime > 1.3f)
                 {
                     currentTime = 0;
@@ -81,8 +81,7 @@ public class YJ_KillerGage : MonoBehaviour
         if (scaleDown)
         {
             endTime += Time.deltaTime;
-            print("-------------¾ðÁ¦²ø±î : " + endTime);
-            imageScale.localScale -= new Vector3(0.0015f, 0.0015f, 0.0015f);
+            imageScale.localScale -= new Vector3(0.0007f, 0.0007f, 0.0007f);
             if (endTime > 3f)
             {
                 imageScale.localScale = orizinSize;

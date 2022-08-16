@@ -86,8 +86,6 @@ public class YJ_LeftFight : MonoBehaviour
     bool graphands = false; //잡으러갈때
     void Update()
     {
-        print(leftspeed);
-
         if (yj_KillerGage.killerModeOn)
         {
             leftspeed = 60f;

@@ -11,7 +11,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
     public MeshRenderer mr;
     public bool enemyCome;
     public bool enemyGo;
-    float backspeed = 20f;
+    //float backspeed = 20f;
     float currentTime = 0;
 
 
@@ -107,7 +107,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
                     {
                         // 1초 후 스피드 복구, 게임 오브젝트 끄기
                         enemyGo = false;
-                        backspeed = 20f;
+                        //backspeed = 20f;
                         currentTime = 0;
                         gameObject.SetActive(false);
                     }

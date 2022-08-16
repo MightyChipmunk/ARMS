@@ -11,7 +11,7 @@ public class YJ_Trigger : MonoBehaviour
     public MeshRenderer mr;
     public bool enemyCome;
     public bool enemyGo;
-    float backspeed = 20f;
+    //float backspeed = 20f;
     float currentTime = 0;
 
 
@@ -80,15 +80,6 @@ public class YJ_Trigger : MonoBehaviour
             // 카메라 방향보다 조금 높은 방향설정
             Vector3 dir = transform.forward + (Vector3.up * 0.8f);
 
-            // CC의 몸통이 벽에 닿으면
-            //if (cc.collisionFlags == CollisionFlags.Sides)
-            //{
-            //    // y값을 더해줘서 떨어지게하기
-            //    dir.y -= 6f;
-            //}
-
-            //dir = transform.forward + (Vector3.up * 0.8f);
-
             // 방향으로 움직이게하기
             cc.Move(dir * 30f * Time.deltaTime);
 
@@ -110,7 +101,6 @@ public class YJ_Trigger : MonoBehaviour
                     {
                         // 1초 후 스피드 복구, 게임 오브젝트 끄기
                         enemyGo = false;
-                        backspeed = 20f;
                         currentTime = 0;
                         gameObject.SetActive(false);
                     }
