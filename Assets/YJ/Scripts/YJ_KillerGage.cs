@@ -70,7 +70,7 @@ public class YJ_KillerGage : MonoBehaviour
         else
         {
             imagecolor.color = Color.yellow;
-            if(Input.GetKeyDown(KeyCode.Q))
+            if(InputManager.Instance.Killer)
             {
                 killerModeOn = true;
                 scaleDown = true;

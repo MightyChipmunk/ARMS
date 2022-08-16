@@ -23,6 +23,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
+    float dist;
 
     #region 공용 필요 속성
     GameObject target;
@@ -210,18 +211,19 @@ public class JH_PlayerMove : MonoBehaviour
     {
         dir = target.transform.position - transform.position;
         dir.y = 0;
+        dist = dir.magnitude;
         dir.Normalize();
         transform.rotation = Quaternion.LookRotation(dir);
     }
 
     void Move()
     {
-        if (cc.isGrounded)
+        if (cc.isGrounded || dist <= 5.0f)
             moveDir = Vector3.zero;
 
         if (IsCanMove())
         {
-            if (InputManager.Instance.Front && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
+            if (InputManager.Instance.Front && dist >= 5f)
             {
                 moveDir += dir;
             }
@@ -229,11 +231,21 @@ public class JH_PlayerMove : MonoBehaviour
             {
                 moveDir -= dir;
             }
-            if (InputManager.Instance.Left)
+            if (InputManager.Instance.Left && dist < 5f)
+            {
+                moveDir -= transform.right;
+                moveDir -= dir;
+            }
+            else if (InputManager.Instance.Left && dist >= 5f)
             {
                 moveDir -= transform.right;
             }
-            if (InputManager.Instance.Right)
+            if (InputManager.Instance.Right && dist < 5f)
+            {
+                moveDir += transform.right;
+                moveDir -= dir;
+            }
+            else if (InputManager.Instance.Right && dist >= 5f)
             {
                 moveDir += transform.right;
             }
@@ -247,12 +259,12 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Move(bool isEnemy)
     {
-        if (cc.isGrounded)
+        if (cc.isGrounded || dist <= 5.0f)
             moveDir = Vector3.zero;
 
         if (IsCanMove(isEnemy))
         {
-            if (InputManager.Instance.EnemyFront && Vector3.Magnitude(target.transform.position - transform.position) >= 5.0f)
+            if (InputManager.Instance.EnemyFront && dist >= 5.0f)
             {
                 moveDir += dir;
             }
