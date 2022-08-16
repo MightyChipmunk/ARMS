@@ -159,7 +159,7 @@ public class JH_PlayerMove : MonoBehaviour
             elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
             erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
             elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>();
-            etrigger = GameObject.Find("Player").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
+            etrigger = GameObject.Find("Player").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
 
             target = GameObject.Find("Player");
         }
@@ -491,9 +491,9 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsGrapped(bool isEnemy)
     {
-        if (etrigger.enemyCome == true || etrigger.enemyGo == true)
-            return true;
-        else
+        //if (etrigger.enemyCome == true || etrigger.enemyGo == true)
+        //    return true;
+        //else
             return false;
     }
 

@@ -56,11 +56,11 @@ public class YJ_KillerGage_enemy : MonoBehaviour
         {
             if(overTime > 10f)
             {
-                blur.localScale += new Vector3(0.002f, 0.002f, 0.002f);
+                blur.localScale += new Vector3(0.5f, 0.5f, 0.5f) * Time.deltaTime;
             }
             if (currentTime > 1f)
             {
-                imageScale.localScale += new Vector3(0.0007f, 0.0007f, 0.0007f);
+                imageScale.localScale += new Vector3(0.3f, 0.3f, 0.3f) * Time.deltaTime;
                 if (currentTime > 1.3f)
                 {
                     currentTime = 0;

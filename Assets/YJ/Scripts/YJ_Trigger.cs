@@ -4,16 +4,41 @@ using UnityEngine;
 
 public class YJ_Trigger : MonoBehaviour
 {
+    // 애너미랑 플레이어찾기
     GameObject enemy;
     GameObject player;
-    JH_PlayerMove jh_PlayerMove;
-    CharacterController cc;
-    public MeshRenderer mr;
-    public bool enemyCome;
-    public bool enemyGo;
-    //float backspeed = 20f;
-    float currentTime = 0;
 
+    // 공격할 위치
+    public GameObject targetPos;
+
+    // 애너미를 움직일 cc
+    CharacterController cc;
+
+    // 움직임 받아오기
+    JH_PlayerMove jh_PlayerMove;
+
+    // 목표위치
+    Vector3 dir;
+
+    // 끄고 킬 것
+    MeshRenderer mr;
+    Collider col;
+
+    public bool grap = false; // 잡기상태확인
+    public bool enemyCome = false; // 애너미 잡아올때
+    public bool enemyGo = false; // 애너미 던질때
+    bool targetPosGet = false; // 타겟위치 잠깐 가져오기 음...
+
+    // 손불러오기
+    public GameObject leftHand;
+    public GameObject rightHand;
+
+    // 플레이어 자식으로 넣을때 쓸 플레이어 Transform
+    Transform player_trans;
+
+    float currentTime = 0;
+    float speed = 15f;
+    public YJ_Trigger_enemy yj_trigger_enemy; // 애너미가 잡기상태인지 확인
 
     // Start is called before the first frame update
     void Start()
@@ -21,15 +46,21 @@ public class YJ_Trigger : MonoBehaviour
         // 애너미, 플레이어
         enemy = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
+
+        // 자식으로 넣어주기위한 Transform
+        player_trans = player.transform;
+
         // 무브와 이어질 것
         jh_PlayerMove = enemy.GetComponent<JH_PlayerMove>();
+
         // 애너미 cc
         cc = enemy.GetComponent<CharacterController>();
-        // 게임오브젝트 끄고시작하기
-        gameObject.SetActive(false);
-        // 잠깐 끌 mr
-        mr = GetComponent<MeshRenderer>();
 
+        // 안보이게 끄고시작
+        mr = GetComponent<MeshRenderer>();
+        col = GetComponent<Collider>();
+        mr.enabled = false;
+        col.enabled = false;
     }
     #region 1. 닿았을때 애너미인식
     private void OnTriggerEnter(Collider other)
@@ -46,6 +77,34 @@ public class YJ_Trigger : MonoBehaviour
 
     void Update()
     {
+        #region 잡기공격 (휠버튼클릭)
+        // 휠버튼을 누르면
+        if (Input.GetMouseButtonDown(2)) //InputManager.Instance.Grap) ;// && !yj_trigger_enemy.enemyCome)
+        {
+            // 콜라이더랑 매쉬 랜더러 켜주기
+            mr.enabled = true;
+            col.enabled = true;
+
+            // 잡기 시작 표시
+            grap = true;
+
+            // 자식으로 손들 불러오기
+            leftHand.transform.SetParent(transform);
+            rightHand.transform.SetParent(transform);
+
+
+
+            //graphands = true;
+        }
+        #endregion
+
+        // 휠버튼을 눌렀다면
+        if (grap)
+        {
+            Vector3.Lerp(transform.position, targetPos.transform.position, speed * Time.deltaTime);
+        }
+
+
         #region 2. 애너미 당겨오기
         if (enemyCome)
         {
@@ -70,7 +129,7 @@ public class YJ_Trigger : MonoBehaviour
             {
                 // 1초 후 스피드 복구, 게임 오브젝트 끄기
                 currentTime = 0;
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
             }
         }
         #endregion
@@ -102,7 +161,7 @@ public class YJ_Trigger : MonoBehaviour
                         // 1초 후 스피드 복구, 게임 오브젝트 끄기
                         enemyGo = false;
                         currentTime = 0;
-                        gameObject.SetActive(false);
+                        //gameObject.SetActive(false);
                     }
                 }
             }
@@ -110,4 +169,117 @@ public class YJ_Trigger : MonoBehaviour
         }
         #endregion
     }
+//    #region 잡기실행
+//    float timer;
+//    bool turn = false;
+
+//    // 베이지곡선을 실행할 로컬포지션
+//    Vector3 p1origin;
+//    Vector3 p1_left;
+//    Vector3 p1_right;
+//    Vector3 p2_left;
+//    Vector3 p2_right;
+//    public Transform p3_left;
+//    public Transform p3_right;
+//    float currentTime = 0;
+//    float positionNom = 0;
+//    float grapspeed = 15f;
+//    void Grap()
+//    {
+//        if (graphands)
+//        {
+//            positionNom += leftspeed * Time.deltaTime;
+//            // 방향은 타겟방향으로
+//            Vector3 dir = targetPos - transform.position;
+//            // 왼손과 오른손을 움직인다
+//            transform.position += dir * grapspeed * Time.deltaTime;
+//            right.transform.position += dir * grapspeed * Time.deltaTime;
+
+//            // 양손이 플레이어에서 10만큼 떨어지거나 가운데 고리에 애너미가 닿으면 0.3초동안 멈추기
+//            //if (Vector3.Distance(transform.position, player.transform.position) > 10f && Vector3.Distance(right.transform.position, player.transform.position) > 10f || yj_trigger.enemyCome)
+//            if (positionNom > 0.45f && positionNom > 0.45f || yj_trigger.enemyCome)
+//            {
+//                timer += Time.deltaTime;
+//                grapspeed = 0f;
+//                p1_left = transform.position;
+//                p2_left = transform.position + new Vector3(0, 6f, 0);
+//                p1_right = right.transform.position;
+//                p2_right = right.transform.position + new Vector3(0, 6f, 0);
+//                if (timer > 0.3f)
+//                {
+//                    turn = true;
+//                    graphands = false;
+//                }
+//            }
+//        }
+//        // 다시 되돌아오기
+//        if (turn)
+//        {
+//            print(graphands);
+//            List<Vector3> list = new List<Vector3>();
+//            list.Clear();
+//            for (int i = 0; i < 100; i++)
+//            {
+//                Vector3 p = Go_left(0.01f * i);
+//                list.Add(p);
+//            }
+//            for (int i = 0; i < 99; i++)
+//            {
+//                Debug.DrawLine(list[i], list[i + 1], Color.red);
+//            }
+
+//            currentTime += Time.deltaTime;
+
+//            if (Vector3.Distance(transform.position, player.transform.position) > 2f && Vector3.Distance(right.transform.position, player.transform.position) > 2f)
+//            {
+//                transform.position = Go_left(currentTime * 1.5f);
+//                right.transform.position = Go_right(currentTime * 1.5f);
+//                // 양손 불러오기 ( 바로앞까지말고 조금 더 앞쪽으로 부르기 )
+//                //transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
+//                //right.transform.localPosition = Vector3.Lerp(right.transform.localPosition, rightOriginLocalPos + new Vector3(0, 0, 0.5f), Time.deltaTime * 5f);
+//            }
+//            // 좀 더 가까워졌을때 아예 로컬로 가져오기
+//            if (Vector3.Distance(transform.position, player.transform.position) < 2.1f && Vector3.Distance(right.transform.position, player.transform.position) < 2.1f
+//                && Vector3.Distance(transform.position, player.transform.position) > 1.7f && Vector3.Distance(right.transform.position, player.transform.position) > 1.7f)
+//            {
+//                // 콜라이더를 켜고
+//                leftCol.enabled = true;
+//                rightCol.enabled = true;
+//                transform.localPosition = leftOriginLocalPos;
+//                right.transform.localPosition = rightOriginLocalPos;
+//                timer = 0;
+//            }
+//            // 완전히 가까워지면 끄기
+//            if (Vector3.Distance(transform.position, player.transform.position) < 1.7f && Vector3.Distance(right.transform.position, player.transform.position) < 1.7f)
+//            {
+//                currentTime = 0;
+//                grapspeed = 15;
+//                positionNom = 0;
+//                turn = false;
+//                grap = false;
+//            }
+//        }
+//    }
+//    #endregion
+//    Vector3 Go_left(float ratio)
+//    {
+//        Vector3 pp1 = Vector3.Lerp(p1_left, p2_left, ratio);
+//        Vector3 pp2 = Vector3.Lerp(p2_left, p3_left.position, ratio);
+//        Vector3 ppp1 = Vector3.Lerp(pp1, pp2, ratio);
+
+//        return ppp1;
+//    }
+
+//    Vector3 Go_right(float ratio)
+//    {
+//        Vector3 pp1 = Vector3.Lerp(p1_right, p2_right, ratio);
+//        Vector3 pp2 = Vector3.Lerp(p2_right, p3_right.position, ratio);
+//        Vector3 ppp2 = Vector3.Lerp(pp1, pp2, ratio);
+
+//        return ppp2;
+//    }
+//    
+
+//}
+
 }
