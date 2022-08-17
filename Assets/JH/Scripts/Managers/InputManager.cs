@@ -127,7 +127,8 @@ public class InputManager : MonoBehaviour
         }
 
         if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
-            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerMove>().IsFire())
+            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerMove>().IsFire()
+            && player.GetComponent<JH_PlayerMove>().State != JH_PlayerMove.PlayerState.Fall)
         {
             guard = Input.GetKey(KeyCode.F);
             guardUp = Input.GetKeyUp(KeyCode.F);
@@ -199,7 +200,8 @@ public class InputManager : MonoBehaviour
         }
 
         if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
-            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_PlayerMove>().IsFire(true))
+            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_PlayerMove>().IsFire(true)
+            && enemy.GetComponent<JH_PlayerMove>().State != JH_PlayerMove.PlayerState.Fall)
         {
             enemyGuard = (ran >= 20) ? true : false;
             enemyGuardUp = (ran < 20) ? true : false;

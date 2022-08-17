@@ -204,7 +204,9 @@ public class JH_PlayerMove : MonoBehaviour
             SetEnemyState();
             Knocked = eh.IsKnock;
         }
-        LookEnemy();
+
+        if (state != PlayerState.KnockBack)
+            LookEnemy();
     }
 
     void LookEnemy()
@@ -613,15 +615,20 @@ public class JH_PlayerMove : MonoBehaviour
     public Transform rightHandTarget;
     private void OnAnimatorIK(int layerIndex)
     {
-        // 왼손 IK
-        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-        anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHandTarget.position);
-        anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
-        anim.SetIKRotation(AvatarIKGoal.LeftHand, leftHandTarget.rotation);
-        // 오른손 IK
-        anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-        anim.SetIKPosition(AvatarIKGoal.RightHand, rightHandTarget.position);
-        anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
-        anim.SetIKRotation(AvatarIKGoal.RightHand, rightHandTarget.rotation);
+        if (state == PlayerState.Attack)
+        {
+            // 왼손 IK
+            anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+            anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHandTarget.position);
+            anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+            anim.SetIKRotation(AvatarIKGoal.LeftHand, leftHandTarget.rotation);
+            // 오른손 IK
+            anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+            anim.SetIKPosition(AvatarIKGoal.RightHand, rightHandTarget.position);
+            anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
+            anim.SetIKRotation(AvatarIKGoal.RightHand, rightHandTarget.rotation);
+        }
+        anim.SetLookAtWeight(1);
+        anim.SetLookAtPosition(target.transform.position);
     }
 }

@@ -20,7 +20,8 @@ public class JH_EnemyCamera : MonoBehaviour
     {
         Vector3 dir = (enemy.transform.position) - transform.position;
         if (dir.magnitude > 0.1f && (InputManager.Instance.Front || InputManager.Instance.Left || InputManager.Instance.Back || 
-            InputManager.Instance.Right || InputManager.Instance.Jump || InputManager.Instance.Guard) && pm.State != JH_PlayerMove.PlayerState.KnockBack)
+            InputManager.Instance.Right || InputManager.Instance.Jump || InputManager.Instance.Guard) && pm.State != JH_PlayerMove.PlayerState.KnockBack
+            || pm.State == JH_PlayerMove.PlayerState.Attack)
             transform.position += dir * speed * Time.deltaTime;
 
         if (dir.magnitude > 10f)
