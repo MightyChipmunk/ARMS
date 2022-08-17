@@ -64,14 +64,14 @@ public class SY_PlayerHp : MonoBehaviour
             else if (erc.IsCharging)
             {
 
-                SetHP(GetHP() - 2);
+                SetHP(GetHP() - 120);
                 isKnock = true;
             }
             // 차징아닐 때, HP -1
             else
             {
 
-                SetHP(GetHP() - 1);
+                SetHP(GetHP() - 90);
                 //isKnock = false;
                 pm.Hitted();
             }
