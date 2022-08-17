@@ -9,7 +9,6 @@ public class SY_RightCharge: MonoBehaviour
     Material mat;
     Rigidbody rigid;
     Renderer color;
-
     float currentTime;
     float creatTime = 2f;
 
@@ -27,6 +26,7 @@ public class SY_RightCharge: MonoBehaviour
 
     void Start()
     {
+        
         rigid = GetComponent<Rigidbody>();
         mesh = GetComponent<MeshRenderer>();
         mat = mesh.material;

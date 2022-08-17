@@ -92,7 +92,7 @@ public class InputManager : MonoBehaviour
         {
             ran = UnityEngine.Random.Range(1, 20);
             StartCoroutine("RandomAct");
-            print(ran);
+            //print(ran);
         }
 
         enemyFront = ran <= 2 ? true : false;
@@ -109,10 +109,10 @@ public class InputManager : MonoBehaviour
         enemyGuard = (ran >= 18) ? true : false;
         enemyGuardUp = (ran < 18) ? true : false;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Main");
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    SceneManager.LoadScene("Main");
+        //}
     }
 
     IEnumerator RandomAct()

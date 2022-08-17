@@ -233,7 +233,7 @@ public class YJ_LeftFight : MonoBehaviour
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
             leftPath.Clear();
-            print(click);
+            //print(click);
         }
     }
     #endregion
