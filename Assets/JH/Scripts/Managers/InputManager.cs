@@ -118,7 +118,7 @@ public class InputManager : MonoBehaviour
         jump = Input.GetKeyDown(KeyCode.Space);
 
         if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp 
-            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !playerArm.GetComponent<SY_LeftCharge>().IsGuard)
+            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerCharge>().IsGuard)
         {
             fire1 = Input.GetMouseButtonDown(0);
             fire2 = Input.GetMouseButtonDown(1);
@@ -149,7 +149,7 @@ public class InputManager : MonoBehaviour
         enemyJump = actRan >= 9 ? true : false;
 
         if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
-            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemyArm.GetComponent<SY_EnemyLeftCharge>().IsGuard)
+            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_EnemyCharge>().IsGuard)
         { 
             // GetKeyDown ±¸Çö
             if (ran >= 12 && ran <= 13 && canFire1)

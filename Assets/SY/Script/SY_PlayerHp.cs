@@ -10,11 +10,7 @@ public class SY_PlayerHp : MonoBehaviour
     public Slider sliderHp;
     public Coroutine coroutine;
     public Text hpDc;
-    SY_EnemyRightCharge erc;
-    SY_EnemyLeftCharge elc;
-
-
-
+    JH_EnemyCharge ech;
     JH_PlayerMove pm;
 
     bool canUp = false;
@@ -42,7 +38,7 @@ public class SY_PlayerHp : MonoBehaviour
     }
     void Start()
     {
-
+        ech = GameObject.Find("Enemy").GetComponent<JH_EnemyCharge>();
         pm = GetComponent<JH_PlayerMove>();
         sliderHp.maxValue = maxHp;
         SetHP(maxHp);
@@ -54,14 +50,14 @@ public class SY_PlayerHp : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // "EnemyArms"에 닿고 charging 된 에너미 팔에 맞으면
-        if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_EnemyRightCharge>(out erc))  // =>
+        if (other.gameObject.CompareTag("EnemyArms"))  // =>
         {
             if (InputManager.Instance.Guard || IsKnock)
             {
 
             }
             // 차징일 때, HP -2 / 넉백 실행
-            else if (erc.IsCharging)
+            else if (ech.IsCharging)
             {
 
                 SetHP(GetHP() - 120);
@@ -73,27 +69,6 @@ public class SY_PlayerHp : MonoBehaviour
 
                 SetHP(GetHP() - 90);
                 //isKnock = false;
-                pm.Hitted();
-            }
-        }
-        else if (other.gameObject.CompareTag("EnemyArms") && other.TryGetComponent<SY_EnemyLeftCharge>(out elc))
-        {
-
-            if (InputManager.Instance.Guard || IsKnock)
-            {
-
-            }
-            // 차징일 때, HP -2 / 넉백 실행
-            else if (elc.IsCharging)
-            {
-
-                SetHP(GetHP() - 120);
-                isKnock = true;
-            }
-            // 차징아닐 때, HP -1
-            else
-            {
-                SetHP(GetHP() - 90);
                 pm.Hitted();
             }
         }
