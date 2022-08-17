@@ -293,7 +293,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Jump()
     {
-        if (InputManager.Instance.Jump && cc.isGrounded && IsCanMove())
+        if (InputManager.Instance.Jump && cc.isGrounded && IsCanMove() && canJump)
         {
             yVelocity = jumpPower;
             anim.SetTrigger("Jump");
@@ -302,7 +302,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Jump(bool isEnemy)
     {
-        if (InputManager.Instance.EnemyJump && cc.isGrounded && IsCanMove(isEnemy))
+        if (InputManager.Instance.EnemyJump && cc.isGrounded && IsCanMove(isEnemy) && canJump)
         {
             yVelocity = jumpPower;
             anim.SetTrigger("Jump");
