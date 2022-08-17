@@ -90,8 +90,8 @@ public class JH_PlayerCharge : MonoBehaviour
         {
             if (IsCharging)
                 UnCharge();
-            if (other.transform.parent.GetComponent<JH_PlayerCharge>().IsCharging)
-                other.transform.parent.GetComponent<JH_PlayerCharge>().UnCharge();
+            if (GameObject.Find("Enemy").GetComponent<JH_EnemyCharge>().IsCharging)
+                GameObject.Find("Enemy").GetComponent<JH_EnemyCharge>().UnCharge();
         }
     }
 }
