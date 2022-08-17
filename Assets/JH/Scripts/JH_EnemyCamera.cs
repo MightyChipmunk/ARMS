@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JH_EnemyCamera : MonoBehaviour
 {
+    GameObject player;
     GameObject enemy;
     JH_PlayerMove pm;
 
@@ -12,8 +13,9 @@ public class JH_EnemyCamera : MonoBehaviour
 
     void Start()
     {
-        pm = GameObject.Find("Player").GetComponent<JH_PlayerMove>();
+        player = GameObject.Find("Player");
         enemy = GameObject.Find("Enemy");
+        pm = player.GetComponent<JH_PlayerMove>();
         transform.position = enemy.transform.position;
     }
     void Update()
@@ -24,7 +26,7 @@ public class JH_EnemyCamera : MonoBehaviour
             || pm.State == JH_PlayerMove.PlayerState.Attack)
             transform.position += dir * speed * Time.deltaTime;
 
-        if (dir.magnitude > 10f)
+        if (Vector3.Angle(enemy.transform.forward, -player.transform.forward) > 45f)
             transform.position += dir.normalized * speed * Time.deltaTime;
     }
 }

@@ -81,6 +81,12 @@ public class SY_LeftCharge: MonoBehaviour
         Debug.Log("LeftCharging: " + isCharging);
     }
 
+    IEnumerator UnCharge()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isCharging = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag =="EnemyArms" )
@@ -94,8 +100,13 @@ public class SY_LeftCharge: MonoBehaviour
             {
                 color.material.color = Color.red; // ∆» ∏ÿ√„
             }
-              
+
         }
-        
+
+        if (other.gameObject.layer == 11 && isCharging)
+        {
+            StopCoroutine("WaitForIt");
+            StartCoroutine("UnCharge");
+        }
     }
 }

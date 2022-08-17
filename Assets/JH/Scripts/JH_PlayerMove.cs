@@ -94,6 +94,7 @@ public class JH_PlayerMove : MonoBehaviour
     float dashCool = 0.5f;
     bool canDash = true;
     bool isDash = false;
+    bool canJump = true;
     public bool IsDash 
     { 
         get 
@@ -573,6 +574,7 @@ public class JH_PlayerMove : MonoBehaviour
         float tmpSpeed = speed;
         float tmpAngle = cm.Angle;
         canDash = false;
+        canJump = false;
         speed *= 7;
         cm.Angle *= 10;
         yield return new WaitForSeconds(0.15f);
@@ -580,17 +582,20 @@ public class JH_PlayerMove : MonoBehaviour
         cm.Angle = tmpAngle;
         yield return new WaitForSeconds(0.35f);
         canDash = true;
+        canJump = true;
     }
 
     IEnumerator FallEnemy()
     {
         float tmpSpeed = speed;
         canDash = false;
+        canJump = false;
         speed *= 7;
         yield return new WaitForSeconds(0.15f);
         speed = tmpSpeed;
         yield return new WaitForSeconds(0.35f);
         canDash = true;
+        canJump = true;
     }
 
     IEnumerator HittedEvent()

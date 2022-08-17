@@ -41,7 +41,6 @@ public class SY_RightCharge: MonoBehaviour
 
     void Charging()
     {
-        
         if (InputManager.Instance.Guard)
         {
             // "F"≈∞∏¶ ¥©∏£∏È ∞°µÂ∏¶ «—¥Ÿ.
@@ -81,6 +80,12 @@ public class SY_RightCharge: MonoBehaviour
         Debug.Log("RightCharging: " + isCharging);
     }
 
+    IEnumerator UnCharge()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isCharging=false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "EnemyArms")
@@ -94,6 +99,12 @@ public class SY_RightCharge: MonoBehaviour
             {
                 color.material.color = Color.red; // ∆» ∏ÿ√„
             }
+        }
+
+        if (other.gameObject.layer == 11 && isCharging)
+        {
+            StopCoroutine("WaitForIt");
+            StartCoroutine("UnCharge");
         }
     }
 }
