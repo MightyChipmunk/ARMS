@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class SY_PlayerHp : MonoBehaviour
 {
     int hp;
-    public int maxHp = 6;
+    public int maxHp = 1000;
     public Slider sliderHp;
     public Coroutine coroutine;
+    public Text hpDc;
     SY_EnemyRightCharge erc;
     SY_EnemyLeftCharge elc;
+
+
 
     JH_PlayerMove pm;
 
@@ -31,6 +34,7 @@ public class SY_PlayerHp : MonoBehaviour
     {
         hp = value;
         sliderHp.value = value;
+
     }
     public int GetHP()
     {
@@ -38,6 +42,7 @@ public class SY_PlayerHp : MonoBehaviour
     }
     void Start()
     {
+
         pm = GetComponent<JH_PlayerMove>();
         sliderHp.maxValue = maxHp;
         SetHP(maxHp);
@@ -45,9 +50,7 @@ public class SY_PlayerHp : MonoBehaviour
 
     void Update()
     {
-
     }
-
     private void OnTriggerEnter(Collider other)
     {
         // "EnemyArms"에 닿고 charging 된 에너미 팔에 맞으면
@@ -60,14 +63,14 @@ public class SY_PlayerHp : MonoBehaviour
             // 차징일 때, HP -2 / 넉백 실행
             else if (erc.IsCharging)
             {
-                
+
                 SetHP(GetHP() - 2);
                 isKnock = true;
             }
             // 차징아닐 때, HP -1
             else
             {
-               
+
                 SetHP(GetHP() - 1);
                 //isKnock = false;
                 pm.Hitted();
@@ -83,13 +86,14 @@ public class SY_PlayerHp : MonoBehaviour
             // 차징일 때, HP -2 / 넉백 실행
             else if (elc.IsCharging)
             {
-                SetHP(GetHP() - 2);
+
+                SetHP(GetHP() - 120);
                 isKnock = true;
             }
             // 차징아닐 때, HP -1
             else
             {
-                SetHP(GetHP() - 1);
+                SetHP(GetHP() - 90);
                 pm.Hitted();
             }
         }
@@ -101,7 +105,7 @@ public class SY_PlayerHp : MonoBehaviour
 
     }
 
-    // 넉백 시간 
+    // 넉백 시간
     public IEnumerator Ondamaged()
     {
         yield return new WaitForSeconds(2.0f);

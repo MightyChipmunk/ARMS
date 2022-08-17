@@ -6,12 +6,13 @@ using UnityEngine.UI;
 public class SY_EnemyHp : MonoBehaviour
 {
     int hp;
-    public int maxHp = 6;
+    public int maxHp = 1000;
     public Slider sliderHp;
     public Coroutine coroutine;
     // Player 차징
     SY_RightCharge prc;
     SY_LeftCharge plc;
+    SY_EnemyLeftCharge elc;
 
     JH_PlayerMove pm;
 
@@ -46,7 +47,6 @@ public class SY_EnemyHp : MonoBehaviour
 
     void Update()
     {
-       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,16 +63,19 @@ public class SY_EnemyHp : MonoBehaviour
             // 차징일 때, HP -2 / 넉백 실행
             else if (prc.IsCharging)
             {
-                SetHP(GetHP() - 2);
+                SetHP(GetHP() - 120);
                 isKnock = true;
+
             }
             // 차징아닐 때, HP -1
             else
             {
-                SetHP(GetHP() - 1);
+                SetHP(GetHP() - 90);
                 pm.Hitted();
             }
+
         }
+
         else if (other.gameObject.CompareTag("PlayerArms") && other.TryGetComponent<SY_LeftCharge>(out plc))
         {
 
@@ -83,13 +86,13 @@ public class SY_EnemyHp : MonoBehaviour
             // 차징일 때, HP -2 / 넉백 실행
             else if (plc.IsCharging)
             {
-                SetHP(GetHP() - 2);
+                SetHP(GetHP() - 120);
                 isKnock = true;
             }
             // 차징아닐 때, HP -1
             else
             {
-                SetHP(GetHP() - 1);
+                SetHP(GetHP() - 90);
                 pm.Hitted();
             }
         }
@@ -98,7 +101,7 @@ public class SY_EnemyHp : MonoBehaviour
         {
             coroutine = StartCoroutine(Ondamaged());
         }
-        
+
     }
 
     // 넉백 후 5초동안 무적상태
