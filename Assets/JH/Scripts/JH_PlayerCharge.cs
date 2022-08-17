@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SY_RightCharge: MonoBehaviour
+public class JH_PlayerCharge : MonoBehaviour
 {
     float currentTime;
     float creatTime = 2f;
@@ -70,7 +69,7 @@ public class SY_RightCharge: MonoBehaviour
     IEnumerator UnCharge()
     {
         yield return new WaitForSeconds(0.1f);
-        isCharging=false;
+        isCharging = false;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class SY_RightCharge: MonoBehaviour
+public class JH_EnemyCharge : MonoBehaviour
 {
     float currentTime;
     float creatTime = 2f;
@@ -33,7 +32,7 @@ public class SY_RightCharge: MonoBehaviour
 
     void Charging()
     {
-        if (InputManager.Instance.Guard)
+        if (InputManager.Instance.EnemyGuard)
         {
             // "F"키를 누르면 가드를 한다.
             currentTime += Time.deltaTime;
@@ -51,7 +50,7 @@ public class SY_RightCharge: MonoBehaviour
         // "F"키를 누르면 가드를 해제한다.
         else
         {
-            if (InputManager.Instance.GuardUp)
+            if (InputManager.Instance.EnemyGuardUp)
             {
                 StartCoroutine("WaitForIt");
                 isGuard = false;
@@ -70,17 +69,17 @@ public class SY_RightCharge: MonoBehaviour
     IEnumerator UnCharge()
     {
         yield return new WaitForSeconds(0.1f);
-        isCharging=false;
+        isCharging = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyArms")
+        if (other.gameObject.tag == "PlayerArms")
         {
             // 팔 맞을때 추후 구현
         }
 
-        if (other.gameObject.layer == 11 && isCharging)
+        if (other.gameObject.layer == 10 && isCharging)
         {
             StopCoroutine("WaitForIt");
             StartCoroutine("UnCharge");

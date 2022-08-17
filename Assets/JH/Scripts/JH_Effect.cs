@@ -5,8 +5,8 @@ using UnityEngine;
 public class JH_Effect : MonoBehaviour
 {
     JH_PlayerMove pm;
-    SY_LeftCharge lc;
-    SY_EnemyLeftCharge elc;
+    JH_PlayerCharge ch;
+    JH_EnemyCharge ech;
     YJ_LeftFight lf;
     YJ_LeftFight_enemy elf;
 
@@ -25,8 +25,8 @@ public class JH_Effect : MonoBehaviour
     void Start()
     {
         pm = GetComponent<JH_PlayerMove>();
-        transform.Find("Left").TryGetComponent<SY_LeftCharge>(out lc);
-        isEnemy = transform.Find("Left").TryGetComponent<SY_EnemyLeftCharge>(out elc);
+        transform.Find("Left").TryGetComponent<JH_PlayerCharge>(out ch);
+        isEnemy = transform.Find("Left").TryGetComponent<JH_EnemyCharge>(out ech);
         transform.Find("Left").TryGetComponent<YJ_LeftFight>(out lf);
         transform.Find("Left").TryGetComponent<YJ_LeftFight_enemy>(out elf);
         dash = transform.Find("DashEffect").gameObject;
@@ -81,7 +81,7 @@ public class JH_Effect : MonoBehaviour
     {
         if (isEnemy)
         {
-            if (elc.IsCharging)
+            if (ech.IsCharging)
             {
                 left.transform.Find("ChargeEffect").gameObject.SetActive(true);
                 right.transform.Find("ChargeEffect").gameObject.SetActive(true);
@@ -94,7 +94,7 @@ public class JH_Effect : MonoBehaviour
         }
         else
         {
-            if (lc.IsCharging)
+            if (ch.IsCharging)
             {
                 left.transform.Find("ChargeEffect").gameObject.SetActive(true);
                 right.transform.Find("ChargeEffect").gameObject.SetActive(true);
@@ -111,7 +111,7 @@ public class JH_Effect : MonoBehaviour
     {
         if (isEnemy)
         {
-            if (elc.IsGuard)
+            if (ech.IsGuard)
             {
                 guard.SetActive(true);
             }
@@ -122,7 +122,7 @@ public class JH_Effect : MonoBehaviour
         }
         else
         {
-            if (lc.IsGuard)
+            if (ch.IsGuard)
             {
                 guard.SetActive(true);
             }
