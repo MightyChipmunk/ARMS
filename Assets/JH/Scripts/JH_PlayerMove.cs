@@ -516,7 +516,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove()
     {
-        if (!IsFire() && ch.IsGuard == false && ph.IsKnock == false && hitted == false && !IsGrapped()) // 공격, 가드, 넉백 시 움직임 불가
+        if (!IsFire() && ch.IsGuard == false && ph.IsKnock == false && hitted == false && !IsGrapped()
+            && state != PlayerState.Grap) // 공격, 가드, 넉백 시 움직임 불가
             return true;
         else
             return false;
@@ -524,7 +525,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsCanMove(bool isEnemy)
     {
-        if (!IsFire(isEnemy) && ech.IsGuard == false && eh.IsKnock == false && hitted == false && !IsGrapped(isEnemy)) // 공격, 가드, 넉백 시 움직임 불가
+        if (!IsFire(isEnemy) && ech.IsGuard == false && eh.IsKnock == false && hitted == false && !IsGrapped(isEnemy)
+            && state != PlayerState.Grap) // 공격, 가드, 넉백 시 움직임 불가
             return true;
         else
             return false;
