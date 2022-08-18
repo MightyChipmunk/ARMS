@@ -160,7 +160,7 @@ public class JH_PlayerMove : MonoBehaviour
             eh = GetComponent<SY_EnemyHp>();
             elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
             erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
-            elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>();
+            ech = GetComponent<JH_EnemyCharge>();
             etrigger = GameObject.Find("Player").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
 
             target = GameObject.Find("Player");
@@ -392,11 +392,11 @@ public class JH_PlayerMove : MonoBehaviour
             else
                 anim.SetFloat("PunchRight", Mathf.Lerp(anim.GetFloat("PunchRight"), 0, Time.deltaTime * 5));
         }
-        else if (lf.Grapp)
-        {
-            if (State != PlayerState.Grap)
-                State = PlayerState.Grap;
-        }
+        //else if (lf.Grapp)
+        //{
+        //    if (State != PlayerState.Grap)
+        //        State = PlayerState.Grap;
+        //}
         else if (ch.IsGuard)
         {
             if (State != PlayerState.Guard)
