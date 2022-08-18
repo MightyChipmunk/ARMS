@@ -29,6 +29,10 @@ public class SY_EnemyHp : MonoBehaviour
 
     public void SetHP(int value)
     {
+        if (hp != value && value != maxHp)
+        {
+            transform.Find("Damage").GetComponent<JH_Damage>().FloatText(hp - value);
+        }
         hp = value;
         sliderHp.value = value;
     }
