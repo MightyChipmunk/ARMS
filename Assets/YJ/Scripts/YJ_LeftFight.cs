@@ -37,10 +37,7 @@ public class YJ_LeftFight : MonoBehaviour
     //bool isLeftLOnce; // 왼손이 왼쪽으로 휘었는지
     bool overlap = false; // 애너미랑 닿았을때
     public bool grap = false; // 잡기 하고있는지
-    public bool Grapp
-    {
-        get { return grap; }
-    }
+
 
     // 마우스 위치 (시작, 이후)
     Vector3 mouseOrigin;

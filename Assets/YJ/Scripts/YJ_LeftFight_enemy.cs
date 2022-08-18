@@ -284,7 +284,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
 
             // 양손이 플레이어에서 10만큼 떨어지거나 가운데 고리에 애너미가 닿으면 0.3초동안 멈추기
             //if (Vector3.Distance(transform.position, me.transform.position) > 10f && Vector3.Distance(right.transform.position, me.transform.position) > 10f || yj_trigger.enemyCome)
-            if (positionNom > 0.45f && positionNom > 0.45f || yj_trigger_enemy.enemyCome)
+            if (positionNom > 0.45f || yj_trigger_enemy.enemyCome)
             {
 
                 timer += Time.deltaTime;
@@ -303,7 +303,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         // 다시 되돌아오기
         if (turn)
         {
-            print(graphands);
             List<Vector3> list = new List<Vector3>();
             list.Clear();
             for (int i = 0; i < 100; i++)
