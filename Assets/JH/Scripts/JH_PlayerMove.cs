@@ -36,7 +36,7 @@ public class JH_PlayerMove : MonoBehaviour
     #region 플레이어 필요 속성
     YJ_LeftFight lf;
     YJ_RightFight rf;
-    YJ_Trigger_enemy trigger;
+    YJ_Trigger_enemy etrigger;
     JH_PlayerCharge ch;
     SY_PlayerHp ph;
     JH_CameraMove cm;
@@ -45,7 +45,7 @@ public class JH_PlayerMove : MonoBehaviour
     #region 에너미 필요 속성
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
-    YJ_Trigger etrigger;
+    YJ_Trigger trigger;
     JH_EnemyCharge ech;
     SY_EnemyHp eh;
     #endregion
@@ -161,8 +161,7 @@ public class JH_PlayerMove : MonoBehaviour
             elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
             erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
             ech = GetComponent<JH_EnemyCharge>();
-            etrigger = GameObject.Find("Player").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
-
+            
             target = GameObject.Find("Player");
         }
         else
@@ -171,12 +170,12 @@ public class JH_PlayerMove : MonoBehaviour
             lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
             rf = transform.Find("Right").GetComponent<YJ_RightFight>();
             ch = GetComponent<JH_PlayerCharge>();
-            trigger = GameObject.Find("Enemy").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger_enemy>();
 
             cm = transform.Find("Main Camera").GetComponent<JH_CameraMove>();
             target = GameObject.Find("Enemy Camera");
         }
-
+        trigger = GameObject.Find("Player").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
+        etrigger = GameObject.Find("Enemy").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger_enemy>();
         State = PlayerState.Idle;
     }
 
@@ -392,11 +391,11 @@ public class JH_PlayerMove : MonoBehaviour
             else
                 anim.SetFloat("PunchRight", Mathf.Lerp(anim.GetFloat("PunchRight"), 0, Time.deltaTime * 5));
         }
-        //else if (lf.Grapp)
-        //{
-        //    if (State != PlayerState.Grap)
-        //        State = PlayerState.Grap;
-        //}
+        else if (trigger.Grapp)
+        {
+            if (State != PlayerState.Grap)
+                State = PlayerState.Grap;
+        }
         else if (ch.IsGuard)
         {
             if (State != PlayerState.Guard)
@@ -490,7 +489,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsGrapped()
     {
-        if (trigger.enemyCome == true || trigger.enemyGo == true)
+        if (etrigger.enemyCome == true || etrigger.enemyGo == true)
             return true;
         else
             return false;
@@ -508,7 +507,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsGrapped(bool isEnemy)
     {
-        if (etrigger.enemyCome == true || etrigger.enemyGo == true)
+        if (trigger.enemyCome == true || trigger.enemyGo == true)
             return true;
         else
             return false;
