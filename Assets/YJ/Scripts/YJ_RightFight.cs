@@ -14,6 +14,7 @@ public class YJ_RightFight : MonoBehaviour
     public GameObject enemyCamera;
     public GameObject trigger;
     YJ_LeftFight leftFight;
+    public YJ_Trigger yj_trigger;
 
     // 공격 속도
     float rightspeed = 15f;
@@ -78,7 +79,7 @@ public class YJ_RightFight : MonoBehaviour
     
     void Update()
     {
-
+       
         if( yj_KillerGage.killerModeOn )
         {
             rightspeed = 60f;
@@ -89,7 +90,7 @@ public class YJ_RightFight : MonoBehaviour
             rightspeed = 15f;
             backspeed = 20f;
         }
-        transform.localRotation = Camera.main.transform.localRotation;
+       transform.rotation = Camera.main.transform.rotation;
 
         if (overlap)
         {
@@ -104,7 +105,7 @@ public class YJ_RightFight : MonoBehaviour
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if (InputManager.Instance.Fire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
+        if (InputManager.Instance.Fire2 && !click && !overlap && !yj_trigger.grap)// && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
             fire = true;
             mouseOrigin = Input.mousePosition;

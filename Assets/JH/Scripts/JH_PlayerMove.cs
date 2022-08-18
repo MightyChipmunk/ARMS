@@ -95,12 +95,12 @@ public class JH_PlayerMove : MonoBehaviour
     bool canDash = true;
     bool isDash = false;
     bool canJump = true;
-    public bool IsDash 
-    { 
-        get 
-        { 
-            return isDash; 
-        } 
+    public bool IsDash
+    {
+        get
+        {
+            return isDash;
+        }
         set
         {
             if (value != isDash)
@@ -160,8 +160,8 @@ public class JH_PlayerMove : MonoBehaviour
             eh = GetComponent<SY_EnemyHp>();
             elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
             erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
-            ech = GetComponent<JH_EnemyCharge>();
-            etrigger = GameObject.Find("Player").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
+            elc = transform.Find("Left").GetComponent<SY_EnemyLeftCharge>();
+            etrigger = GameObject.Find("Player").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
 
             target = GameObject.Find("Player");
         }
@@ -311,8 +311,8 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Dash()
     {
-        if (InputManager.Instance.Dash && canDash && IsCanMove() && 
-            ((InputManager.Instance.Front && Vector3.Magnitude(target.transform.position - transform.position) >= 5f) 
+        if (InputManager.Instance.Dash && canDash && IsCanMove() &&
+            ((InputManager.Instance.Front && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
             || InputManager.Instance.Left || InputManager.Instance.Back || InputManager.Instance.Right))
         {
             StartCoroutine("IncreaseSpeed");
@@ -321,7 +321,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     void Dash(bool isEnemy)
     {
-        if (InputManager.Instance.EnemyDash && canDash && IsCanMove(isEnemy) && 
+        if (InputManager.Instance.EnemyDash && canDash && IsCanMove(isEnemy) &&
             ((InputManager.Instance.EnemyFront && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
             || InputManager.Instance.EnemyLeft || InputManager.Instance.EnemyBack || InputManager.Instance.EnemyRight))
         {
@@ -446,7 +446,7 @@ public class JH_PlayerMove : MonoBehaviour
                 //StartCoroutine("IncreaseSpeed");
                 StartCoroutine("FallEnemy");
                 anim.SetTrigger("Fall");
-            } 
+            }
         }
         else if (hitted)
         {
