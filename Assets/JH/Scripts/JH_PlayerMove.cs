@@ -24,6 +24,11 @@ public class JH_PlayerMove : MonoBehaviour
     Vector3 dir;
     Vector3 moveDir = Vector3.zero;
     float dist;
+    bool camReturn = false;
+    public bool CamReturn
+    {
+        get { return camReturn; }
+    }
 
     #region 공용 필요 속성
     GameObject target;
@@ -46,16 +51,25 @@ public class JH_PlayerMove : MonoBehaviour
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
     YJ_Trigger trigger;
+    public YJ_Trigger Trigger
+    {
+        get { return trigger; }
+    }
     JH_EnemyCharge ech;
     SY_EnemyHp eh;
     #endregion
-
+    [SerializeField]
     PlayerState state;
     public PlayerState State
     {
         get { return state; }
         set
         {
+            if ((state == PlayerState.Grap || state == PlayerState.Grapped) && value != state)
+            {
+                StopCoroutine("CamReturnCo");
+                StartCoroutine("CamReturnCo");
+            }
             state = value;
 
             switch (state)
@@ -81,6 +95,8 @@ public class JH_PlayerMove : MonoBehaviour
                     break;
                 case PlayerState.Grap:
                     anim.SetInteger("StateNum", 9);
+                    break;
+                case PlayerState.Grapped:
                     break;
                 case PlayerState.KnockBack:
                     anim.SetInteger("StateNum", 8);
@@ -330,30 +346,6 @@ public class JH_PlayerMove : MonoBehaviour
 
     void SetPlayerState()
     {
-        if (cc.isGrounded && !isDash)
-        {
-            anim.SetBool("Falling", false);
-            // moveDir의 각도를 계산해서 상태 정함
-            float angle = Vector3.Angle(moveDir, transform.forward);
-            float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
-            float finalAngle = sign * angle;
-            float radian = finalAngle * Mathf.PI / 180;
-
-            anim.SetFloat("PosX", Mathf.Lerp(anim.GetFloat("PosX"), Mathf.Sin(radian), Time.deltaTime * 5));
-            anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
-
-            if (!(InputManager.Instance.Front || InputManager.Instance.Left ||
-                  InputManager.Instance.Back || InputManager.Instance.Right || InputManager.Instance.Jump))
-                State = PlayerState.Idle;
-            else
-                State = PlayerState.Move;
-        }
-        else if (!cc.isGrounded && !isDash)
-        {
-            // 공중에 있을 때 낙하모션 재생
-            State = PlayerState.Fall;
-        }
-
         if (ph.IsKnock)
         {
             if (State != PlayerState.KnockBack)
@@ -376,6 +368,10 @@ public class JH_PlayerMove : MonoBehaviour
         else if (hitted)
         {
             State = PlayerState.Idle;
+        }
+        else if (IsGrapped())
+        {
+            State = PlayerState.Grapped;
         }
         else if (lf.Fire || rf.Fire)
         {
@@ -401,6 +397,30 @@ public class JH_PlayerMove : MonoBehaviour
             if (State != PlayerState.Guard)
                 State = PlayerState.Guard;
         }
+        else if (cc.isGrounded && !isDash)
+        {
+            anim.SetBool("Falling", false);
+            // moveDir의 각도를 계산해서 상태 정함
+            float angle = Vector3.Angle(moveDir, transform.forward);
+            float sign = Mathf.Sign(Vector3.Dot(moveDir, transform.right));
+            float finalAngle = sign * angle;
+            float radian = finalAngle * Mathf.PI / 180;
+
+            anim.SetFloat("PosX", Mathf.Lerp(anim.GetFloat("PosX"), Mathf.Sin(radian), Time.deltaTime * 5));
+            anim.SetFloat("PosY", Mathf.Lerp(anim.GetFloat("PosY"), Mathf.Cos(radian), Time.deltaTime * 5));
+
+            if (!(InputManager.Instance.Front || InputManager.Instance.Left ||
+                  InputManager.Instance.Back || InputManager.Instance.Right || InputManager.Instance.Jump))
+                State = PlayerState.Idle;
+            else
+                State = PlayerState.Move;
+        }
+        else if (!cc.isGrounded && !isDash)
+        {
+            // 공중에 있을 때 낙하모션 재생
+            State = PlayerState.Fall;
+        }
+
     }
 
     void SetEnemyState()
@@ -450,6 +470,10 @@ public class JH_PlayerMove : MonoBehaviour
         else if (hitted)
         {
             State = PlayerState.Idle;
+        }
+        else if (IsGrapped(isEnemy))
+        {
+            State = PlayerState.Grapped;
         }
         else if (elf.Fire || erf.Fire)
         {
@@ -615,6 +639,13 @@ public class JH_PlayerMove : MonoBehaviour
         anim.speed = 0;
         yield return new WaitForSeconds(0.25f);
         anim.speed = 1;
+    }
+
+    IEnumerator CamReturnCo()
+    {
+        camReturn = true;
+        yield return new WaitForSeconds(0.7f);
+        camReturn = false;
     }
 
     public Transform leftHandTarget;

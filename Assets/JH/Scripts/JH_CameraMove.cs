@@ -15,6 +15,8 @@ public class JH_CameraMove : MonoBehaviour
     float hitShake = 0;
     float hitShakeE = 0;
 
+    Transform grapPos;
+    Transform returnPos;
     JH_PlayerMove pm;
     GameObject target;
     GameObject enemy;
@@ -30,29 +32,44 @@ public class JH_CameraMove : MonoBehaviour
         target = GameObject.Find("Enemy Camera");
         enemy = GameObject.Find("Enemy");
         delta = transform.localPosition;
+        grapPos = GameObject.Find("GrapCamPos").transform;
+        returnPos = GameObject.Find("GrapReturnPos").transform;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        CamMove();
-        CamBetweenWall();
-        CamRot();
-
-        if (pm.hittedp || pm.Knocked)
-            CamHitted();
-        else
+        if (!pm.IsGrapped() && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !pm.CamReturn)
         {
-            totalTime = 0;
-            hitShake = 0;
+            CamMove();
+            CamBetweenWall();
+            CamRot();
+
+            if (pm.hittedp || pm.Knocked)
+                CamHitted();
+            else
+            {
+                totalTime = 0;
+                hitShake = 0;
+            }
+
+            if (enemy.GetComponent<JH_PlayerMove>().hittedp || enemy.GetComponent<JH_PlayerMove>().Knocked)
+                CamHit();
+            else
+            {
+                totalTimeE = 0;
+                hitShakeE = 0;
+            }
         }
-
-        if (enemy.GetComponent<JH_PlayerMove>().hittedp || enemy.GetComponent<JH_PlayerMove>().Knocked)
-            CamHit();
-        else
+        else if (pm.IsGrapped() || enemy.GetComponent<JH_PlayerMove>().IsGrapped(true))
         {
-            totalTimeE = 0;
-            hitShakeE = 0;
+            transform.localPosition = Vector3.Lerp(transform.localPosition, grapPos.localPosition, Time.deltaTime * speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, grapPos.rotation, Time.deltaTime * speed);
+        }
+        else if (pm.CamReturn)
+        {
+            transform.localPosition = Vector3.Lerp(transform.localPosition, delta, Time.deltaTime * speed * 5);
+            transform.rotation = Quaternion.Slerp(transform.rotation, returnPos.rotation, Time.deltaTime * speed * 10);
         }
     }
 
@@ -98,23 +115,25 @@ public class JH_CameraMove : MonoBehaviour
     // 캠이 벽 뒤로 갈 때 벽 앞으로 위치시키기
     void CamBetweenWall()
     {
+        // 카메라의 로컬포지션
         delta = new Vector3(xLerp + hitShake + hitShakeE, yLerp + hitShake + hitShakeE, zLerp);
         RaycastHit hit;
         Vector3 dir = transform.position - transform.parent.position;
 
         // 만약 캠과 플레이어 사이에 벽이 있다면
-        if (Physics.Raycast(transform.parent.position, dir, out hit, delta.magnitude, LayerMask.GetMask("Wall")))
-        {
-            // 플레이어와 벽 사이의 거리 * 0.8 만큼의 위치에 카메라를 이동시킨다.
-            float dist = (transform.parent.position - hit.point).magnitude * 0.8f;
-            transform.localPosition = delta.normalized * dist;
-        }
-        // 아니라면
-        else
-        {
-            // CamMove()에서 구한 위치로 캠을 이동시킨다.
-            transform.localPosition = delta;
-        }
+        //if (Physics.Raycast(transform.parent.position, dir, out hit, delta.magnitude, LayerMask.GetMask("Wall")))
+        //{
+        //    // 플레이어와 벽 사이의 거리 * 0.8 만큼의 위치에 카메라를 이동시킨다.
+        //    float dist = (transform.parent.position - hit.point).magnitude * 0.8f;
+        //    transform.localPosition = delta.normalized * dist;
+        //}
+        //// 아니라면
+        //else
+        //{
+        //    // CamMove()에서 구한 위치로 캠을 이동시킨다.
+        //    transform.localPosition = delta;
+        //}
+        transform.localPosition = delta;
     }
 
     void CamRot()

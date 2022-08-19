@@ -184,7 +184,7 @@ public class YJ_Trigger : MonoBehaviour
             if (currentTime > 0.2f)
             {
                 // 플레이어와 애너미의 거리가 15이상이면 내려주기
-                if (Vector3.Distance(player.transform.position, enemy.transform.position) > 15f)
+                if (Vector3.Distance(player.transform.position, enemy.transform.position) > 10f || currentTime > 3f)
                 {
                     // 주먹의 콜라이더를 켜고
                     leftHand.GetComponent<Collider>().enabled = true;

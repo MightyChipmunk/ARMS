@@ -47,11 +47,10 @@ public class JH_PlayerCharge : MonoBehaviour
                 StopCoroutine("WaitForIt");
             }
         }
-
         // "F"키를 누르면 가드를 해제한다.
         else
         {
-            if (InputManager.Instance.GuardUp)
+            if (InputManager.Instance.GuardUp || GetComponent<JH_PlayerMove>().IsGrapped())
             {
                 StartCoroutine("WaitForIt");
                 isGuard = false;

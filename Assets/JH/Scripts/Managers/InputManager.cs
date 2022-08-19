@@ -106,108 +106,113 @@ public class InputManager : MonoBehaviour
 
     public void Update()
     {
-        front = Input.GetKey(KeyCode.W);
-        back = Input.GetKey(KeyCode.S);
-        right = Input.GetKey(KeyCode.D);
-        left = Input.GetKey(KeyCode.A);
-        dash = Input.GetKeyDown(KeyCode.LeftShift);
-        jump = Input.GetKeyDown(KeyCode.Space);
-
-        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp 
-            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerCharge>().IsGuard)
+        if (JH_Count.Instance.IsStart)
         {
-            fire1 = Input.GetMouseButtonDown(0);
-            fire2 = Input.GetMouseButtonDown(1);
-            grap = Input.GetMouseButtonDown(2);
-            killer = Input.GetKeyDown(KeyCode.Q);
-        }
+            front = Input.GetKey(KeyCode.W);
+            back = Input.GetKey(KeyCode.S);
+            right = Input.GetKey(KeyCode.D);
+            left = Input.GetKey(KeyCode.A);
+            dash = Input.GetKeyDown(KeyCode.LeftShift);
+            jump = Input.GetKeyDown(KeyCode.Space);
 
-        if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
-            && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerMove>().IsFire()
-            && player.GetComponent<CharacterController>().isGrounded
-            && player.GetComponent<JH_PlayerMove>().State != JH_PlayerMove.PlayerState.Grap)
-        {
-            guard = Input.GetKey(KeyCode.F);
-            guardUp = Input.GetKeyUp(KeyCode.F);
-        }
-
-        if (changeAct)
-        {
-            ran = Random.Range(1, 22);
-            actRan = Random.Range(1, 10);
-            StartCoroutine("RandomAct");
-        }
-
-        enemyFront = ran <= 2 ? true : false;
-        enemyBack = (ran >= 3 && ran <= 5) ? true : false;
-        enemyRight = (ran >= 6 && ran <= 8) ? true : false;
-        enemyLeft = (ran >= 9 && ran <= 11) ? true : false;
-        enemyDash = actRan <= 3 ? true : false;
-        enemyJump = actRan >= 9 ? true : false;
-
-        if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
-            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_EnemyCharge>().IsGuard)
-        { 
-            // GetKeyDown 备泅
-            if (ran >= 12 && ran <= 13 && canFire1)
+            if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
+                && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerCharge>().IsGuard)
             {
-                enemyFire1 = true;
-                canFire1 = false;
+                fire1 = Input.GetMouseButtonDown(0);
+                fire2 = Input.GetMouseButtonDown(1);
+                grap = Input.GetMouseButtonDown(2);
+                killer = Input.GetKeyDown(KeyCode.Q);
             }
-            else if (!(ran >= 12 && ran <= 13))
-                canFire1 = true;
-            else if (canFire1 == false)
+
+            if (!player.GetComponent<SY_PlayerHp>().IsKnock && !player.GetComponent<JH_PlayerMove>().hittedp
+                && !player.GetComponent<JH_PlayerMove>().IsGrapped() && !player.GetComponent<JH_PlayerMove>().IsFire()
+                && player.GetComponent<CharacterController>().isGrounded
+                && player.GetComponent<JH_PlayerMove>().State != JH_PlayerMove.PlayerState.Grap)
+            {
+                guard = Input.GetKey(KeyCode.F);
+                guardUp = Input.GetKeyUp(KeyCode.F);
+            }
+            else if (player.GetComponent<JH_PlayerMove>().IsGrapped())
+                guard = false;
+
+            if (changeAct)
+            {
+                ran = Random.Range(1, 22);
+                actRan = Random.Range(1, 10);
+                StartCoroutine("RandomAct");
+            }
+
+            enemyFront = ran <= 2 ? true : false;
+            enemyBack = (ran >= 3 && ran <= 5) ? true : false;
+            enemyRight = (ran >= 6 && ran <= 8) ? true : false;
+            enemyLeft = (ran >= 9 && ran <= 11) ? true : false;
+            enemyDash = actRan <= 3 ? true : false;
+            enemyJump = actRan >= 9 ? true : false;
+
+            if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
+                && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_EnemyCharge>().IsGuard)
+            {
+                // GetKeyDown 备泅
+                if (ran >= 12 && ran <= 13 && canFire1)
+                {
+                    enemyFire1 = true;
+                    canFire1 = false;
+                }
+                else if (!(ran >= 12 && ran <= 13))
+                    canFire1 = true;
+                else if (canFire1 == false)
+                    enemyFire1 = false;
+                // GetKeyDown 备泅
+                if (ran >= 14 && ran <= 15 && canFire2)
+                {
+                    enemyFire2 = true;
+                    canFire2 = false;
+                }
+                else if (!(ran >= 14 && ran <= 15))
+                    canFire2 = true;
+                else if (canFire2 == false)
+                    enemyFire2 = false;
+                // GetKeyDown 备泅
+                if (ran >= 16 && ran <= 17 && canKill)
+                {
+                    enemyKiller = true;
+                    canKill = false;
+                }
+                else if (!(ran >= 16 && ran <= 17))
+                    canKill = true;
+                else if (canKill == false)
+                    enemyKiller = false;
+
+                if (ran >= 18 && ran <= 19 && canGrap)
+                {
+                    enemyGrap = true;
+                    canGrap = false;
+                }
+                else if (!(ran >= 18 && ran <= 19))
+                    canGrap = true;
+                else if (canGrap == false)
+                    enemyGrap = false;
+            }
+            else
+            {
                 enemyFire1 = false;
-            // GetKeyDown 备泅
-            if (ran >= 14 && ran <= 15 && canFire2)
-            {
-                enemyFire2 = true;
-                canFire2 = false;
-            }
-            else if (!(ran >= 14 && ran <= 15))
-                canFire2 = true;
-            else if (canFire2 == false)
-                enemyFire2 = false;            
-            // GetKeyDown 备泅
-            if (ran >= 16 && ran <= 17 && canKill)
-            {
-                enemyKiller = true;
-                canKill = false;
-            }
-            else if (!(ran >= 16 && ran <= 17))
-                canKill = true;
-            else if (canKill == false)
-                enemyKiller = false;
-
-            if (ran >= 18 && ran <= 19 && canGrap)
-            {
-                enemyGrap = true;
-                canGrap = false;
-            }
-            else if (!(ran >= 18 && ran <= 19))
-                canGrap = true;
-            else if (canGrap == false)
+                enemyFire2 = false;
                 enemyGrap = false;
-        }
-        else
-        {
-            enemyFire1 = false;
-            enemyFire2 = false;
-            enemyGrap = false;
-        }
+            }
 
-        if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
-            && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_PlayerMove>().IsFire(true)
-            && enemy.GetComponent<CharacterController>().isGrounded
-            && enemy.GetComponent<JH_PlayerMove>().State != JH_PlayerMove.PlayerState.Grap)
-        {
-            enemyGuard = (ran >= 20) ? true : false;
-            enemyGuardUp = (ran < 20) ? true : false;
-        }
-        else
-        {
-            enemyGuard = false;
-            enemyGuardUp = false;
+            if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
+                && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_PlayerMove>().IsFire(true)
+                && enemy.GetComponent<CharacterController>().isGrounded
+                && enemy.GetComponent<JH_PlayerMove>().State != JH_PlayerMove.PlayerState.Grap)
+            {
+                enemyGuard = (ran >= 20) ? true : false;
+                enemyGuardUp = (ran < 20) ? true : false;
+            }
+            else
+            {
+                enemyGuard = false;
+                enemyGuardUp = false;
+            }
         }
     }
 

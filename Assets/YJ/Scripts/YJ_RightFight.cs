@@ -92,7 +92,6 @@ public class YJ_RightFight : MonoBehaviour
             rightspeed = 15f;
             backspeed = 20f;
         }
-       transform.rotation = Camera.main.transform.rotation;
 
         if (overlap)
         {

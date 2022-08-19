@@ -51,7 +51,7 @@ public class JH_EnemyCharge : MonoBehaviour
         // "F"키를 누르면 가드를 해제한다.
         else
         {
-            if (InputManager.Instance.EnemyGuardUp)
+            if (InputManager.Instance.EnemyGuardUp || GetComponent<JH_PlayerMove>().IsGrapped(true))
             {
                 StartCoroutine("WaitForIt");
                 isGuard = false;

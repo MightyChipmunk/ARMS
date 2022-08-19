@@ -18,7 +18,7 @@ public class SY_GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (setTime > 0)
+        if (setTime > 0 && JH_Count.Instance.IsStart)
             setTime -= Time.deltaTime;
         else if (setTime <= 0)
         {
