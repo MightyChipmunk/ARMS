@@ -183,21 +183,21 @@ public class InputManager : MonoBehaviour
             else if (canKill == false)
                 enemyKiller = false;
 
-            //if (ran >= 16 && ran <= 17 && canGrap)
-            //{
-            //    enemyGrap = true;
-            //    canGrap = false;
-            //}
-            //else if (!(ran >= 16 && ran <= 17))
-            //    canGrap = true;
-            //else if (canGrap == false)
-            //    enemyGrap = false;
+            if (ran >= 18 && ran <= 19 && canGrap)
+            {
+                enemyGrap = true;
+                canGrap = false;
+            }
+            else if (!(ran >= 18 && ran <= 19))
+                canGrap = true;
+            else if (canGrap == false)
+                enemyGrap = false;
         }
         else
         {
             enemyFire1 = false;
             enemyFire2 = false;
-            //enemyGrap = false;
+            enemyGrap = false;
         }
 
         if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp

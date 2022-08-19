@@ -23,11 +23,12 @@ public class YJ_RightFight_enemy : MonoBehaviour
     // 타겟
     GameObject me;
 
-
     // 타겟위치
     Vector3 targetPos;
 
-    Transform originPos;
+    // 내 콜라이더 끄고켜기
+    Collider col;
+
     // 버튼 눌림확인
     public bool fire = false; // 오른쪽
     public bool Fire
@@ -42,7 +43,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
     // 이동방향
     Vector3 dir;
 
-
     float rightTime = 0.5f; // 좌표저장 카운터
     [SerializeField] private List<Vector3> rightPath; // 위치가 들어갈 리스트
     Vector3 rightOriginLocalPos;
@@ -52,22 +52,27 @@ public class YJ_RightFight_enemy : MonoBehaviour
     // 필살기 사용 가능
     public YJ_KillerGage_enemy yj_KillerGage_enemy;
 
+    // 돌아갈 곳
+    public Transform originPos;
+
+    // 내 트리거
+    public YJ_Trigger_enemy yj_trigger_enemy;
+
     void Start()
     {
         // 타겟의 위치 찾기
         // 애너미의 처음위치로
         //target = GameObject.Find("Enemy");
         me = GameObject.Find("Enemy");
-        originPos = me.transform;
-        
 
 
-        // 로컬좌표의 값을 저장
-        rightOriginLocalPos = transform.localPosition;
+
         // 이동 좌표를 저장할 리스트
         rightPath = new List<Vector3>();
 
         leftFight = left.GetComponent<YJ_LeftFight_enemy>();
+
+        col = GetComponent<Collider>();
     }
 
     
@@ -89,17 +94,20 @@ public class YJ_RightFight_enemy : MonoBehaviour
             //print("overlap 가동");
             Return();
 
-            if(Vector3.Distance(transform.position, me.transform.position) < 1.9f)
+            if(Vector3.Distance(transform.position, originPos.position) < 1.9f)
             {
-                transform.localPosition = rightOriginLocalPos;
+                transform.position = originPos.position;
                 rightPath.Clear();
                 overlap = false;
             }
         }
 
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
-        if ( InputManager.Instance.EnemyFire2 && !click && !overlap && !leftFight.grap && !trigger.gameObject.activeSelf && !yj_trigger.enemyCome)
+        if ( InputManager.Instance.EnemyFire2 && !yj_trigger_enemy.grap )
         {
+            // 로컬좌표의 값을 저장
+            rightOriginLocalPos = transform.localPosition;
+            col.enabled = true;
             targetPos = targetCamera.transform.position;
             fire = true;
 
@@ -144,13 +152,14 @@ public class YJ_RightFight_enemy : MonoBehaviour
         // 캐릭터로부터 n만큼 떨어졌다면
         if (click)
         {
+            col.enabled = false;
             // 다 되돌아왔으면 원점으로 만들기
-            if (Vector3.Distance(transform.position, me.transform.position) < 1.9f)
+            if (Vector3.Distance(transform.position, originPos.position) < 1.9f)
             {
                 fire = false;
                 click = false;
                 rightspeed = 15f;
-                transform.localPosition = rightOriginLocalPos;
+                transform.position = originPos.position;
             }
 
             // 다 되돌아오지 않았으면 되돌아오기
@@ -197,7 +206,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 잡기 상태가 아닐때
-        if (!trigger.gameObject.activeSelf)
+        if (!yj_trigger_enemy.grap)
         {
             // 애너미레이어와 닿았을 때
             if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -212,6 +221,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
         fire = false;
         click = false;
         rightspeed = 15f;
-        transform.localPosition = Vector3.Lerp(transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
+        transform.position = Vector3.Lerp(transform.position, originPos.position, Time.deltaTime * backspeed);
     }
 }

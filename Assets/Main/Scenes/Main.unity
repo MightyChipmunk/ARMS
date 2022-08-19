@@ -609,7 +609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1855340746554395458, guid: 49011e57640af4346b984abcfb1cf581, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1855340746554395458, guid: 49011e57640af4346b984abcfb1cf581, type: 3}
       propertyPath: m_LocalScale.x
@@ -1094,7 +1094,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &336950553
 GameObject:
@@ -2502,7 +2502,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6900704511881687554, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6900704511881687554, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
       propertyPath: m_LocalScale.x
@@ -3529,7 +3529,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1216576656
 GameObject:
@@ -3899,6 +3899,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1336356284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336356285}
+  m_Layer: 30
+  m_Name: TriggerPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1336356285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336356284}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.008333206, y: 0.8755999, z: 0.6125004}
+  m_LocalScale: {x: 0.07947769, y: 0.5755332, z: 0.056998502}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2069820936406661881}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1373023782
 GameObject:
   m_ObjectHideFlags: 0
@@ -3961,7 +3992,7 @@ Transform:
   - {fileID: 2010297957}
   - {fileID: 1925912996}
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1439075184
 GameObject:
@@ -4243,7 +4274,7 @@ RectTransform:
   - {fileID: 1558969974}
   - {fileID: 155753560}
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 12
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4665,7 +4696,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1711818588
 GameObject:
@@ -5040,7 +5071,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1817818911
 MeshRenderer:
@@ -7944,6 +7975,8 @@ Transform:
   - {fileID: 7037456848178579698}
   - {fileID: 2541536906921522621}
   - {fileID: 9147004598943477925}
+  - {fileID: 2196723828355550289}
+  - {fileID: 1336356285}
   - {fileID: 8440804457073073446}
   - {fileID: 8440804458082044107}
   - {fileID: 1427876165}
@@ -8183,12 +8216,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2196723828355550288}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 1.7954361, y: 0.0130313095, z: -0.036198102}
-  m_LocalScale: {x: 0.115078345, y: 1, z: 0.099035986}
+  m_LocalPosition: {x: 0.008333206, y: 0.8755999, z: 0.6125004}
+  m_LocalScale: {x: 0.0794777, y: 0.5755332, z: 0.056998502}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8440804458082044107}
-  m_RootOrder: 0
+  m_Father: {fileID: 2069820936406661881}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!136 &2196723828355550291
 CapsuleCollider:
@@ -9112,10 +9145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f28dca955e30424ba4ac5dd6ffba8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  right: {fileID: 9128531006547625096}
   trigger: {fileID: 4696511998795678611}
   enemyCamera: {fileID: 1160279776}
-  grap: 0
   leftPath: []
   yj_trigger_enemy: {fileID: 9217974470826123696}
   yj_KillerGage: {fileID: 1509635170}
@@ -11362,7 +11393,7 @@ Transform:
   m_Children:
   - {fileID: 352449415}
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &8440804457073073447
 SphereCollider:
@@ -11459,10 +11490,9 @@ Transform:
   m_LocalScale: {x: 0.5755333, y: 0.69064, z: 0.5755333}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2196723828355550289}
   - {fileID: 1536816312}
   m_Father: {fileID: 2069820936406661881}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &8440804458082044108
 SphereCollider:
@@ -11672,6 +11702,8 @@ MonoBehaviour:
   rightPath: []
   yj_trigger: {fileID: 4696511998795678614}
   yj_KillerGage_enemy: {fileID: 317669445038478136}
+  originPos: {fileID: 327697339}
+  yj_trigger_enemy: {fileID: 9217974470826123696}
 --- !u!114 &8554293681995370389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11684,15 +11716,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d058d3b8aa1ad3144b628a6bd9f0d6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  right: {fileID: 8440804457073073445}
   trigger: {fileID: 2196723828355550288}
   playertarget: {fileID: 2102634343}
-  grap: 0
+  originPos: {fileID: 1710897543}
   leftPath: []
+  yj_trigger_enemy: {fileID: 9217974470826123696}
   yj_trigger: {fileID: 4696511998795678614}
   yj_KillerGage_enemy: {fileID: 317669445038478136}
-  p3_left: {fileID: 1710897543}
-  p3_right: {fileID: 327697339}
 --- !u!1 &8576931086420223745
 GameObject:
   m_ObjectHideFlags: 0
@@ -12442,6 +12472,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c83e32ef8ec96f542bfec594bcdf69c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mr: {fileID: 0}
-  enemyCome: 0
-  enemyGo: 0
+  targetPos: {fileID: 2102634343}
+  triggerPos: {fileID: 1336356285}
+  grap: 0
+  playerCome: 0
+  playerGo: 0
+  leftHand: {fileID: 8440804458082044106}
+  rightHand: {fileID: 8440804457073073445}
+  yj_rightScript: {fileID: 8554293680189073304}
+  yj_leftScript: {fileID: 8554293681995370389}
