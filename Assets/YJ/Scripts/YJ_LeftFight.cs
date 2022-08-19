@@ -11,7 +11,6 @@ using UnityEngine;
 public class YJ_LeftFight : MonoBehaviour
 {
 
-    public GameObject right; // 오른손
     public GameObject trigger; // 가운데 선
     public GameObject enemyCamera;
     // 공격 속도
@@ -33,10 +32,7 @@ public class YJ_LeftFight : MonoBehaviour
         get { return fire; }
     }
     bool click = false;
-    //bool isLeftROnce; // 왼손이 오른쪽으로 휘었는지
-    //bool isLeftLOnce; // 왼손이 왼쪽으로 휘었는지
     bool overlap = false; // 애너미랑 닿았을때
-    public bool grap = false; // 잡기 하고있는지
 
 
     // 마우스 위치 (시작, 이후)
@@ -47,14 +43,12 @@ public class YJ_LeftFight : MonoBehaviour
     float leftTime = 0.5f; // 좌표저장 카운터
     [SerializeField] private List<Vector3> leftPath; // 위치가 들어갈 리스트
     Vector3 leftOriginLocalPos;
-    Vector3 rightOriginLocalPos;
 
     YJ_Trigger yj_trigger;
     public YJ_Trigger_enemy yj_trigger_enemy;
 
     //콜라이더 끄고 켜기위해 불러오기
-    SphereCollider leftCol;
-    SphereCollider rightCol;
+    Collider col;
 
     public YJ_KillerGage yj_KillerGage;
 
@@ -66,13 +60,11 @@ public class YJ_LeftFight : MonoBehaviour
         player = GameObject.Find("Player");
 
         // 콜라이더 가져오기
-        leftCol = GetComponent<SphereCollider>();
-        rightCol = right.GetComponent<SphereCollider>();
+        col = GetComponent<Collider>();
 
 
         // 로컬 포지션을 저장
         leftOriginLocalPos = transform.localPosition;
-        rightOriginLocalPos = right.transform.localPosition;
         // 이동 좌표를 저장할 리스트
         leftPath = new List<Vector3>();
         mouseOrigin = Vector3.zero;
@@ -80,7 +72,6 @@ public class YJ_LeftFight : MonoBehaviour
         yj_trigger = trigger.GetComponent<YJ_Trigger>();
     }
 
-    bool graphands = false; //잡으러갈때
     void Update()
     {
         if (yj_KillerGage.killerModeOn)
@@ -118,10 +109,10 @@ public class YJ_LeftFight : MonoBehaviour
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (InputManager.Instance.Fire1 && !click && !overlap && !yj_trigger.grap)// && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
+            col.enabled = true;
             fire = true;
             mouseOrigin = Input.mousePosition;
             targetPos = enemyCamera.transform.position;
-
         }
         if (fire)
         {
@@ -161,25 +152,15 @@ public class YJ_LeftFight : MonoBehaviour
                 mousePos = Input.mousePosition;
                 // 외각
                 Vector3 cross = Vector3.Cross(dir, transform.up);
-                print(mousePos.x - mouseOrigin.x);
 
                 if (mousePos.x - mouseOrigin.x > 0)
                 {
-                    //dir.x += 0.5f;
                     dir -= cross * 0.5f;
                 }
 
                 else if (mousePos.x - mouseOrigin.x < 0)
                 {
                     dir += cross * 0.5f;
-                    //dir.x -= 0.5f;
-                    //if (!isLeftLOnce)
-                    //{
-                    //leftrg.velocity = Vector3.zero; // addforce정지시켜주기 ( 초기화 )
-                    //leftrg.AddForce(Vector3.left * 5, ForceMode.Impulse); // 초기화 이후 addforce
-                    //isLeftLOnce = true; // 왼손 왼쪽으로 휨
-                    //isLeftROnce = false; // 왼손 오른쪽으로 휘지 않음.
-                    //}
                 }
                 transform.position += dir * leftspeed * Time.deltaTime;
                 leftDistance += leftspeed * Time.deltaTime;
@@ -191,6 +172,7 @@ public class YJ_LeftFight : MonoBehaviour
         // 캐릭터로부터 n만큼 떨어졌다면
         if (click)
         {
+            col.enabled = false;
             // 다 되돌아왔으면 원점으로 만들기
             if (Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
@@ -231,14 +213,13 @@ public class YJ_LeftFight : MonoBehaviour
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
             leftPath.Clear();
-            //print(click);
         }
     }
     #endregion
     private void OnTriggerEnter(Collider other)
     {
         // 잡기 상태가 아닐때
-        if (!trigger.gameObject.activeSelf)
+        if (!yj_trigger.grap)
         {
             // 애너미레이어와 닿았을 때
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))

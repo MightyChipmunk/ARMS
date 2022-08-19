@@ -175,7 +175,7 @@ public class JH_PlayerMove : MonoBehaviour
             target = GameObject.Find("Enemy Camera");
         }
         trigger = GameObject.Find("Player").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
-        etrigger = GameObject.Find("Enemy").transform.Find("Left").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger_enemy>();
+        etrigger = GameObject.Find("Enemy").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger_enemy>();
         State = PlayerState.Idle;
     }
 
@@ -465,7 +465,7 @@ public class JH_PlayerMove : MonoBehaviour
             else
                 anim.SetFloat("PunchRight", Mathf.Lerp(anim.GetFloat("PunchRight"), 0, Time.deltaTime * 5));
         }
-        else if (elf.Grapp)
+        else if (etrigger.Grapp)
         {
             if (State != PlayerState.Grap)
                 State = PlayerState.Grap;
@@ -489,7 +489,7 @@ public class JH_PlayerMove : MonoBehaviour
 
     public bool IsGrapped()
     {
-        if (etrigger.enemyCome == true || etrigger.enemyGo == true)
+        if (etrigger.playerCome == true || etrigger.playerGo == true)
             return true;
         else
             return false;
