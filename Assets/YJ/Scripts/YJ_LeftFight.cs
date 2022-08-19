@@ -176,10 +176,13 @@ public class YJ_LeftFight : MonoBehaviour
             // 다 되돌아왔으면 원점으로 만들기
             if (Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
-                fire = false;
-                click = false;
+                // 콜라이더 켜주기
+                col.enabled = true;
+
                 leftspeed = 15f;
                 transform.localPosition = leftOriginLocalPos;
+                click = false;
+                fire = false;
             }
 
             // 다 되돌아오지 않았으면 되돌아오기

@@ -37,7 +37,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
     public bool playerCome = false; // 애너미 잡아올때
     public bool playerGo = false; // 애너미 던질때
     bool turn = false;
-    bool goTrigger = false; // 트리거 앞으로가기
+    public bool goTrigger = false; // 트리거 앞으로가기
     bool backTrigger = false; // 트리거 혼자 뒤로오기
 
     // 애너미 손 불러오기
@@ -48,7 +48,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
 
     float currentTime = 0;
     float speed = 20f;
-    //public YJ_Trigger_enemy yj_trigger_enemy; // 애너미가 잡기상태인지 확인
+    public YJ_Trigger yj_trigger; // 애너미가 잡기상태인지 확인
 
     void Start()
     {
@@ -71,13 +71,10 @@ public class YJ_Trigger_enemy : MonoBehaviour
 
     void Update()
     {
-        print("Input : "+ InputManager.Instance.EnemyGrap + " grap : "+ grap+ " right : " + yj_rightScript.Fire + " left : " + yj_leftScript.Fire);
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (InputManager.Instance.EnemyGrap && !grap && !yj_leftScript.Fire && !yj_rightScript.Fire)
+        if (InputManager.Instance.EnemyGrap && !grap && !yj_leftScript.Fire && !yj_rightScript.Fire && !yj_trigger.goTrigger)
         {
-            print("잡기공격--------------------------");
-
             targetPosGet = targetPos.transform.position;
 
             // 콜라이더랑 매쉬 랜더러 켜주기
@@ -215,11 +212,25 @@ public class YJ_Trigger_enemy : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 닿은 other의 이름이 Enemy일경우
-        if (other.gameObject.name.Contains("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             // 애너미가 오게하는 기능 켜기
             graphands = true;
             playerCome = true;
+        }
+
+        if(other.gameObject.layer == LayerMask.NameToLayer("PlayerHand") || other.gameObject.layer == LayerMask.NameToLayer("PlayerTrigger"))
+        {
+            print("플레이어 트리거랑 닿았음!!------------------------------------------");
+            // 콜라이더랑 매쉬 랜더러 끄기
+            mr.enabled = false;
+            //col.enabled = false;
+            // 베지어곡선 그려주기
+            p1 = transform.position;
+            p2 = transform.position + new Vector3(0, 1f, 0);
+            // 돌아오는 기능 켜기
+            dir = Vector3.zero;
+            backTrigger = true;
         }
     }
 
@@ -258,10 +269,6 @@ public class YJ_Trigger_enemy : MonoBehaviour
 
                     col.enabled = false;
                 }
-
-                print("p1 :" + p1);
-                print("p2 :" + p2);
-                print("p3 :" + p3);
 
                 if (timer > 0.3f)
                 {
