@@ -7,7 +7,6 @@ public class SY_MemuManager : MonoBehaviour
 {
     public GameObject startSet;
     public GameObject menuSet;
-    public GameObject okButton;
     
     // Start is called before the first frame update
     void Start()

@@ -5320,7 +5320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverText: {fileID: 1200154541}
   countdownText: {fileID: 1590743318}
-  setTime: 2
+  setTime: 99
 --- !u!1001 &1020209838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17363,6 +17363,7 @@ MonoBehaviour:
   grap: 0
   enemyCome: 0
   enemyGo: 0
+  goTrigger: 0
   leftHand: {fileID: 9128531005009121639}
   rightHand: {fileID: 9128531006547625096}
   yj_trigger_enemy: {fileID: 9217974470826123696}
@@ -19946,6 +19947,8 @@ MonoBehaviour:
   rightPath: []
   yj_KillerGage: {fileID: 1509635170}
   yj_trigger_enemy: {fileID: 9217974470826123696}
+  hitSound: {fileID: 0}
+  clickSound: {fileID: 0}
 --- !u!1 &8253480112318406219
 GameObject:
   m_ObjectHideFlags: 0
@@ -21428,7 +21431,9 @@ MonoBehaviour:
   grap: 0
   playerCome: 0
   playerGo: 0
+  goTrigger: 0
   leftHand: {fileID: 8440804458082044106}
   rightHand: {fileID: 8440804457073073445}
   yj_rightScript: {fileID: 8554293680189073304}
   yj_leftScript: {fileID: 8554293681995370389}
+  yj_trigger: {fileID: 4696511998795678614}
