@@ -11,6 +11,8 @@ public class SY_GameOver : MonoBehaviour
     [SerializeField] Text countdownText;
     [SerializeField] float setTime = 99.0f;
 
+    bool gameEnd = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,9 @@ public class SY_GameOver : MonoBehaviour
     {
         if (setTime > 0 && JH_Count.Instance.IsStart)
             setTime -= Time.deltaTime;
-        else if (setTime <= 0)
+        else if (setTime <= 0 && gameEnd)
         {
+            gameEnd = false;
             GameOverText();
         }
 
@@ -35,10 +38,6 @@ public class SY_GameOver : MonoBehaviour
         //Time.timeScale = 0.0f;
         //gameOverText.SetActive(true);
         StartCoroutine("DelayText");
-        if (gameOverText)
-        {
-            StartCoroutine(ChangeLoad());
-        }
     }
 
     IEnumerator DelayText()
@@ -54,13 +53,7 @@ public class SY_GameOver : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         gameOverText.SetActive(true);
 
-
-    }
-
-    IEnumerator ChangeLoad()
-    {
-        yield return new WaitForSeconds(1.0f);
-        SceneManager.LoadScene(3);
-
+        yield return new WaitForSeconds(0.4f);
+        // 게임 오버 UI 출력
     }
 }

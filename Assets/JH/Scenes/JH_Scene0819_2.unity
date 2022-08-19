@@ -5305,6 +5305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSet: {fileID: 1178885939}
   menuSet: {fileID: 1895269114}
+  okButton: {fileID: 0}
 --- !u!114 &942894371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5319,7 +5320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverText: {fileID: 1200154541}
   countdownText: {fileID: 1590743318}
-  setTime: 99
+  setTime: 2
 --- !u!1001 &1020209838
 PrefabInstance:
   m_ObjectHideFlags: 0

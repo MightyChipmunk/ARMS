@@ -38,6 +38,11 @@ public class SY_MemuManager : MonoBehaviour
 
     public void ChangeScene1()
     {
+        SceneManager.LoadScene(2);
+    }
+
+    public void ChangeScene2()
+    {
         SceneManager.LoadScene(0);
     }
 }

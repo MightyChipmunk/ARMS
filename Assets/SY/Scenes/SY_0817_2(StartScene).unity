@@ -1423,6 +1423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSet: {fileID: 1178885939}
   menuSet: {fileID: 1895269114}
+  okButton: {fileID: 0}
 --- !u!1 &1027391104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2521,7 +2522,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 942894370}
         m_TargetAssemblyTypeName: SY_MemuManager, Assembly-CSharp
-        m_MethodName: ChangeScene
+        m_MethodName: ChangeScene1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -8471,7 +8471,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 942894370}
         m_TargetAssemblyTypeName: SY_MemuManager, Assembly-CSharp
-        m_MethodName: ChangeScene
+        m_MethodName: ChangeScene2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11874,10 +11874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f28dca955e30424ba4ac5dd6ffba8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  right: {fileID: 9128531006547625096}
   trigger: {fileID: 4696511998795678611}
   enemyCamera: {fileID: 1160279776}
-  grap: 0
   leftPath: []
   yj_trigger_enemy: {fileID: 9217974470826123696}
   yj_KillerGage: {fileID: 1509635170}
@@ -12380,6 +12378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e73f9468ec4f2444af24bbcdae9298b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   speed: 3.5
   jumpPower: 7
   isEnemy: 1
@@ -14448,6 +14447,8 @@ MonoBehaviour:
   rightPath: []
   yj_trigger: {fileID: 4696511998795678614}
   yj_KillerGage_enemy: {fileID: 317669445038478136}
+  originPos: {fileID: 0}
+  yj_trigger_enemy: {fileID: 0}
 --- !u!114 &8554293680189073305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14472,15 +14473,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d058d3b8aa1ad3144b628a6bd9f0d6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  right: {fileID: 8440804457073073445}
   trigger: {fileID: 2196723828355550288}
   playertarget: {fileID: 2102634343}
-  grap: 0
+  originPos: {fileID: 0}
   leftPath: []
+  yj_trigger_enemy: {fileID: 0}
   yj_trigger: {fileID: 4696511998795678614}
   yj_KillerGage_enemy: {fileID: 317669445038478136}
-  p3_left: {fileID: 1710897543}
-  p3_right: {fileID: 327697339}
 --- !u!114 &8554293681995370390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15044,6 +15043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e73f9468ec4f2444af24bbcdae9298b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   speed: 3.5
   jumpPower: 7
   isEnemy: 0
@@ -15231,6 +15231,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c83e32ef8ec96f542bfec594bcdf69c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mr: {fileID: 0}
-  enemyCome: 0
-  enemyGo: 0
+  targetPos: {fileID: 0}
+  triggerPos: {fileID: 0}
+  grap: 0
+  playerCome: 0
+  playerGo: 0
+  leftHand: {fileID: 0}
+  rightHand: {fileID: 0}
+  yj_rightScript: {fileID: 0}
+  yj_leftScript: {fileID: 0}
