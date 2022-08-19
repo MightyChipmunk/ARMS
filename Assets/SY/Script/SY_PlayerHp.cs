@@ -30,17 +30,19 @@ public class SY_PlayerHp : MonoBehaviour
 
     public void SetHP(int value)
     {
+        if (value <= 0)
+        {
+            pm.State = JH_PlayerMove.PlayerState.Die;
+            pm.Died();
+            koText.GameOverText();
+        }
+
         if (hp != value && value != maxHp)
         {
             transform.Find("Damage").GetComponent<JH_Damage>().FloatText(hp - value);
         }
         hp = value;
         sliderHp.value = value;
-
-        if (sliderHp.value != value)
-        {
-            koText.GameOverText();
-        }
     }
 
     public int GetHP()
@@ -78,10 +80,9 @@ public class SY_PlayerHp : MonoBehaviour
             // 차징아닐 때, HP -1
             else
             {
-
                 SetHP(GetHP() - 90);
-                //isKnock = false;
-                pm.Hitted();
+                if (pm.State != JH_PlayerMove.PlayerState.Die)
+                    pm.Hitted();
             }
         }
 

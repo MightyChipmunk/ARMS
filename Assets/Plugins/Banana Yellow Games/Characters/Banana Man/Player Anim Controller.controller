@@ -54,7 +54,7 @@ AnimatorStateMachine:
     m_Position: {x: 220, y: 510, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5182386965700074007}
-    m_Position: {x: 550, y: 640, z: 0}
+    m_Position: {x: 550, y: 270, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 6347937952667352481}
@@ -710,6 +710,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: Die
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: Fall
     m_Type: 9
     m_DefaultFloat: 0
@@ -718,12 +724,6 @@ AnimatorController:
     m_Controller: {fileID: 0}
   - m_Name: Falling
     m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Die
-    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0

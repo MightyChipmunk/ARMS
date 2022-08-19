@@ -117,7 +117,7 @@ public class JH_CameraMove : MonoBehaviour
     {
         // 카메라의 로컬포지션
         delta = new Vector3(xLerp + hitShake + hitShakeE, yLerp + hitShake + hitShakeE, zLerp);
-        RaycastHit hit;
+        //RaycastHit hit;
         Vector3 dir = transform.position - transform.parent.position;
 
         // 만약 캠과 플레이어 사이에 벽이 있다면

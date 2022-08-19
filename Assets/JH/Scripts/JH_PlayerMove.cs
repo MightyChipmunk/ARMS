@@ -565,6 +565,12 @@ public class JH_PlayerMove : MonoBehaviour
         StartCoroutine("HittedEvent");
     }
 
+    public void Died()
+    {
+        anim.SetTrigger("Die");
+        hittedp = true;
+    }
+
     IEnumerator IncreaseSpeed()
     {
         float tmpSpeed = speed;

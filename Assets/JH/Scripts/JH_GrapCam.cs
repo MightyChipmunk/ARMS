@@ -7,8 +7,6 @@ public class JH_GrapCam : MonoBehaviour
     Transform enemy;
     Transform player;
     Vector3 delta;
-    [SerializeField]
-    float angle = 30f;
     // Start is called before the first frame update
     void Start()
     {

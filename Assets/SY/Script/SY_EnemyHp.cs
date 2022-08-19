@@ -34,7 +34,8 @@ public class SY_EnemyHp : MonoBehaviour
         if (value <= 0)
         {
             pm.State = JH_PlayerMove.PlayerState.Die;
-            GetComponent<Animator>().SetTrigger("Die");
+            pm.Died();
+            koText.GameOverText();
         }
 
         if (hp != value && value != maxHp)
@@ -44,10 +45,6 @@ public class SY_EnemyHp : MonoBehaviour
         hp = value;
         sliderHp.value = value;
 
-        if (sliderHp.value != value)
-        {
-            koText.GameOverText();
-        }
     }
 
     public int GetHP()
@@ -89,7 +86,8 @@ public class SY_EnemyHp : MonoBehaviour
             else
             {
                 SetHP(GetHP() - 90);
-                pm.Hitted();
+                if (pm.State != JH_PlayerMove.PlayerState.Die)
+                    pm.Hitted();
             }
 
         }
