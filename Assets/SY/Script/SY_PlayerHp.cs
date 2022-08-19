@@ -13,8 +13,6 @@ public class SY_PlayerHp : MonoBehaviour
     SY_EnemyRightCharge erc;
     SY_EnemyLeftCharge elc;
 
-
-
     JH_PlayerMove pm;
 
     bool canUp = false;
@@ -34,7 +32,6 @@ public class SY_PlayerHp : MonoBehaviour
     {
         hp = value;
         sliderHp.value = value;
-
     }
     public int GetHP()
     {

@@ -104,6 +104,8 @@ public class SY_EnemyHp : MonoBehaviour
 
     }
 
+    
+
     // 넉백 후 5초동안 무적상태
     public IEnumerator Ondamaged()
     {
