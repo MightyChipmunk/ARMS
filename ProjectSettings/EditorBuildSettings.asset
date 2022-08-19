@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/SY/Scenes/SY_0817_2(StartScene).unity
     guid: 8093782c5d571ab49bdaa0b415f905ca
   - enabled: 1
-    path: Assets/SY/Scenes/SY_0817_2(GameScene).unity
-    guid: b5bcc985a5198a342b05c229eb95dfe4
+    path: Assets/Main/Scenes/Main.unity
+    guid: 865cd2b925e1dfe47a4c84f994dd1978
   m_configObjects: {}

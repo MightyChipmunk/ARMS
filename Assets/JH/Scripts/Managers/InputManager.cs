@@ -7,8 +7,6 @@ public class InputManager : MonoBehaviour
 {
     GameObject player;
     GameObject enemy;
-    GameObject playerArm;
-    GameObject enemyArm;
     public static InputManager Instance { get; private set; }
 
     #region 플레이어 입력
@@ -101,9 +99,7 @@ public class InputManager : MonoBehaviour
     {
         Instance = this;
         player = GameObject.Find("Player").gameObject;
-        playerArm = player.transform.Find("Left").gameObject;
         enemy = GameObject.Find("Enemy").gameObject;
-        enemyArm = enemy.transform.Find("Left").gameObject;
 
         DontDestroyOnLoad(gameObject);
     }

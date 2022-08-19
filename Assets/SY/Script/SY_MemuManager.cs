@@ -32,6 +32,6 @@ public class SY_MemuManager : MonoBehaviour
     }
     public void ChangeScene()
     {
-        SceneManager.LoadScene("SY_0817_2(GameScene)");
+        SceneManager.LoadScene(1);
     }
 }
