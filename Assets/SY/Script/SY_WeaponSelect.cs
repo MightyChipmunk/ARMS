@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class SY_WeaponSelect : MonoBehaviour
 {
-    public GameObject left1;
     public void Start()
     {
        

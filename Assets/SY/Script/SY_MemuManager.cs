@@ -22,7 +22,7 @@ public class SY_MemuManager : MonoBehaviour
         {
             if (menuSet.activeSelf)
             {
-                menuSet.SetActive(false);
+                menuSet.SetActive(false); 
             }
             else
             {
@@ -30,9 +30,8 @@ public class SY_MemuManager : MonoBehaviour
             }
         }
     }
-
-    public void GameExit()
+    public void ChangeScene()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("SY_0817_2(GameScene)");
     }
 }

@@ -34,7 +34,6 @@ public class SY_PlayerHp : MonoBehaviour
         }
         hp = value;
         sliderHp.value = value;
-
     }
     public int GetHP()
     {
