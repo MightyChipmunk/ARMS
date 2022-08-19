@@ -31,6 +31,12 @@ public class SY_EnemyHp : MonoBehaviour
 
     public void SetHP(int value)
     {
+        if (value <= 0)
+        {
+            pm.State = JH_PlayerMove.PlayerState.Die;
+            GetComponent<Animator>().SetTrigger("Die");
+        }
+
         if (hp != value && value != maxHp)
         {
             transform.Find("Damage").GetComponent<JH_Damage>().FloatText(hp - value);

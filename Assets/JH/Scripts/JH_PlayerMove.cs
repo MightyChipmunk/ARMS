@@ -19,6 +19,7 @@ public class JH_PlayerMove : MonoBehaviour
         KnockBack,
         Grap,
         Grapped,
+        Die,
     }
 
     Vector3 dir;
@@ -100,6 +101,9 @@ public class JH_PlayerMove : MonoBehaviour
                     break;
                 case PlayerState.KnockBack:
                     anim.SetInteger("StateNum", 8);
+                    break;
+                case PlayerState.Die:
+                    GetComponent<CharacterController>().enabled = false;
                     break;
             }
         }
@@ -204,7 +208,7 @@ public class JH_PlayerMove : MonoBehaviour
         else
             yVelocity = -1f;
 
-        if (!isEnemy)
+        if (!isEnemy && State != PlayerState.Die)
         {
             Jump();
             Move();
@@ -212,7 +216,7 @@ public class JH_PlayerMove : MonoBehaviour
             SetPlayerState();
             Knocked = ph.IsKnock;
         }
-        else
+        else if (State != PlayerState.Die)
         {
             Jump(isEnemy);
             Move(isEnemy);
@@ -221,7 +225,7 @@ public class JH_PlayerMove : MonoBehaviour
             Knocked = eh.IsKnock;
         }
 
-        if (state != PlayerState.KnockBack)
+        if (state != PlayerState.KnockBack && State != PlayerState.Die)
             LookEnemy();
     }
 

@@ -134,7 +134,7 @@ public class InputManager : MonoBehaviour
             }
             else if (player.GetComponent<JH_PlayerMove>().IsGrapped())
                 guard = false;
-
+            
             if (changeAct)
             {
                 ran = Random.Range(1, 22);
