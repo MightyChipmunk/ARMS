@@ -38,7 +38,7 @@ public class YJ_Trigger : MonoBehaviour
     public bool enemyCome = false; // 애너미 잡아올때
     public bool enemyGo = false; // 애너미 던질때
     bool turn = false;
-    bool goTrigger = false; // 트리거 앞으로가기
+    public bool goTrigger = false; // 트리거 앞으로가기
     bool backTrigger = false; // 트리거 혼자 뒤로오기
 
     // 손불러오기
@@ -75,7 +75,7 @@ public class YJ_Trigger : MonoBehaviour
         //print("enemycome : " + enemyCome + " enemygo : " + enemyGo + " grap : " + grap + " goTrigger : " + goTrigger + " backTrigger : " + backTrigger);
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (InputManager.Instance.Grap)// && !yj_trigger_enemy.playerCome)
+        if (InputManager.Instance.Grap && !grap && !leftHand.GetComponent<YJ_LeftFight>().Fire && !rightHand.GetComponent<YJ_RightFight>().Fire && !yj_trigger_enemy.goTrigger)// && !yj_trigger_enemy.playerCome)
         {
             targetPosGet = targetPos.transform.position;
 
@@ -214,7 +214,7 @@ public class YJ_Trigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 닿은 other의 이름이 Enemy일경우
-        if (other.gameObject.name.Contains("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             // 애너미가 오게하는 기능 켜기
             graphands = true;

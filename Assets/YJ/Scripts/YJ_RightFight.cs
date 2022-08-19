@@ -58,6 +58,14 @@ public class YJ_RightFight : MonoBehaviour
 
     Collider col;
 
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip hitSound; // 맞았을때 사운드
+    [SerializeField]
+    private AudioClip clickSound; // 날아갈때 사운드
+
+
+
     void Start()
     {
         // 타겟의 위치 찾기
@@ -92,7 +100,6 @@ public class YJ_RightFight : MonoBehaviour
             rightspeed = 15f;
             backspeed = 20f;
         }
-       transform.rotation = Camera.main.transform.rotation;
 
         if (overlap)
         {
@@ -171,12 +178,13 @@ public class YJ_RightFight : MonoBehaviour
             // 다 되돌아왔으면 원점으로 만들기
             if (Vector3.Distance(transform.position, player.transform.position) < 1.7f)
             {
-                fire = false;
-                click = false;
+                // 콜라이더 켜주기
+                col.enabled = true;
+
                 rightspeed = 15f;
-                //isRightROnce = false;
-                //isRightLOnce = false;
                 transform.localPosition = rightOriginLocalPos;
+                click = false;
+                fire = false;
             }
             // 다 되돌아오지 않았으면 되돌아오기
             else

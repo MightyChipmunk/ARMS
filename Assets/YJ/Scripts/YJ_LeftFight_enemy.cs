@@ -110,7 +110,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (InputManager.Instance.EnemyFire1 && !yj_trigger_enemy.grap)
         {
-            print("왼손공격-------------------------");
             col.enabled = true;
             targetPos = playertarget.transform.position;
             fire = true;

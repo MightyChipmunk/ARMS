@@ -133,7 +133,7 @@ public class InputManager : MonoBehaviour
 
         if (changeAct)
         {
-            ran = Random.Range(1, 22);
+            ran = Random.Range(1, 41);
             actRan = Random.Range(1, 10);
             StartCoroutine("RandomAct");
         }
@@ -179,12 +179,12 @@ public class InputManager : MonoBehaviour
             else if (canKill == false)
                 enemyKiller = false;
 
-            if (ran >= 18 && ran <= 19 && canGrap)
+            if (ran >= 18 && ran <= 40 && canGrap)
             {
                 enemyGrap = true;
                 canGrap = false;
             }
-            else if (!(ran >= 18 && ran <= 19))
+            else if (!(ran >= 18 && ran <= 40))
                 canGrap = true;
             else if (canGrap == false)
                 enemyGrap = false;
