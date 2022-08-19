@@ -7,6 +7,7 @@ public class SY_MemuManager : MonoBehaviour
 {
     public GameObject startSet;
     public GameObject menuSet;
+    public GameObject okButton;
     
     // Start is called before the first frame update
     void Start()
@@ -33,5 +34,10 @@ public class SY_MemuManager : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void ChangeScene1()
+    {
+        SceneManager.LoadScene(0);
     }
 }

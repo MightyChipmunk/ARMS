@@ -8,7 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/SY/Scenes/SY_0817_2(StartScene).unity
     guid: 8093782c5d571ab49bdaa0b415f905ca
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main/Scenes/Main.unity
     guid: 865cd2b925e1dfe47a4c84f994dd1978
+  - enabled: 1
+    path: Assets/SY/Scenes/SY_0819(GameScene).unity
+    guid: ab5c8406edaf5f549927edea24ff6ac3
+  - enabled: 1
+    path: Assets/SY/Scenes/SY_Character.unity
+    guid: cc4832a3ead2575499c31e9f828ad842
+  - enabled: 1
+    path: Assets/SY/Scenes/SY_0817_2(GameOver).unity
+    guid: 4f1593de27bb65f4a93077c3ea148717
   m_configObjects: {}

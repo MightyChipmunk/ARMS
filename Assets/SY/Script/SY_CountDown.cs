@@ -25,4 +25,8 @@ public class SY_CountDown : MonoBehaviour
 
         countdownText.text = Mathf.Round(setTime).ToString();
     }
+
+ 
+
+
 }

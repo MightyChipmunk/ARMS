@@ -71,7 +71,7 @@ ModelImporter:
       name: Idle
       takeName: human_male_idle_01
       internalID: 0
-      firstFrame: 4
+      firstFrame: 2
       lastFrame: 54
       wrapMode: 0
       orientationOffsetY: 0
