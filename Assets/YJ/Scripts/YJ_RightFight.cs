@@ -61,8 +61,8 @@ public class YJ_RightFight : MonoBehaviour
     AudioSource audioSource;
 
     [Header("Audio Clips")]
-    [SerializeField]
-    private AudioClip hitSound; // 주먹이 상대에게 맞았을때 사운드
+    //[SerializeField]
+    //private AudioClip hitSound; // 주먹이 상대에게 맞았을때 사운드
     [SerializeField]
     private AudioClip shoockSound; // 주먹 날아갈때 사운드
 
@@ -232,7 +232,7 @@ public class YJ_RightFight : MonoBehaviour
             // 애너미레이어와 닿았을 때
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
-                audioSource.PlayOneShot(hitSound);
+                //audioSource.PlayOneShot(hitSound);
                 overlap = true;
             }
         }

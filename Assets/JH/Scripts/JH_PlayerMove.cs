@@ -8,6 +8,7 @@ public class JH_PlayerMove : MonoBehaviour
     AudioSource source;
     public AudioClip hittedSound;
     public AudioClip chargeHittedSound;
+    public AudioClip dieSound;
     public AudioClip jumpSound;
     public enum PlayerState
     {
@@ -168,7 +169,8 @@ public class JH_PlayerMove : MonoBehaviour
         {
             if (value != hitted)
             {
-                source.PlayOneShot(hittedSound);
+                //if (value)
+                //    source.PlayOneShot(hittedSound);
                 effect.HittedEffect(value);
             }
             hitted = value;
@@ -183,9 +185,9 @@ public class JH_PlayerMove : MonoBehaviour
         {
             if (value != knocked)
             {
-                source.PlayOneShot(chargeHittedSound);
                 effect.HittedEffect(value);
                 if (value)
+                    source.PlayOneShot(chargeHittedSound);
                     StartCoroutine("KnockedEvent");
             }
             knocked = value;
@@ -602,12 +604,14 @@ public class JH_PlayerMove : MonoBehaviour
 
     public void Hitted()
     {
+        source.PlayOneShot(hittedSound);
         anim.SetTrigger("Hitted");
         StartCoroutine("HittedEvent");
     }
 
     public void Died()
     {
+        source.PlayOneShot(dieSound);
         anim.SetTrigger("Die");
         hittedp = true;
     }

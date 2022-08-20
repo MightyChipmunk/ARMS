@@ -15,6 +15,6 @@ public class JH_LookRotation : MonoBehaviour
     void Update()
     {
         if (lookRotation != null)
-            transform.rotation = Quaternion.LookRotation(lookRotation.position - transform.position + Vector3.up); 
+            transform.rotation = Quaternion.LookRotation(lookRotation.position - transform.position + Vector3.up * 1.1f + Vector3.right); 
     }
 }

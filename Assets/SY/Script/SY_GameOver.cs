@@ -118,7 +118,7 @@ public class SY_GameOver : MonoBehaviour
         player.SetActive(false);
         enemy.SetActive(false);
         iTween.MoveTo(podiumCam, iTween.Hash("x", 1.8, "y", 1.2, "z", -1.4, "time", 2f, "easetype", iTween.EaseType.easeInQuint, "islocal", true));
-        iTween.MoveTo(podiumUI.transform.GetChild(0).gameObject, iTween.Hash("x", 500, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint, "islocal", true));
+        iTween.MoveTo(podiumUI.transform.GetChild(0).gameObject, iTween.Hash("x", 460, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint, "islocal", true));
         // 게임 오버 UI 출력
     }
 }
