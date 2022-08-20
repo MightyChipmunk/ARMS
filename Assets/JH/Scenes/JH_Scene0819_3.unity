@@ -1858,7 +1858,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2210899996875213181, guid: b642317c616d1af409a9cc24746254a8, type: 3}
       propertyPath: maxHp
-      value: 1
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 3802409981353780154, guid: b642317c616d1af409a9cc24746254a8, type: 3}
       propertyPath: targetPos
@@ -2068,7 +2068,7 @@ PrefabInstance:
     - target: {fileID: 211977310340644435, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
       propertyPath: chargeHittedSound
       value: 
-      objectReference: {fileID: 8300000, guid: 9439a71ff882e654c8fa6a0fb1f11746, type: 3}
+      objectReference: {fileID: 8300000, guid: 6b82942537457ef4eadfd4571ca7b669, type: 3}
     - target: {fileID: 211977310340644437, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2085,6 +2085,10 @@ PrefabInstance:
       propertyPath: sliderHp
       value: 
       objectReference: {fileID: 1441390364}
+    - target: {fileID: 1340445179156367371, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3742776532824984914, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
       propertyPath: chargeSound
       value: 
@@ -2129,6 +2133,10 @@ PrefabInstance:
       propertyPath: yj_KillerGage
       value: 
       objectReference: {fileID: 1509635170}
+    - target: {fileID: 5574908750102546103, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
+      propertyPath: angle
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5574908750341073312, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
       propertyPath: targetPos
       value: 
@@ -2137,6 +2145,10 @@ PrefabInstance:
       propertyPath: yj_KillerGage
       value: 
       objectReference: {fileID: 1509635170}
+    - target: {fileID: 5574908750633861179, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5574908750957422081, guid: c5d8519da5926c548817dc4cb28be5fd, type: 3}
       propertyPath: yj_KillerGage
       value: 

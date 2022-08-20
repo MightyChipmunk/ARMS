@@ -71,7 +71,7 @@ public class SY_PlayerHp : MonoBehaviour
         // "EnemyArms"에 닿고 charging 된 에너미 팔에 맞으면
         if (other.gameObject.CompareTag("EnemyArms"))  // =>
         {
-            if (InputManager.Instance.Guard || IsKnock)
+            if (InputManager.Instance.Guard || IsKnock || pm.State == JH_PlayerMove.PlayerState.Die || pm.State == JH_PlayerMove.PlayerState.Win)
             {
 
             }

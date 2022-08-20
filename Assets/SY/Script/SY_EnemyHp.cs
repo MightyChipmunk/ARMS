@@ -70,7 +70,7 @@ public class SY_EnemyHp : MonoBehaviour
         if (other.gameObject.CompareTag("PlayerArms"))
         {
 
-            if (InputManager.Instance.EnemyGuard || IsKnock)
+            if (InputManager.Instance.EnemyGuard || IsKnock || pm.State == JH_PlayerMove.PlayerState.Die || pm.State == JH_PlayerMove.PlayerState.Win)
             {
 
             }

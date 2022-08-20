@@ -39,36 +39,23 @@ public class JH_CameraMove : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (!pm.IsGrapped() && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !pm.CamReturn)
+        delta = new Vector3(xLerp + hitShake + hitShakeE, yLerp + hitShake + hitShakeE, zLerp);
+        CamMove();
+        if (!pm.IsGrapped() && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !pm.CamReturn && !pm.Knocked)
         {
-            CamMove();
             CamBetweenWall();
-            CamRot();
-
-            if (pm.hittedp || pm.Knocked)
-                CamHitted();
-            else
-            {
-                totalTime = 0;
-                hitShake = 0;
-            }
-
-            if (enemy.GetComponent<JH_PlayerMove>().hittedp || enemy.GetComponent<JH_PlayerMove>().Knocked)
-                CamHit();
-            else
-            {
-                totalTimeE = 0;
-                hitShakeE = 0;
-            }
+            CamRot(); 
+            transform.localPosition = delta;
         }
-        else if (pm.IsGrapped() || enemy.GetComponent<JH_PlayerMove>().IsGrapped(true))
+        else if (//pm.IsGrapped() || 
+            enemy.GetComponent<JH_PlayerMove>().IsGrapped(true))
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, grapPos.localPosition, Time.deltaTime * speed);
             transform.rotation = Quaternion.Slerp(transform.rotation, grapPos.rotation, Time.deltaTime * speed);
         }
         else if (pm.CamReturn)
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, delta, Time.deltaTime * speed * 5);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, returnPos.localPosition, Time.deltaTime * speed * 5);
             transform.rotation = Quaternion.Slerp(transform.rotation, returnPos.rotation, Time.deltaTime * speed * 10);
         }
     }
@@ -110,15 +97,17 @@ public class JH_CameraMove : MonoBehaviour
         {
             zLerp = Mathf.Lerp(zLerp, -1.5f, Time.deltaTime * speed);
         }
+
+        
     }
 
     // 캠이 벽 뒤로 갈 때 벽 앞으로 위치시키기
     void CamBetweenWall()
     {
         // 카메라의 로컬포지션
-        delta = new Vector3(xLerp + hitShake + hitShakeE, yLerp + hitShake + hitShakeE, zLerp);
+        //delta = new Vector3(xLerp + hitShake + hitShakeE, yLerp + hitShake + hitShakeE, zLerp);
         //RaycastHit hit;
-        Vector3 dir = transform.position - transform.parent.position;
+        //Vector3 dir = transform.position - transform.parent.position;
 
         // 만약 캠과 플레이어 사이에 벽이 있다면
         //if (Physics.Raycast(transform.parent.position, dir, out hit, delta.magnitude, LayerMask.GetMask("Wall")))
@@ -133,7 +122,7 @@ public class JH_CameraMove : MonoBehaviour
         //    // CamMove()에서 구한 위치로 캠을 이동시킨다.
         //    transform.localPosition = delta;
         //}
-        transform.localPosition = delta;
+        //transform.localPosition = delta;
     }
 
     void CamRot()
@@ -149,48 +138,40 @@ public class JH_CameraMove : MonoBehaviour
         transform.rotation *= Quaternion.AngleAxis(-finalAngle, Vector3.right);
     }
 
-    float currentTime = 0;
-    float shakeTime = 0.06f;
-    float totalTime = 0;
-    public void CamHitted()
+    public IEnumerator CamHitted()
     {
-        currentTime += Time.deltaTime;
-        totalTime += Time.deltaTime;
-        if (currentTime > shakeTime * 2 && totalTime < 0.2f)
+        float currentTime = 0;
+        hitShake = 0.02f;
+        while (currentTime < 0.06f)
         {
-            hitShake = -0.03f;
-            currentTime = 0;
+            currentTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.03f);
+            hitShake *= -1;
+            yield return null;
         }
-        else if (currentTime > shakeTime && totalTime < 0.2f)
-        {
-            hitShake = 0.03f;
-        }
-        else if (totalTime > 0.2f)
-        {
-            hitShake = 0;
-        }
+        hitShake = 0;
     }
 
-    float currentTimeE = 0;
-    float shakeTimeE = 0.06f;
-    float totalTimeE = 0;
-    public void CamHit()
+    public IEnumerator CamHit()
     {
-        currentTimeE += Time.deltaTime;
-        totalTimeE += Time.deltaTime;
+        float currentTime = 0;
+        hitShakeE = 0.02f;
+        while (currentTime < 0.06f)
+        {
+            currentTime += Time.deltaTime;
+            yield return new WaitForSeconds(0.03f);
+            hitShakeE *= -1;
+            yield return null;
+        }
+        hitShakeE = 0;
+    }
 
-        if (currentTimeE > shakeTimeE * 2 && totalTimeE < 0.2f)
-        {
-            hitShakeE = -0.03f;
-            currentTimeE = 0;
-        }
-        else if (currentTimeE > shakeTimeE && totalTimeE < 0.2f)
-        {
-            hitShakeE = 0.03f;
-        }
-        else if (totalTimeE > 0.2f)
-        {
-            hitShakeE = 0;
-        }
+    public void StartCamHit()
+    {
+        StartCoroutine("CamHit");
+    }
+    public void StartCamHitted()
+    {
+        StartCoroutine("CamHitted");
     }
 }

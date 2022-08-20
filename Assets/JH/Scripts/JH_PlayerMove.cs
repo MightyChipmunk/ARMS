@@ -47,20 +47,27 @@ public class JH_PlayerMove : MonoBehaviour
     #region 플레이어 필요 속성
     YJ_LeftFight lf;
     YJ_RightFight rf;
-    YJ_Trigger_enemy etrigger;
-    bool playerGo = false;
-    bool PlayerGo
+    YJ_Trigger_enemy etrigger; bool enemyGo = false;
+    bool EnemyGo
     {
-        get { return playerGo; }
+        get { return enemyGo; }
         set
         {
-            if (value != playerGo)
+            if (value != enemyGo && value == true)
             {
-                Debug.Log("asdfadf");
+                SY_EnemyHp enemyhp = GameObject.Find("Enemy").GetComponent<SY_EnemyHp>();
+                enemyhp.SetHP(enemyhp.GetHP() - 150);
+                enemyhp.IsKnock = true;
+                enemyhp.coroutine = enemyhp.StartCoroutine(enemyhp.Ondamaged());
             }
-            playerGo = value;
+            else if (value != enemyGo && value == false)
+            {
+                SY_EnemyHp enemyhp = GameObject.Find("Enemy").GetComponent<SY_EnemyHp>();
+            }
+            enemyGo = value;
         }
     }
+
     JH_PlayerCharge ch;
     SY_PlayerHp ph;
     JH_CameraMove cm;
@@ -70,17 +77,24 @@ public class JH_PlayerMove : MonoBehaviour
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
     YJ_Trigger trigger;
-    bool enemyGo = false;
-    bool EnemyGo
+    bool playerGo = false;
+    bool PlayerGo
     {
-        get { return enemyGo; }
+        get { return playerGo; }
         set
         {
-            if (value != enemyGo)
+            if (value != playerGo && value == true)
             {
-                Debug.Log("asdfadf");
+                SY_PlayerHp playerhp = GameObject.Find("Player").GetComponent<SY_PlayerHp>();
+                playerhp.SetHP(playerhp.GetHP() - 150);
+                playerhp.IsKnock = true;
+                playerhp.coroutine = playerhp.StartCoroutine(playerhp.Ondamaged());
             }
-            enemyGo = value;
+            else if (value != playerGo && value == false)
+            {
+                SY_PlayerHp playerhp = GameObject.Find("Player").GetComponent<SY_PlayerHp>();
+            }
+            playerGo = value;
         }
     }
     JH_EnemyCharge ech;
@@ -130,7 +144,7 @@ public class JH_PlayerMove : MonoBehaviour
                     anim.SetInteger("StateNum", 8);
                     break;
                 case PlayerState.Die:
-                    GetComponent<CharacterController>().enabled = false;
+                    //GetComponent<CharacterController>().enabled = false;
                     StartCoroutine("DieDown");
                     break;
                 case PlayerState.Win:
@@ -172,6 +186,10 @@ public class JH_PlayerMove : MonoBehaviour
                 //if (value)
                 //    source.PlayOneShot(hittedSound);
                 effect.HittedEffect(value);
+                if (value && isEnemy)
+                    target.transform.Find("Main Camera").GetComponent<JH_CameraMove>().StartCamHit();
+                else if (value)
+                    cm.StartCamHitted();
             }
             hitted = value;
         }
@@ -187,8 +205,15 @@ public class JH_PlayerMove : MonoBehaviour
             {
                 effect.HittedEffect(value);
                 if (value)
+                {
                     source.PlayOneShot(chargeHittedSound);
                     StartCoroutine("KnockedEvent");
+                }
+
+                if (value && isEnemy)
+                    target.transform.Find("Main Camera").GetComponent<JH_CameraMove>().StartCamHit();
+                else if (value)
+                    cm.StartCamHitted();
             }
             knocked = value;
         }
@@ -250,6 +275,7 @@ public class JH_PlayerMove : MonoBehaviour
             Move();
             Dash();
             SetPlayerState();
+            EnemyGo = trigger.enemyGo;
             Knocked = ph.IsKnock;
         }
         else if (State != PlayerState.Die && State != PlayerState.Win)
@@ -258,6 +284,7 @@ public class JH_PlayerMove : MonoBehaviour
             Move(isEnemy);
             Dash(isEnemy);
             SetEnemyState();
+            PlayerGo = etrigger.playerGo;
             Knocked = eh.IsKnock;
         }
 
@@ -402,8 +429,8 @@ public class JH_PlayerMove : MonoBehaviour
                 ph.IsKnock = false;
                 ph.CanUp = false;
                 //StartCoroutine("IncreaseSpeed");
-                StartCoroutine("Fall");
                 anim.SetTrigger("Fall");
+                StartCoroutine("Fall");
             }
         }
         else if (hitted)
@@ -504,8 +531,8 @@ public class JH_PlayerMove : MonoBehaviour
                 eh.IsKnock = false;
                 eh.CanUp = false;
                 //StartCoroutine("IncreaseSpeed");
-                StartCoroutine("FallEnemy");
                 anim.SetTrigger("Fall");
+                StartCoroutine("FallEnemy");
             }
         }
         else if (hitted)
@@ -556,7 +583,6 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (etrigger.playerCome == true || etrigger.playerGo == true)
         {
-            PlayerGo = etrigger.playerGo;
             return true;
         }
         else
@@ -577,7 +603,6 @@ public class JH_PlayerMove : MonoBehaviour
     {
         if (trigger.enemyCome == true || trigger.enemyGo == true)
         {
-            EnemyGo = trigger.enemyGo;
             return true;
         }
         else
@@ -708,7 +733,7 @@ public class JH_PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         while (transform.position.y > 0)
         {
-            transform.position += Vector3.down * Time.deltaTime;
+            transform.position += transform.position.y * Vector3.down * Time.deltaTime * 2;
             yield return null;
         }
     }
