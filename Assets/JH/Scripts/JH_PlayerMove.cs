@@ -105,6 +105,7 @@ public class JH_PlayerMove : MonoBehaviour
                     break;
                 case PlayerState.Die:
                     GetComponent<CharacterController>().enabled = false;
+                    StartCoroutine("DieDown");
                     break;
                 case PlayerState.Win:
                     GetComponent<CharacterController>().enabled = false;
@@ -660,6 +661,16 @@ public class JH_PlayerMove : MonoBehaviour
         camReturn = true;
         yield return new WaitForSeconds(0.7f);
         camReturn = false;
+    }
+
+    IEnumerator DieDown()
+    {
+        yield return new WaitForSeconds(0.5f);
+        while (transform.position.y > 0)
+        {
+            transform.position += Vector3.down * Time.deltaTime;
+            yield return null;
+        }
     }
 
     public Transform leftHandTarget;
