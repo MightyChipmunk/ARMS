@@ -34,7 +34,7 @@ public class SY_PlayerHp : MonoBehaviour
         {
             pm.State = JH_PlayerMove.PlayerState.Die;
             pm.Died();
-            koText.GameOverText();
+            koText.GameOverText(true);
         }
 
         if (hp != value && value != maxHp)
