@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class SY_PlayerHp : MonoBehaviour
 {
+    AudioSource source;
+    public AudioClip hitted;
+
     int hp;
     public int maxHp = 1000;
     public Slider sliderHp;
@@ -40,6 +43,7 @@ public class SY_PlayerHp : MonoBehaviour
         if (hp != value && value != maxHp)
         {
             transform.Find("Damage").GetComponent<JH_Damage>().FloatText(hp - value);
+            source.PlayOneShot(hitted); 
         }
         hp = value;
         sliderHp.value = value;
@@ -51,6 +55,7 @@ public class SY_PlayerHp : MonoBehaviour
     }
     void Start()
     {
+        source = GetComponent<AudioSource>();
         ech = GameObject.Find("Enemy").GetComponent<JH_EnemyCharge>();
         pm = GetComponent<JH_PlayerMove>();
         sliderHp.maxValue = maxHp;

@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class SY_MemuManager : MonoBehaviour
 {
+    AudioSource source;
+    public AudioClip buttonSound;
+    GameObject buttonSoundPlayer;
     public GameObject startSet;
     public GameObject menuSet;
     
     // Start is called before the first frame update
     void Start()
     {
+        buttonSoundPlayer = GameObject.Find("ButtonSound");
+        source = GetComponent<AudioSource>();
         menuSet.SetActive(false);
     }
 
@@ -32,16 +37,18 @@ public class SY_MemuManager : MonoBehaviour
     }
     public void ChangeScene()
     {
-        SceneManager.LoadScene(1);
+        buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeScene();
     }
 
     public void ChangeScene1()
     {
-        SceneManager.LoadScene(2);
+        buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeGameScene();
     }
 
     public void ChangeScene2()
     {
         SceneManager.LoadScene(0);
     }
+
+
 }

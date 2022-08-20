@@ -25,11 +25,17 @@ public class SY_GameOver : MonoBehaviour
     [SerializeField]
     GameObject podiumUI;
 
+    public AudioClip ko;
+    public AudioClip end;
+
+    AudioSource source;
+
     bool gameEnd = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
         enemy = GameObject.Find("Enemy");
         podium.SetActive(false);
@@ -44,7 +50,6 @@ public class SY_GameOver : MonoBehaviour
             setTime -= Time.deltaTime;
         else if (setTime <= 0 && !gameEnd)
         {
-            gameEnd = true;
             GameOverText(true);
         }
 
@@ -53,6 +58,7 @@ public class SY_GameOver : MonoBehaviour
 
     public void GameOverText(bool isEnemy)
     {
+        gameEnd = true;
         //Time.timeScale = 0.0f;
         //gameOverText.SetActive(true);
         StartCoroutine(DelayText(isEnemy));
@@ -61,6 +67,7 @@ public class SY_GameOver : MonoBehaviour
 
     IEnumerator DelayText(bool isEnemy)
     {
+        source.PlayOneShot(end);
         // 게임 종료되면 시간 느려짐
         while (Time.timeScale > 0.1f)
         {
@@ -71,6 +78,7 @@ public class SY_GameOver : MonoBehaviour
         }
         // 약 1초 후에 K.O 텍스트 출력
         yield return new WaitForSeconds(0.1f);
+        source.PlayOneShot(ko);
         gameOverText.SetActive(true);
         gameOverText.transform.localScale = Vector3.one * 10;
         iTween.ScaleTo(gameOverText, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.05f, "easetype", iTween.EaseType.easeOutQuint));

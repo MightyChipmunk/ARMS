@@ -5,6 +5,13 @@ using UnityEngine.UI;
 
 public class JH_Count : MonoBehaviour
 {
+    public AudioClip three;
+    public AudioClip two;
+    public AudioClip one;
+    public AudioClip bell;
+
+    AudioSource source;
+
     public static JH_Count Instance { get; private set; }
 
     Text count;
@@ -15,6 +22,7 @@ public class JH_Count : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        source = GetComponent<AudioSource>();
         count = gameObject.GetComponent<Text>();
         StartCoroutine("CountDown");
     }
@@ -33,16 +41,20 @@ public class JH_Count : MonoBehaviour
     {
         count.transform.localScale = Vector3.zero;
         count.text = "3";
+        source.PlayOneShot(three);
         iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));
         yield return new WaitForSeconds(1.0f);
         count.transform.localScale = Vector3.zero;
         count.text = "2";
+        source.PlayOneShot(two);
         iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));
         yield return new WaitForSeconds(1.0f);
         count.transform.localScale = Vector3.zero;
         count.text = "1";
+        source.PlayOneShot(one);
         iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));
         yield return new WaitForSeconds(1.0f);
+        source.PlayOneShot(bell);
         count.transform.localScale = Vector3.zero;
         count.text = "A R M S !";
         iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));

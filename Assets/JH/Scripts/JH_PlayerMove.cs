@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class JH_PlayerMove : MonoBehaviour
 {
-
+    AudioSource source;
+    public AudioClip hittedSound;
+    public AudioClip chargeHittedSound;
+    public AudioClip jumpSound;
     public enum PlayerState
     {
         Idle,
@@ -44,6 +47,19 @@ public class JH_PlayerMove : MonoBehaviour
     YJ_LeftFight lf;
     YJ_RightFight rf;
     YJ_Trigger_enemy etrigger;
+    bool playerGo = false;
+    bool PlayerGo
+    {
+        get { return playerGo; }
+        set
+        {
+            if (value != playerGo)
+            {
+                Debug.Log("asdfadf");
+            }
+            playerGo = value;
+        }
+    }
     JH_PlayerCharge ch;
     SY_PlayerHp ph;
     JH_CameraMove cm;
@@ -53,9 +69,18 @@ public class JH_PlayerMove : MonoBehaviour
     YJ_LeftFight_enemy elf;
     YJ_RightFight_enemy erf;
     YJ_Trigger trigger;
-    public YJ_Trigger Trigger
+    bool enemyGo = false;
+    bool EnemyGo
     {
-        get { return trigger; }
+        get { return enemyGo; }
+        set
+        {
+            if (value != enemyGo)
+            {
+                Debug.Log("asdfadf");
+            }
+            enemyGo = value;
+        }
     }
     JH_EnemyCharge ech;
     SY_EnemyHp eh;
@@ -143,6 +168,7 @@ public class JH_PlayerMove : MonoBehaviour
         {
             if (value != hitted)
             {
+                source.PlayOneShot(hittedSound);
                 effect.HittedEffect(value);
             }
             hitted = value;
@@ -157,6 +183,7 @@ public class JH_PlayerMove : MonoBehaviour
         {
             if (value != knocked)
             {
+                source.PlayOneShot(chargeHittedSound);
                 effect.HittedEffect(value);
                 if (value)
                     StartCoroutine("KnockedEvent");
@@ -175,6 +202,8 @@ public class JH_PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
+
         effect = GetComponent<JH_Effect>();
         anim = GetComponent<Animator>();
         cc = GetComponent<CharacterController>();
@@ -320,6 +349,7 @@ public class JH_PlayerMove : MonoBehaviour
         if (InputManager.Instance.Jump && cc.isGrounded && IsCanMove() && canJump)
         {
             yVelocity = jumpPower;
+            source.PlayOneShot(jumpSound);
             anim.SetTrigger("Jump");
         }
     }
@@ -523,7 +553,10 @@ public class JH_PlayerMove : MonoBehaviour
     public bool IsGrapped()
     {
         if (etrigger.playerCome == true || etrigger.playerGo == true)
+        {
+            PlayerGo = etrigger.playerGo;
             return true;
+        }
         else
             return false;
     }
@@ -541,7 +574,10 @@ public class JH_PlayerMove : MonoBehaviour
     public bool IsGrapped(bool isEnemy)
     {
         if (trigger.enemyCome == true || trigger.enemyGo == true)
+        {
+            EnemyGo = trigger.enemyGo;
             return true;
+        }
         else
             return false;
     }

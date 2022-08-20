@@ -44,7 +44,6 @@ public class SY_EnemyHp : MonoBehaviour
         }
         hp = value;
         sliderHp.value = value;
-
     }
 
     public int GetHP()
@@ -80,7 +79,6 @@ public class SY_EnemyHp : MonoBehaviour
             {
                 SetHP(GetHP() - 120);
                 isKnock = true;
-
             }
             // 차징아닐 때, HP -1
             else

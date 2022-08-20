@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class JH_PlayerCharge : MonoBehaviour
 {
+    AudioSource source;
+    public AudioClip chargeSound;
+
     float currentTime;
     float creatTime = 2f;
 
@@ -22,7 +25,7 @@ public class JH_PlayerCharge : MonoBehaviour
 
     void Start()
     {
-        
+        source = GetComponent<AudioSource>();   
     }
 
     // "F"를 누르면 차지 실행
@@ -42,6 +45,7 @@ public class JH_PlayerCharge : MonoBehaviour
             // "F"키를 2초 이상 누르면 차징 상태이고 싶다. 
             if (currentTime > creatTime)
             {
+                source.PlayOneShot(chargeSound);
                 isCharging = true;
                 currentTime = 0;
                 StopCoroutine("WaitForIt");
