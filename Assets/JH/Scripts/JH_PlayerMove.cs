@@ -139,11 +139,13 @@ public class JH_PlayerMove : MonoBehaviour
                     anim.SetInteger("StateNum", 9);
                     break;
                 case PlayerState.Grapped:
+                    anim.SetInteger("StateNum", 10);
                     break;
                 case PlayerState.KnockBack:
                     anim.SetInteger("StateNum", 8);
                     break;
                 case PlayerState.Die:
+                    anim.SetInteger("StateNum", 999);
                     //GetComponent<CharacterController>().enabled = false;
                     StartCoroutine("DieDown");
                     break;
