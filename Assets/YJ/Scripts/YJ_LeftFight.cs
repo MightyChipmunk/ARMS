@@ -52,8 +52,17 @@ public class YJ_LeftFight : MonoBehaviour
 
     public YJ_KillerGage yj_KillerGage;
 
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip shoockSound; // 주먹 날아갈때 사운드
+
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         // 타겟의 위치 찾기
         // 애너미의 처음위치로
         target = GameObject.Find("Enemy");
@@ -109,6 +118,7 @@ public class YJ_LeftFight : MonoBehaviour
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (InputManager.Instance.Fire1 && !click && !overlap && !yj_trigger.grap)// && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
+            audioSource.PlayOneShot(shoockSound);
             col.enabled = true;
             fire = true;
             mouseOrigin = Input.mousePosition;

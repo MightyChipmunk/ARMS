@@ -57,17 +57,21 @@ public class YJ_RightFight : MonoBehaviour
     public YJ_Trigger_enemy yj_trigger_enemy;
 
     Collider col;
+    
+    AudioSource audioSource;
 
     [Header("Audio Clips")]
     [SerializeField]
-    private AudioClip hitSound; // 맞았을때 사운드
+    private AudioClip hitSound; // 주먹이 상대에게 맞았을때 사운드
     [SerializeField]
-    private AudioClip clickSound; // 날아갈때 사운드
+    private AudioClip shoockSound; // 주먹 날아갈때 사운드
 
 
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         // 타겟의 위치 찾기
         // 애너미의 처음위치로
         target = GameObject.Find("Enemy");
@@ -116,6 +120,7 @@ public class YJ_RightFight : MonoBehaviour
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (InputManager.Instance.Fire2 && !click && !overlap && !yj_trigger.grap)// && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
+            audioSource.PlayOneShot(shoockSound);
             col.enabled = true;
             fire = true;
             mouseOrigin = Input.mousePosition;
@@ -227,6 +232,7 @@ public class YJ_RightFight : MonoBehaviour
             // 애너미레이어와 닿았을 때
             if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
             {
+                audioSource.PlayOneShot(hitSound);
                 overlap = true;
             }
         }
