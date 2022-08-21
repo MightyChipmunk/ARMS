@@ -63,6 +63,8 @@ public class JH_PlayerMove : MonoBehaviour
             else if (value != enemyGo && value == false)
             {
                 SY_EnemyHp enemyhp = GameObject.Find("Enemy").GetComponent<SY_EnemyHp>();
+                cm.StopCamHit();
+                cm.StartCamHit();
             }
             enemyGo = value;
         }
@@ -93,6 +95,8 @@ public class JH_PlayerMove : MonoBehaviour
             else if (value != playerGo && value == false)
             {
                 SY_PlayerHp playerhp = GameObject.Find("Player").GetComponent<SY_PlayerHp>();
+                target.transform.Find("Main Camera").GetComponent<JH_CameraMove>().StopCamHitted();
+                target.transform.Find("Main Camera").GetComponent<JH_CameraMove>().StartCamHitted();
             }
             playerGo = value;
         }
