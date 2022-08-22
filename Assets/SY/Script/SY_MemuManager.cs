@@ -62,6 +62,10 @@ public class SY_MemuManager : MonoBehaviour
 
     public void ChangeCharacterScene()
     {
+        if (GameObject.Find("InputManager"))
+        {
+            Destroy(GameObject.Find("InputManager"));
+        }
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
