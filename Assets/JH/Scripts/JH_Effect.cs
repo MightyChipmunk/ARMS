@@ -7,7 +7,7 @@ public class JH_Effect : MonoBehaviour
     JH_PlayerMove pm;
     JH_PlayerCharge ch;
     JH_EnemyCharge ech;
-    YJ_LeftFight lf;
+    YJ_Hand_left lf;
     YJ_LeftFight_enemy elf;
 
     GameObject dash;
@@ -27,7 +27,7 @@ public class JH_Effect : MonoBehaviour
         pm = GetComponent<JH_PlayerMove>();
         TryGetComponent<JH_PlayerCharge>(out ch);
         isEnemy = TryGetComponent<JH_EnemyCharge>(out ech);
-        transform.Find("Left").TryGetComponent<YJ_LeftFight>(out lf);
+        transform.Find("Left").TryGetComponent<YJ_Hand_left>(out lf);
         transform.Find("Left").TryGetComponent<YJ_LeftFight_enemy>(out elf);
         dash = transform.Find("DashEffect").gameObject;
         guard = transform.Find("GuardEffect").gameObject;
@@ -148,14 +148,14 @@ public class JH_Effect : MonoBehaviour
         }
         else
         {
-            if (lf.yj_KillerGage.killerModeOn)
-            {
-                killer.SetActive(true);
-            }
-            else
-            {
-                killer.SetActive(false);
-            }
+            //if (lf.yj_KillerGage.killerModeOn)
+            //{
+            //    killer.SetActive(true);
+            //}
+            //else
+            //{
+            //    killer.SetActive(false);
+            //}
         }
     }
 }

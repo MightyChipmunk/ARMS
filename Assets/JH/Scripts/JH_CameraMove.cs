@@ -41,9 +41,10 @@ public class JH_CameraMove : MonoBehaviour
     {
         delta = new Vector3(xLerp + hitShake + hitShakeE, yLerp + hitShake + hitShakeE, zLerp);
         CamMove();
-        if (!pm.IsGrapped() && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !pm.CamReturn && !pm.Knocked)
+        if (!pm.IsGrapped() && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) 
+            && !pm.CamReturn && !pm.Knocked && pm.State != JH_PlayerMove.PlayerState.Die)
         {
-            CamBetweenWall();
+            //CamBetweenWall();
             CamRot(); 
             transform.localPosition = delta;
         }

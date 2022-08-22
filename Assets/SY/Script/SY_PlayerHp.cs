@@ -78,14 +78,13 @@ public class SY_PlayerHp : MonoBehaviour
             // 차징일 때, HP -2 / 넉백 실행
             else if (ech.IsCharging)
             {
-
-                SetHP(GetHP() - 120);
+                SetHP(GetHP() - other.gameObject.GetComponent<JH_ArmDamage>().ChargeDamage);
                 isKnock = true;
             }
             // 차징아닐 때, HP -1
             else
             {
-                SetHP(GetHP() - 90);
+                SetHP(GetHP() - other.gameObject.GetComponent<JH_ArmDamage>().Damage);
                 if (pm.State != JH_PlayerMove.PlayerState.Die)
                     pm.Hitted();
             }

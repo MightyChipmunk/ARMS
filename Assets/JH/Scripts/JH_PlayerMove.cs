@@ -46,8 +46,8 @@ public class JH_PlayerMove : MonoBehaviour
     #endregion
 
     #region 플레이어 필요 속성
-    YJ_LeftFight lf;
-    YJ_RightFight rf;
+    YJ_Hand_left lf;
+    YJ_Hand_right rf;
     YJ_Trigger_enemy etrigger; bool enemyGo = false;
     bool EnemyGo
     {
@@ -255,8 +255,8 @@ public class JH_PlayerMove : MonoBehaviour
         else
         {
             ph = GetComponent<SY_PlayerHp>();
-            lf = transform.Find("Left").GetComponent<YJ_LeftFight>();
-            rf = transform.Find("Right").GetComponent<YJ_RightFight>();
+            lf = transform.Find("Left").GetComponent<YJ_Hand_left>();
+            rf = transform.Find("Right").GetComponent<YJ_Hand_right>();
             ch = GetComponent<JH_PlayerCharge>();
 
             cm = transform.Find("Main Camera").GetComponent<JH_CameraMove>();
