@@ -45,11 +45,18 @@ public class YJ_Trigger : MonoBehaviour
     public GameObject leftHand;
     public GameObject rightHand;
 
+    public GameObject spring;
+
     float currentTime = 0;
     float speed = 20f;
     public YJ_Trigger_enemy yj_trigger_enemy; // 애너미가 잡기상태인지 확인
 
-    // Start is called before the first frame update
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip grapSound; // 잡기 날아갈때 사운드
+
     void Start()
     {
         // 애너미, 플레이어
@@ -67,6 +74,9 @@ public class YJ_Trigger : MonoBehaviour
         col = GetComponent<Collider>();
         mr.enabled = false;
         col.enabled = false;
+        spring.SetActive(false);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -75,12 +85,17 @@ public class YJ_Trigger : MonoBehaviour
         //print("enemycome : " + enemyCome + " enemygo : " + enemyGo + " grap : " + grap + " goTrigger : " + goTrigger + " backTrigger : " + backTrigger);
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (InputManager.Instance.Grap && !grap && !leftHand.GetComponent<YJ_LeftFight>().Fire && !rightHand.GetComponent<YJ_RightFight>().Fire && !yj_trigger_enemy.goTrigger)// && !yj_trigger_enemy.playerCome)
+        if (InputManager.Instance.Grap && !grap && !leftHand.GetComponent<YJ_LeftFight>().Fire && !rightHand.GetComponent<YJ_RightFight>().Fire && !yj_trigger_enemy.goTrigger && !jh_PlayerMove.Knocked)
         {
+            audioSource.PlayOneShot(grapSound);
+            leftHand.GetComponent<Animation>().Stop();
+            rightHand.GetComponent<Animation>().Stop();
+
             targetPosGet = targetPos.transform.position;
 
             // 콜라이더랑 매쉬 랜더러 켜주기
-            mr.enabled = true;
+            //mr.enabled = true;
+            spring.SetActive(true);
             col.enabled = true;
 
             // 잡기 시작 표시
@@ -94,7 +109,7 @@ public class YJ_Trigger : MonoBehaviour
             leftHand.GetComponent<Collider>().enabled = false;
             rightHand.GetComponent<Collider>().enabled = false;
 
-
+            
         }
         #endregion
         if (grap && !enemyCome && !enemyGo)
@@ -108,7 +123,8 @@ public class YJ_Trigger : MonoBehaviour
             if (Vector3.Distance(transform.position, player.transform.position) > 10f)
             {
                 // 콜라이더랑 매쉬 랜더러 끄기
-                mr.enabled = false;
+                //mr.enabled = false;
+                spring.SetActive(false);
                 col.enabled = false;
                 // 베지어곡선 그려주기
                 p1 = transform.position;
@@ -153,6 +169,8 @@ public class YJ_Trigger : MonoBehaviour
                     // 플레이어의 자식으로 옮겨줌
                     leftHand.transform.SetParent(player.transform);
                     rightHand.transform.SetParent(player.transform);
+                    leftHand.GetComponent<Animation>().Play();
+                    rightHand.GetComponent<Animation>().Play();
                     currentTime = 0;
                     grap = false;
                     backTrigger = false;
@@ -191,18 +209,22 @@ public class YJ_Trigger : MonoBehaviour
                     rightHand.GetComponent<Collider>().enabled = true;
 
                     // 플레이어의 자식으로 옮겨주기
+                    leftHand.GetComponent<Animation>().Play();
+                    rightHand.GetComponent<Animation>().Play();
                     leftHand.transform.SetParent(player.transform);
                     rightHand.transform.SetParent(player.transform);
                     // 멈추게하기
                     //backspeed = 0;
                     go = Vector3.zero;
                     // 안보이게 꺼주기
-                    mr.enabled = false;
+                    spring.SetActive(false);
+                    //mr.enabled = false;
                     col.enabled = false;
 
                     currentTime = 0;
-                    enemyGo = false;
+                    goTrigger = false;
                     grap = false;
+                    enemyGo = false;
 
                 }
             }

@@ -57,6 +57,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
     // 필살기 사용
     public YJ_KillerGage_enemy yj_KillerGage_enemy;
 
+
     void Start()
     {
         // 타겟의 위치 찾기
@@ -72,6 +73,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
 
         yj_trigger_enemy = trigger.GetComponent<YJ_Trigger_enemy>();
 
+        col.enabled = false;
     }
 
     void Update()
@@ -86,7 +88,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
             leftspeed = 15f;
             backspeed = 20f;
         }
-
 
         if (overlap)
         {
@@ -109,7 +110,7 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         //print("overlap :" + overlap + " grap :" + grap + " fire :" + fire + " trigger :" + trigger.gameObject.activeSelf);
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (InputManager.Instance.EnemyFire1 && !yj_trigger_enemy.grap)
-        {
+        { 
             col.enabled = true;
             targetPos = playertarget.transform.position;
             fire = true;

@@ -73,6 +73,8 @@ public class YJ_RightFight_enemy : MonoBehaviour
         leftFight = left.GetComponent<YJ_LeftFight_enemy>();
 
         col = GetComponent<Collider>();
+
+        col.enabled = false;
     }
 
     

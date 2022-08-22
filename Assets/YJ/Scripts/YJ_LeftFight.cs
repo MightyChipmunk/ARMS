@@ -8,7 +8,7 @@ using UnityEngine;
 // 필요요소 : 방향 (애너미 위치) , 속도
 // 마우스의 이동방향을 가져와서 내 주먹을 움직이게 하고싶다.
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
-public class YJ_LeftFight : MonoBehaviour
+public class YJ_LeftFight : YJ_Hand_left
 {
 
     public GameObject trigger; // 가운데 선
@@ -26,11 +26,8 @@ public class YJ_LeftFight : MonoBehaviour
     Vector3 targetPos;
 
     // 왼쪽, 오른쪽버튼 눌림확인
-    bool fire = false; // 왼쪽
-    public bool Fire
-    {
-        get { return fire; }
-    }
+    //bool fire = false; // 왼쪽
+
     bool click = false;
     bool overlap = false; // 애너미랑 닿았을때
 
@@ -58,6 +55,8 @@ public class YJ_LeftFight : MonoBehaviour
     [SerializeField]
     private AudioClip shoockSound; // 주먹 날아갈때 사운드
 
+    Animation anim;
+
 
     void Start()
     {
@@ -79,6 +78,10 @@ public class YJ_LeftFight : MonoBehaviour
         mouseOrigin = Vector3.zero;
 
         yj_trigger = trigger.GetComponent<YJ_Trigger>();
+
+        col.enabled = false;
+
+        anim = GetComponent<Animation>();
     }
 
     void Update()
@@ -109,6 +112,7 @@ public class YJ_LeftFight : MonoBehaviour
                 transform.localPosition = leftOriginLocalPos;
                 // 저장된 Vector3 리스트 지우기
                 leftPath.Clear();
+                anim.Play();
                 // 상태종료
                 overlap = false;
             }
@@ -118,6 +122,7 @@ public class YJ_LeftFight : MonoBehaviour
         // 왼쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (InputManager.Instance.Fire1 && !click && !overlap && !yj_trigger.grap)// && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
+            anim.Stop();
             audioSource.PlayOneShot(shoockSound);
             col.enabled = true;
             fire = true;
@@ -226,6 +231,7 @@ public class YJ_LeftFight : MonoBehaviour
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, leftOriginLocalPos, Time.deltaTime * backspeed);
             leftPath.Clear();
+            anim.Play();
         }
     }
     #endregion
