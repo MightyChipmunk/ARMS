@@ -8,7 +8,7 @@ using UnityEngine;
 // 필요요소 : 방향 (애너미 위치) , 속도
 // 마우스의 이동방향을 가져와서 내 주먹을 움직이게 하고싶다.
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
-public class YJ_RightFight : MonoBehaviour
+public class YJ_RightFight : YJ_Hand_right
 {
     public GameObject left;
     public GameObject enemyCamera;
@@ -31,11 +31,8 @@ public class YJ_RightFight : MonoBehaviour
 
     Transform originPos;
     // 버튼 눌림확인
-    bool fire = false; // 오른쪽
-    public bool Fire
-    {
-        get { return fire; }
-    }
+    //bool fire = false; // 오른쪽
+
     bool click = false;
 
     // 애너미랑 닿았을때
@@ -61,11 +58,10 @@ public class YJ_RightFight : MonoBehaviour
     AudioSource audioSource;
 
     [Header("Audio Clips")]
-    //[SerializeField]
-    //private AudioClip hitSound; // 주먹이 상대에게 맞았을때 사운드
     [SerializeField]
     private AudioClip shoockSound; // 주먹 날아갈때 사운드
 
+    Animation anim;
 
 
     void Start()
@@ -88,6 +84,11 @@ public class YJ_RightFight : MonoBehaviour
 
         leftFight = left.GetComponent<YJ_LeftFight>();
         col = GetComponent<Collider>();
+
+        col.enabled = false;
+
+        anim = GetComponent<Animation>();
+
     }
 
     
@@ -113,6 +114,7 @@ public class YJ_RightFight : MonoBehaviour
             {
                 transform.localPosition = rightOriginLocalPos;
                 rightPath.Clear();
+                anim.Play();
                 overlap = false;
             }
         }
@@ -120,6 +122,7 @@ public class YJ_RightFight : MonoBehaviour
         // 오른쪽 마우스를 누르면 일정거리만큼 애너미의 처음위치에 이동하고싶다.
         if (InputManager.Instance.Fire2 && !click && !overlap && !yj_trigger.grap)// && !trigger.gameObject.activeSelf && !yj_trigger_enemy.enemyCome)
         {
+            anim.Stop();
             audioSource.PlayOneShot(shoockSound);
             col.enabled = true;
             fire = true;
@@ -221,6 +224,8 @@ public class YJ_RightFight : MonoBehaviour
         else
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, rightOriginLocalPos, Time.deltaTime * backspeed);
+            rightPath.Clear();
+            anim.Play();
         }
     }
 

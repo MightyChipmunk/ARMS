@@ -46,6 +46,8 @@ public class YJ_Trigger_enemy : MonoBehaviour
     public YJ_RightFight_enemy yj_rightScript;
     public YJ_LeftFight_enemy yj_leftScript;
 
+    public GameObject spring;
+
     float currentTime = 0;
     float speed = 20f;
     public YJ_Trigger yj_trigger; // 애너미가 잡기상태인지 확인
@@ -65,20 +67,23 @@ public class YJ_Trigger_enemy : MonoBehaviour
         // 안보이게 끄고시작
         mr = GetComponent<MeshRenderer>();
         col = GetComponent<Collider>();
+        spring.SetActive(false);
         mr.enabled = false;
         col.enabled = false;
     }
 
     void Update()
     {
+        print("플레이어꺼 : " + yj_trigger.goTrigger + " 애너미꺼 : " + goTrigger);
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (InputManager.Instance.EnemyGrap && !grap && !yj_leftScript.Fire && !yj_rightScript.Fire && !yj_trigger.goTrigger)
+        if (InputManager.Instance.EnemyGrap && !grap && !yj_leftScript.Fire && !yj_rightScript.Fire && !yj_trigger.goTrigger && !jh_PlayerMove.Knocked)
         {
             targetPosGet = targetPos.transform.position;
 
             // 콜라이더랑 매쉬 랜더러 켜주기
-            mr.enabled = true;
+            spring.SetActive(true);
+            //mr.enabled = true;
             col.enabled = true;
 
             // 잡기 시작 표시
@@ -106,7 +111,8 @@ public class YJ_Trigger_enemy : MonoBehaviour
             if (Vector3.Distance(transform.position, enemy.transform.position) > 10f)
             {
                 // 콜라이더랑 매쉬 랜더러 끄기
-                mr.enabled = false;
+                spring.SetActive(false);
+                //mr.enabled = false;
                 col.enabled = false;
                 // 베지어곡선 그려주기
                 p1 = transform.position;
@@ -195,12 +201,14 @@ public class YJ_Trigger_enemy : MonoBehaviour
                     //backspeed = 0;
                     go = Vector3.zero;
                     // 안보이게 꺼주기
-                    mr.enabled = false;
+                    spring.SetActive(false);
+                    //mr.enabled = false;
                     col.enabled = false;
 
                     currentTime = 0;
-                    playerGo = false;
+                    goTrigger = false;
                     grap = false;
+                    playerGo = false;
 
                 }
             }
@@ -217,20 +225,6 @@ public class YJ_Trigger_enemy : MonoBehaviour
             // 애너미가 오게하는 기능 켜기
             graphands = true;
             playerCome = true;
-        }
-
-        if(other.gameObject.layer == LayerMask.NameToLayer("PlayerHand") || other.gameObject.layer == LayerMask.NameToLayer("PlayerTrigger"))
-        {
-            print("플레이어 트리거랑 닿았음!!------------------------------------------");
-            // 콜라이더랑 매쉬 랜더러 끄기
-            mr.enabled = false;
-            //col.enabled = false;
-            // 베지어곡선 그려주기
-            p1 = transform.position;
-            p2 = transform.position + new Vector3(0, 1f, 0);
-            // 돌아오는 기능 켜기
-            dir = Vector3.zero;
-            backTrigger = true;
         }
     }
 
