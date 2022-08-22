@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: "Assets/SY/Scenes/SY_Character\uB9DD\uD568.unity"
+    path: Assets/SY/Scenes/SY_Character.unity
     guid: 36564096b3c2c104aa10ed8a05e8a541
   - enabled: 1
     path: Assets/SY/Scenes/SY_0817_2(StartScene).unity
