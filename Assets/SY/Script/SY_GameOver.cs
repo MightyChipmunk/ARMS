@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class SY_GameOver : MonoBehaviour
 {
+    [SerializeField] GameObject gameOver;
     [SerializeField] GameObject gameOverText;
     [SerializeField] Text countdownText;
     [SerializeField] float setTime = 99.0f;
+
 
     bool gameEnd = true;
 
@@ -18,6 +20,7 @@ public class SY_GameOver : MonoBehaviour
     {
         countdownText.text = setTime.ToString();
         gameOverText.SetActive(false);
+        gameOver.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -42,7 +45,7 @@ public class SY_GameOver : MonoBehaviour
 
     IEnumerator DelayText()
     {
-
+        // 씬 딜레이
         while (Time.timeScale > 0.1f)
         {
 
@@ -50,10 +53,14 @@ public class SY_GameOver : MonoBehaviour
 
             yield return null;
         }
+
+        //KO텍스트 딜레이 표시
         yield return new WaitForSeconds(0.3f);
         gameOverText.SetActive(true);
 
+        //게임 오버 UI 출력
         yield return new WaitForSeconds(0.4f);
-        // 게임 오버 UI 출력
+        gameOver.SetActive(true);
     }
+    
 }

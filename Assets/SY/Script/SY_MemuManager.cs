@@ -30,18 +30,23 @@ public class SY_MemuManager : MonoBehaviour
             }
         }
     }
+
+    // 캐릭터창으로 이동
     public void ChangeScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    // 장갑선택창으로 이동
+    public void ChangeScene1()
     {
         SceneManager.LoadScene(1);
     }
 
-    public void ChangeScene1()
-    {
-        SceneManager.LoadScene(2);
-    }
 
+    // 게임신으로 이동
     public void ChangeScene2()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 }
