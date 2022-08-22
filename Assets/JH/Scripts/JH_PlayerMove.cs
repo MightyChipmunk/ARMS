@@ -10,6 +10,7 @@ public class JH_PlayerMove : MonoBehaviour
     public AudioClip chargeHittedSound;
     public AudioClip dieSound;
     public AudioClip jumpSound;
+    public AudioClip dashSound;
     public enum PlayerState
     {
         Idle,
@@ -404,6 +405,7 @@ public class JH_PlayerMove : MonoBehaviour
             ((InputManager.Instance.Front && Vector3.Magnitude(target.transform.position - transform.position) >= 5f)
             || InputManager.Instance.Left || InputManager.Instance.Back || InputManager.Instance.Right))
         {
+            source.PlayOneShot(dashSound);
             StartCoroutine("IncreaseSpeed");
         }
     }

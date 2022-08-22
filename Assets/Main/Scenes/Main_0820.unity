@@ -8728,10 +8728,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hittedSound: {fileID: 8300000, guid: 6b9d84f51313ece4188b911412832405, type: 3}
-  chargeHittedSound: {fileID: 8300000, guid: 9439a71ff882e654c8fa6a0fb1f11746, type: 3}
+  chargeHittedSound: {fileID: 8300000, guid: 6b82942537457ef4eadfd4571ca7b669, type: 3}
   dieSound: {fileID: 8300000, guid: 19a0037f165b5124a96181b12be85ad7, type: 3}
   jumpSound: {fileID: 8300000, guid: ae6297364d9f7614186a553c2c3cd929, type: 3}
-  dashSound: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: cc3902253f03cda438770eaa2bb83e5c, type: 3}
   state: 0
   speed: 3.5
   jumpPower: 7
