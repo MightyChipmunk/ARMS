@@ -49,6 +49,4 @@ public class SY_MemuManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-
-
 }
