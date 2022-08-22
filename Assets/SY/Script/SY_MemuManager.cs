@@ -27,11 +27,13 @@ public class SY_MemuManager : MonoBehaviour
         {
             if (menuSet.activeSelf)
             {
-                menuSet.SetActive(false); 
+                menuSet.SetActive(false);
+                Time.timeScale = 1;
             }
             else
             {
                 menuSet.SetActive(true);
+                Time.timeScale = 0;
             }
         }
     }
@@ -40,13 +42,33 @@ public class SY_MemuManager : MonoBehaviour
         buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeScene();
     }
 
-    public void ChangeScene1()
+    public void ChangeGameScene()
     {
-        buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeGameScene();
+        if (buttonSoundPlayer)
+        {
+            if (GameObject.Find("InputManager"))
+            {
+                Destroy(GameObject.Find("InputManager"));
+            }
+            buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeGameScene();
+        }
+        else
+        {
+            Destroy(GameObject.Find("InputManager"));
+            SceneManager.LoadScene(2);
+        } 
+
     }
 
-    public void ChangeScene2()
+    public void ChangeCharacterScene()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
+    }
+
+    public void Continue()
+    {
+        menuSet.SetActive(false);
+        Time.timeScale = 1;
     }
 }

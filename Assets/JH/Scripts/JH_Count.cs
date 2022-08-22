@@ -56,7 +56,7 @@ public class JH_Count : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         source.PlayOneShot(bell);
         count.transform.localScale = Vector3.zero;
-        count.text = "A R M S !";
+        count.text = "ARMS!";
         iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));
         isStart = true;
         yield return new WaitForSeconds(1.0f);

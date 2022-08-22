@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class YJ_RotateGlove : MonoBehaviour
 {
-
+    public bool isLeft = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,9 @@ public class YJ_RotateGlove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector3.up, Time.deltaTime * 70);
+        if (isLeft)
+            transform.Rotate(Vector3.up, Time.deltaTime * -70);
+        else
+            transform.Rotate(Vector3.up, Time.deltaTime * 70);
     }
 }
