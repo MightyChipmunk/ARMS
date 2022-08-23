@@ -16,6 +16,7 @@ public class JH_CameraMove : MonoBehaviour
     float hitShakeE = 0;
 
     Transform grapPos;
+    Transform enemyGrapPos;
     Transform returnPos;
     JH_PlayerMove pm;
     GameObject target;
@@ -32,6 +33,7 @@ public class JH_CameraMove : MonoBehaviour
         target = GameObject.Find("Enemy Camera");
         enemy = GameObject.Find("Enemy");
         delta = transform.localPosition;
+        enemyGrapPos = GameObject.Find("EnemyGrapCamPos").transform;
         grapPos = GameObject.Find("GrapCamPos").transform;
         returnPos = GameObject.Find("GrapReturnPos").transform;
     }
@@ -48,8 +50,18 @@ public class JH_CameraMove : MonoBehaviour
             CamRot(); 
             transform.localPosition = delta;
         }
-        else if (//pm.IsGrapped() || 
-            enemy.GetComponent<JH_PlayerMove>().IsGrapped(true))
+        else if (pm.IsGrapped())
+        {
+            transform.position = enemyGrapPos.position;
+            //Vector3.Lerp(transform.position, enemyGrapPos.position
+            //+ Vector3.up * hitShake * 30 + Vector3.up * hitShakeE * 30 + Vector3.right * hitShake * 30 + Vector3.right * hitShakeE * 30
+            //, Time.deltaTime * speed);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, enemyGrapPos.rotation, Time.deltaTime * speed);
+            //transform.rotation = enemyGrapPos.rotation; 
+            transform.forward = Vector3.forward;
+            
+        }
+        else if (enemy.GetComponent<JH_PlayerMove>().IsGrapped(true))
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, grapPos.localPosition
                 + Vector3.up * hitShake * 30 + Vector3.up * hitShakeE * 30 + Vector3.right * hitShake * 30 + Vector3.right * hitShakeE * 30
@@ -144,7 +156,7 @@ public class JH_CameraMove : MonoBehaviour
     public IEnumerator CamHitted()
     {
         float currentTime = 0;
-        hitShake = 0.015f;
+        hitShake = 0;
         while (currentTime < 0.06f)
         {
             currentTime += Time.deltaTime;
@@ -158,7 +170,7 @@ public class JH_CameraMove : MonoBehaviour
     public IEnumerator CamHit()
     {
         float currentTime = 0;
-        hitShakeE = 0.015f;
+        hitShakeE = 0;
         while (currentTime < 0.06f)
         {
             currentTime += Time.deltaTime;

@@ -18,7 +18,7 @@ public class JH_GrapCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CamBetweenWall();
+        //CamBetweenWall();
     }
     void CamBetweenWall()
     {
