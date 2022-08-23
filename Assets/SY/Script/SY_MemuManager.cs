@@ -54,7 +54,10 @@ public class SY_MemuManager : MonoBehaviour
         }
         else
         {
-            Destroy(GameObject.Find("InputManager"));
+            if (GameObject.Find("InputManager"))
+            {
+                Destroy(GameObject.Find("InputManager"));
+            }
             SceneManager.LoadScene(2);
         } 
 
