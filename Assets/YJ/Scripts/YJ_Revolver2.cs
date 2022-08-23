@@ -43,9 +43,14 @@ public class YJ_Revolver2 : MonoBehaviour
     // 필살기 사용
     public YJ_KillerGage yj_KillerGage;
 
+    // 트레일
+    TrailRenderer trail;
+
     void Start()
     {
         col = GetComponent<Collider>();
+        trail = GetComponent<TrailRenderer>();
+        trail.enabled = false;
     }
 
     // Update is called once per frame
@@ -67,6 +72,8 @@ public class YJ_Revolver2 : MonoBehaviour
         {
             // 갈때 콜라이더 켜기
             col.enabled = true;
+            // 트레일 켜기
+            trail.enabled = true;
             speed = 3f;
             currnetTime += Time.deltaTime;
             if (currnetTime < 0.2f)
@@ -92,6 +99,8 @@ public class YJ_Revolver2 : MonoBehaviour
         // 거리가 1.7이상일때 되돌아오기
         if (distance > 1.7f)
         {
+            // 트레일 끄기
+            trail.enabled = false;
             // 되돌아오는함수
             Back();
         }
@@ -103,6 +112,8 @@ public class YJ_Revolver2 : MonoBehaviour
     {
         // 올때 콜라이더 끄기
         col.enabled = false;
+        // 트레일 끄기
+        trail.enabled = false;
         // 방향바꿔주기
         dir = originPos.position - transform.position;
         // 올때 스피드는 빠르게

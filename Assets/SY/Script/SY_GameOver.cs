@@ -120,6 +120,6 @@ public class SY_GameOver : MonoBehaviour
         iTween.MoveTo(podiumCam, iTween.Hash("x", 1.8, "y", 1.2, "z", -1.4, "time", 2f, "easetype", iTween.EaseType.easeInQuint, "islocal", true));
         iTween.MoveTo(podiumUI.transform.GetChild(0).gameObject, iTween.Hash("x", 460, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint, "islocal", true));
         yield return new WaitForSeconds(5);
-        podiumUI.transform.Find("GameOver").gameObject.SetActive(true);
+        //podiumUI.transform.Find("GameOver").gameObject.SetActive(true);
     }
 }

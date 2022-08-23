@@ -49,7 +49,6 @@ public class YJ_RightFight : YJ_Hand_right
     Vector3 rightOriginLocalPos;
 
     // 필살기 사용가능
-    public YJ_KillerGage yj_KillerGage;
 
     public YJ_Trigger_enemy yj_trigger_enemy;
 
@@ -89,6 +88,7 @@ public class YJ_RightFight : YJ_Hand_right
 
         anim = GetComponent<Animation>();
 
+        yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
     }
 
     

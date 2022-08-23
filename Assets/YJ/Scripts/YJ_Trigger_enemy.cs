@@ -41,8 +41,8 @@ public class YJ_Trigger_enemy : MonoBehaviour
     bool backTrigger = false; // 트리거 혼자 뒤로오기
 
     // 애너미 손 불러오기
-    public GameObject leftHand;
-    public GameObject rightHand;
+    GameObject leftHand;
+    GameObject rightHand;
     public YJ_RightFight_enemy yj_rightScript;
     public YJ_LeftFight_enemy yj_leftScript;
 
@@ -57,6 +57,9 @@ public class YJ_Trigger_enemy : MonoBehaviour
         // 애너미, 플레이어
         enemy = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
+
+        rightHand = enemy.transform.Find("Right").gameObject;
+        leftHand = enemy.transform.Find("Left").gameObject;
 
         // 무브와 이어질 것
         jh_PlayerMove = enemy.GetComponent<JH_PlayerMove>();

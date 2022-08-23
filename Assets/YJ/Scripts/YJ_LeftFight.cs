@@ -47,7 +47,6 @@ public class YJ_LeftFight : YJ_Hand_left
     //콜라이더 끄고 켜기위해 불러오기
     Collider col;
 
-    public YJ_KillerGage yj_KillerGage;
 
     AudioSource audioSource;
 
@@ -82,6 +81,8 @@ public class YJ_LeftFight : YJ_Hand_left
         col.enabled = false;
 
         anim = GetComponent<Animation>();
+
+        yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
     }
 
     void Update()
