@@ -88,7 +88,7 @@ public class YJ_Trigger : MonoBehaviour
         //print("enemycome : " + enemyCome + " enemygo : " + enemyGo + " grap : " + grap + " goTrigger : " + goTrigger + " backTrigger : " + backTrigger);
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (InputManager.Instance.Grap && !grap && !leftHand.GetComponent<YJ_LeftFight>().fire && !rightHand.GetComponent<YJ_RightFight>().fire && !yj_trigger_enemy.goTrigger && !jh_PlayerMove.Knocked)
+        if (InputManager.Instance.Grap && !grap && !leftHand.GetComponent<YJ_Hand_left>().fire && !rightHand.GetComponent<YJ_Hand_right>().fire && !yj_trigger_enemy.goTrigger && !jh_PlayerMove.Knocked)
         {
             audioSource.PlayOneShot(grapSound);
             leftHand.GetComponent<Animation>().Stop();

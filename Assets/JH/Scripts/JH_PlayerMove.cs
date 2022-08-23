@@ -265,6 +265,9 @@ public class JH_PlayerMove : MonoBehaviour
         trigger = GameObject.Find("Player").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
         etrigger = GameObject.Find("Enemy").transform.Find("YJ_Trigger").GetComponent<YJ_Trigger_enemy>();
         State = PlayerState.Idle;
+
+        leftHandTarget = transform.Find("Left");
+        rightHandTarget = transform.Find("Right");
     }
 
     // Update is called once per frame
@@ -746,8 +749,8 @@ public class JH_PlayerMove : MonoBehaviour
         }
     }
 
-    public Transform leftHandTarget;
-    public Transform rightHandTarget;
+    Transform leftHandTarget;
+    Transform rightHandTarget;
     private void OnAnimatorIK(int layerIndex)
     {
         if (state == PlayerState.Attack)

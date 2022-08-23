@@ -148,14 +148,14 @@ public class JH_Effect : MonoBehaviour
         }
         else
         {
-            //if (lf.yj_KillerGage.killerModeOn)
-            //{
-            //    killer.SetActive(true);
-            //}
-            //else
-            //{
-            //    killer.SetActive(false);
-            //}
+            if (lf.yj_KillerGage.killerModeOn)
+            {
+                killer.SetActive(true);
+            }
+            else
+            {
+                killer.SetActive(false);
+            }
         }
     }
 }
