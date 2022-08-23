@@ -8,7 +8,7 @@ using UnityEngine;
 // 필요요소 : 방향 (애너미 위치) , 속도
 // 마우스의 이동방향을 가져와서 내 주먹을 움직이게 하고싶다.
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
-public class YJ_RightFight_enemy : MonoBehaviour
+public class YJ_RightFight_enemy : YJ_Hand_right
 {
     public GameObject left;
     public GameObject targetCamera;
@@ -29,12 +29,6 @@ public class YJ_RightFight_enemy : MonoBehaviour
     // 내 콜라이더 끄고켜기
     Collider col;
 
-    // 버튼 눌림확인
-    public bool fire = false; // 오른쪽
-    public bool Fire
-    {
-        get { return fire; }
-    }
     bool click = false;
 
     // 애너미랑 닿았을때
@@ -50,7 +44,7 @@ public class YJ_RightFight_enemy : MonoBehaviour
     public YJ_Trigger yj_trigger;
 
     // 필살기 사용 가능
-    public YJ_KillerGage_enemy yj_KillerGage_enemy;
+    
 
     // 돌아갈 곳
     public Transform originPos;
@@ -75,6 +69,8 @@ public class YJ_RightFight_enemy : MonoBehaviour
         col = GetComponent<Collider>();
 
         col.enabled = false;
+
+        yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
     }
 
     

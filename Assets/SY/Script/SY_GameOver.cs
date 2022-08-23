@@ -68,7 +68,7 @@ public class SY_GameOver : MonoBehaviour
     IEnumerator DelayText(bool isEnemy)
     {
         source.PlayOneShot(end);
-        // °ÔÀÓ Á¾·áµÇ¸é ½Ã°£ ´À·ÁÁü
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         while (Time.timeScale > 0.1f)
         {
 
@@ -76,13 +76,13 @@ public class SY_GameOver : MonoBehaviour
 
             yield return null;
         }
-        // ¾à 1ÃÊ ÈÄ¿¡ K.O ÅØ½ºÆ® Ãâ·Â
+        // ï¿½ï¿½ 1ï¿½ï¿½ ï¿½Ä¿ï¿½ K.O ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         yield return new WaitForSeconds(0.1f);
         source.PlayOneShot(ko);
         gameOverText.SetActive(true);
         gameOverText.transform.localScale = Vector3.one * 10;
         iTween.ScaleTo(gameOverText, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.05f, "easetype", iTween.EaseType.easeOutQuint));
-        // 1ÃÊ ÈÄ¿¡ °ÔÀÓ ¼Óµµ ¿øº¹ ¹× ½Â¸® ¸ð¼Ç Àç»ý
+        // 1ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         yield return new WaitForSeconds(0.1f);
         Time.timeScale = 1;
         yield return new WaitForSeconds(1.5f);
@@ -96,7 +96,7 @@ public class SY_GameOver : MonoBehaviour
             enemy.GetComponent<JH_PlayerMove>().State = JH_PlayerMove.PlayerState.Win;
             enemy.GetComponent<Animator>().SetTrigger("Win");
         }
-        // 3ÃÊ ÈÄ¿¡ Æ÷µð¿ò È°¼ºÈ­ ¹× Ä«¸Þ¶ó ÀÌµ¿
+        // 3ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½Ìµï¿½
         yield return new WaitForSeconds(3f);
         podium.SetActive(true);
         podiumUI.SetActive(true);

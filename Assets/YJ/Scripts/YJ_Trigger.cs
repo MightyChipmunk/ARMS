@@ -42,8 +42,8 @@ public class YJ_Trigger : MonoBehaviour
     bool backTrigger = false; // 트리거 혼자 뒤로오기
 
     // 손불러오기
-    public GameObject leftHand;
-    public GameObject rightHand;
+    GameObject leftHand;
+    GameObject rightHand;
 
     public GameObject spring;
 
@@ -62,6 +62,9 @@ public class YJ_Trigger : MonoBehaviour
         // 애너미, 플레이어
         enemy = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
+
+        rightHand = player.transform.Find("Right").gameObject;
+        leftHand = player.transform.Find("Left").gameObject;
 
         // 무브와 이어질 것
         jh_PlayerMove = enemy.GetComponent<JH_PlayerMove>();
@@ -85,7 +88,7 @@ public class YJ_Trigger : MonoBehaviour
         //print("enemycome : " + enemyCome + " enemygo : " + enemyGo + " grap : " + grap + " goTrigger : " + goTrigger + " backTrigger : " + backTrigger);
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
-        if (InputManager.Instance.Grap && !grap && !leftHand.GetComponent<YJ_LeftFight>().Fire && !rightHand.GetComponent<YJ_RightFight>().Fire && !yj_trigger_enemy.goTrigger && !jh_PlayerMove.Knocked)
+        if (InputManager.Instance.Grap && !grap && !leftHand.GetComponent<YJ_LeftFight>().fire && !rightHand.GetComponent<YJ_RightFight>().fire && !yj_trigger_enemy.goTrigger && !jh_PlayerMove.Knocked)
         {
             audioSource.PlayOneShot(grapSound);
             leftHand.GetComponent<Animation>().Stop();

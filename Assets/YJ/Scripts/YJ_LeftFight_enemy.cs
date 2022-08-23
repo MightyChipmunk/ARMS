@@ -8,7 +8,7 @@ using UnityEngine;
 // 필요요소 : 방향 (애너미 위치) , 속도
 // 마우스의 이동방향을 가져와서 내 주먹을 움직이게 하고싶다.
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
-public class YJ_LeftFight_enemy : MonoBehaviour
+public class YJ_LeftFight_enemy : YJ_Hand_left
 {
     #region 공격관련
     public GameObject trigger; // 가운데 선
@@ -54,8 +54,6 @@ public class YJ_LeftFight_enemy : MonoBehaviour
     // 잡혔을때 공격 못하게하기
     public YJ_Trigger yj_trigger;
 
-    // 필살기 사용
-    public YJ_KillerGage_enemy yj_KillerGage_enemy;
 
 
     void Start()
@@ -74,6 +72,8 @@ public class YJ_LeftFight_enemy : MonoBehaviour
         yj_trigger_enemy = trigger.GetComponent<YJ_Trigger_enemy>();
 
         col.enabled = false;
+
+        yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
     }
 
     void Update()

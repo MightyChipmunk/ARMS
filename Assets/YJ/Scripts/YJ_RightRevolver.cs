@@ -4,7 +4,7 @@ using UnityEngine;
 
 // 앞으로 조금 이동시킨 후 리볼버 세개를 순서대로 발사하고싶다.
 
-public class YJ_RightRevolver : MonoBehaviour
+public class YJ_RightRevolver : YJ_Hand_right
 {
     // 리볼버세개
     public YJ_Revolver4 revolver_4;
@@ -24,20 +24,21 @@ public class YJ_RightRevolver : MonoBehaviour
     // 플레이어위치 가져오기
     GameObject player;
 
-    // 공격 bool값
-    bool fire = false;
-
     // 리볼버 발사할 bool값
     public bool isFire = false;
 
-    // 필살기 사용
-    public YJ_KillerGage yj_KillerGage;
+    // 애니메이션
+    Animation anim;
 
     void Start()
     {
         player = GameObject.Find("Player");
 
         transform.forward = player.transform.forward;
+
+        yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
+
+        anim = GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -54,17 +55,18 @@ public class YJ_RightRevolver : MonoBehaviour
             backspeed = 20f;
         }
         // 왼쪽 마우스 버튼을 누르면 앞으로 조금 이동하고싶다
-        if (Input.GetMouseButtonDown(1))
+        if (InputManager.Instance.Fire2 && !fire)
         {
+            anim.Stop();
             speed = 15f;
             fire = true;
         }
 
         // 앞으로 나아가기(공격)
         if (fire)
-            Fire();
+            Fire_Revolver();
     }
-    void Fire()
+    void Fire_Revolver()
     {
         dir = transform.forward;
         if (Vector3.Distance(transform.position, player.transform.position) > 2.5f)
@@ -97,6 +99,8 @@ public class YJ_RightRevolver : MonoBehaviour
             revolver_4.end = false;
             revolver_5.end = false;
             revolver_6.end = false;
+            // 애니메이션 플레이
+            anim.Play();
             // 공격종료
             fire = false;
         }
