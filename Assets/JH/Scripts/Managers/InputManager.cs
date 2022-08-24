@@ -152,7 +152,11 @@ public class InputManager : MonoBehaviour
             enemyRight = (ran >= 6 && ran <= 8) ? true : false;
             enemyLeft = (ran >= 9 && ran <= 11) ? true : false;
             enemyDash = actRan <= 3 ? true : false;
-            enemyJump = actRan >= 9 ? true : false;
+
+            if (!enemy.GetComponent<JH_EnemyCharge>().IsGuard)
+                enemyJump = actRan >= 9 ? true : false;
+            else
+                enemyJump = false;
 
             if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
                 && !enemy.GetComponent<JH_PlayerMove>().IsGrapped(true) && !enemy.GetComponent<JH_EnemyCharge>().IsGuard

@@ -20,7 +20,7 @@ public class JH_Effect : MonoBehaviour
 
     bool trail = false;
     bool isEnemy = false;
-
+    Light light;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +36,7 @@ public class JH_Effect : MonoBehaviour
 
         left = transform.Find("Left").gameObject;
         right = transform.Find("Right").gameObject;
+        light = GameObject.Find("Directional Light").GetComponent<Light>();
     }
 
     // Update is called once per frame
@@ -150,12 +151,28 @@ public class JH_Effect : MonoBehaviour
         {
             if (lf.yj_KillerGage.killerModeOn)
             {
+                if (killer.activeSelf == false)
+                {
+                    StartCoroutine("KillerTime");
+                    light.cullingMask = 0;
+                    light.cullingMask = 1 << LayerMask.NameToLayer("Player");
+                    light.cullingMask |= 1 << LayerMask.NameToLayer("Enemy");
+                }
                 killer.SetActive(true);
             }
             else
             {
+                if (killer.activeSelf == true)
+                    light.cullingMask = -1;
                 killer.SetActive(false);
             }
         }
+    }
+
+    IEnumerator KillerTime()
+    {
+        Time.timeScale = 0.01f;
+        yield return new WaitForSeconds(0.005f);
+        Time.timeScale = 1f;
     }
 }

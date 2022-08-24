@@ -19,6 +19,7 @@ public class JH_CameraMove : MonoBehaviour
     Transform enemyGrapPos;
     Transform returnPos;
     JH_PlayerMove pm;
+    YJ_Hand_left lh;
     GameObject target;
     GameObject enemy;
 
@@ -30,6 +31,7 @@ public class JH_CameraMove : MonoBehaviour
     void Start()
     {
         pm = transform.parent.GetComponent<JH_PlayerMove>();
+        lh = transform.parent.transform.Find("Left").GetComponent<YJ_Hand_left>();
         target = GameObject.Find("Enemy Camera");
         enemy = GameObject.Find("Enemy");
         delta = transform.localPosition;
@@ -52,13 +54,8 @@ public class JH_CameraMove : MonoBehaviour
         }
         else if (pm.IsGrapped())
         {
-            transform.position = enemyGrapPos.position;
-            //Vector3.Lerp(transform.position, enemyGrapPos.position
-            //+ Vector3.up * hitShake * 30 + Vector3.up * hitShakeE * 30 + Vector3.right * hitShake * 30 + Vector3.right * hitShakeE * 30
-            //, Time.deltaTime * speed);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, enemyGrapPos.rotation, Time.deltaTime * speed);
-            //transform.rotation = enemyGrapPos.rotation; 
-            transform.forward = Vector3.forward;
+            transform.position = Vector3.Lerp(transform.position, enemyGrapPos.position, Time.deltaTime * speed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, enemyGrapPos.rotation, Time.deltaTime * speed);
             
         }
         else if (enemy.GetComponent<JH_PlayerMove>().IsGrapped(true))
@@ -100,10 +97,12 @@ public class JH_CameraMove : MonoBehaviour
         else
             yLerp = Mathf.Lerp(yLerp, 2.3f, Time.deltaTime * speed);
 
-        if (pm.State == JH_PlayerMove.PlayerState.Grap || pm.State == JH_PlayerMove.PlayerState.Attack)
+        // 잡기 혹은 공격중이라면 카메라를 앞으로 옮김
+        if (pm.State == JH_PlayerMove.PlayerState.Grap || pm.State == JH_PlayerMove.PlayerState.Attack || lh.yj_KillerGage.killerModeOn)
         {
             zLerp = Mathf.Lerp(zLerp, -1.2f, Time.deltaTime * speed);
         }
+        // 점프 중이라면 카메라를 뒤로 옮김
         else if (pm.State == JH_PlayerMove.PlayerState.Fall)
         {
             zLerp = Mathf.Lerp(zLerp, -3f, Time.deltaTime * speed);
@@ -113,7 +112,6 @@ public class JH_CameraMove : MonoBehaviour
             zLerp = Mathf.Lerp(zLerp, -1.5f, Time.deltaTime * speed);
         }
 
-        
     }
 
     // 캠이 벽 뒤로 갈 때 벽 앞으로 위치시키기
@@ -156,7 +154,7 @@ public class JH_CameraMove : MonoBehaviour
     public IEnumerator CamHitted()
     {
         float currentTime = 0;
-        hitShake = 0;
+        hitShake = 0.015f;
         while (currentTime < 0.06f)
         {
             currentTime += Time.deltaTime;
@@ -170,7 +168,7 @@ public class JH_CameraMove : MonoBehaviour
     public IEnumerator CamHit()
     {
         float currentTime = 0;
-        hitShakeE = 0;
+        hitShakeE = 0.015f;
         while (currentTime < 0.06f)
         {
             currentTime += Time.deltaTime;
