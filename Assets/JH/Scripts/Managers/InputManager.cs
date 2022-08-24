@@ -100,8 +100,6 @@ public class InputManager : MonoBehaviour
         Instance = this;
         player = GameObject.Find("Player").gameObject;
         enemy = GameObject.Find("Enemy").gameObject;
-
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Update()

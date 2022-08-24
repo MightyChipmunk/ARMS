@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/SY/Scenes/SY_0817_2(StartScene).unity
     guid: 8093782c5d571ab49bdaa0b415f905ca
   - enabled: 1
-    path: Assets/JH/Scenes/JH_Scene0822.unity
-    guid: be7188428d0c70b4db9345f4354dbb34
+    path: Assets/JH/Scenes/JH_Scene0824.unity
+    guid: 21de32a2d0fa58d488c9079720df271f
   m_configObjects: {}

@@ -46,18 +46,14 @@ public class SY_MemuManager : MonoBehaviour
     {
         if (buttonSoundPlayer)
         {
-            if (GameObject.Find("InputManager"))
+            if (GameObject.Find("ArmSelect"))
             {
-                Destroy(GameObject.Find("InputManager"));
+                Destroy(GameObject.Find("ArmSelect"));
             }
             buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeGameScene();
         }
         else
         {
-            if (GameObject.Find("InputManager"))
-            {
-                Destroy(GameObject.Find("InputManager"));
-            }
             SceneManager.LoadScene(2);
         } 
 
@@ -65,10 +61,6 @@ public class SY_MemuManager : MonoBehaviour
 
     public void ChangeCharacterScene()
     {
-        if (GameObject.Find("InputManager"))
-        {
-            Destroy(GameObject.Find("InputManager"));
-        }
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
