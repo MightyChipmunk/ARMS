@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SY_MemuManager : MonoBehaviour
 {
@@ -44,23 +45,29 @@ public class SY_MemuManager : MonoBehaviour
 
     public void ChangeGameScene()
     {
-        if (buttonSoundPlayer)
+        if (JH_ArmSelect.Instance.leftHand != null && JH_ArmSelect.Instance.rightHand != null)
         {
-            if (GameObject.Find("ArmSelect"))
+            if (buttonSoundPlayer)
             {
-                Destroy(GameObject.Find("ArmSelect"));
+                buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeGameScene();
             }
-            buttonSoundPlayer.GetComponent<JH_ButtonSound>().ChangeGameScene();
+            else
+            {
+                SceneManager.LoadScene(2);
+            }
         }
         else
         {
-            SceneManager.LoadScene(2);
-        } 
-
+            GameObject.Find("WarningText").GetComponent<Text>().enabled = true;
+        }
     }
 
     public void ChangeCharacterScene()
     {
+        if (GameObject.Find("ArmSelect"))
+        {
+            Destroy(GameObject.Find("ArmSelect"));
+        }
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }

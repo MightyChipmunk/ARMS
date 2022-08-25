@@ -26,7 +26,6 @@ public class JH_ArmSelect : MonoBehaviour
     public void Left1()
     {
         leftHand = leftDefault;
-        Debug.Log("adsf");
     }
     public void Left2()
     {
@@ -39,7 +38,6 @@ public class JH_ArmSelect : MonoBehaviour
     public void Right1()
     {
         rightHand = rightDefault;
-        Debug.Log("adsf");
     }
     public void Right2()
     {

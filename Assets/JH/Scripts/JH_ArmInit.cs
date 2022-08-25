@@ -19,7 +19,6 @@ public class JH_ArmInit : MonoBehaviour
 
     private void Start()
     {
-        Destroy(GameObject.Find("ArmSelect"));
-        Destroy(gameObject);
+        
     }
 }

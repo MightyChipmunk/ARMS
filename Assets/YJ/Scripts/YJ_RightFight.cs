@@ -10,10 +10,10 @@ using UnityEngine;
 // 마우스 이동방향 (공격버튼을 눌렀을때 포지션, 그 이후 포지션)
 public class YJ_RightFight : YJ_Hand_right
 {
-    public GameObject left;
+    //public GameObject left;
     public GameObject enemyCamera;
     public GameObject trigger;
-    YJ_LeftFight leftFight;
+    //YJ_LeftFight leftFight;
     public YJ_Trigger yj_trigger;
 
     // 공격 속도
@@ -72,8 +72,9 @@ public class YJ_RightFight : YJ_Hand_right
         target = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
         originPos = player.transform;
-        
-
+        trigger = player.transform.Find("YJ_Trigger").gameObject;
+        enemyCamera = GameObject.Find("Enemy Camera");
+        yj_trigger = trigger.GetComponent<YJ_Trigger>();
 
         // 로컬좌표의 값을 저장
         rightOriginLocalPos = transform.localPosition;
@@ -81,7 +82,7 @@ public class YJ_RightFight : YJ_Hand_right
         rightPath = new List<Vector3>();
         //mouseOrigin = Vector3.zero;
 
-        leftFight = left.GetComponent<YJ_LeftFight>();
+        //leftFight = left.GetComponent<YJ_LeftFight>();
         col = GetComponent<Collider>();
 
         col.enabled = false;

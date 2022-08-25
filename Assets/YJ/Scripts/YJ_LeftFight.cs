@@ -65,7 +65,8 @@ public class YJ_LeftFight : YJ_Hand_left
         // 애너미의 처음위치로
         target = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
-
+        trigger = player.transform.Find("YJ_Trigger").gameObject;
+        enemyCamera = GameObject.Find("Enemy Camera");
         // 콜라이더 가져오기
         col = GetComponent<Collider>();
 
