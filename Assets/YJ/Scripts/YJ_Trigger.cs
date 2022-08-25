@@ -67,7 +67,7 @@ public class YJ_Trigger : MonoBehaviour
         leftHand = player.transform.Find("Left").gameObject;
 
         // 무브와 이어질 것
-        jh_PlayerMove = enemy.GetComponent<JH_PlayerMove>();
+        jh_PlayerMove = player.GetComponent<JH_PlayerMove>();
 
         // 애너미 cc
         cc = enemy.GetComponent<CharacterController>();

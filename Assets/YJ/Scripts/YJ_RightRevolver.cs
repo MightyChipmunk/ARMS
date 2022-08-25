@@ -37,6 +37,7 @@ public class YJ_RightRevolver : YJ_Hand_right
         transform.forward = player.transform.forward;
 
         yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
+        originPos = GameObject.Find("rightPos_e").transform;
 
         anim = GetComponent<Animation>();
     }

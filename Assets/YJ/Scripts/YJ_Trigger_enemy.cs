@@ -62,7 +62,7 @@ public class YJ_Trigger_enemy : MonoBehaviour
         leftHand = enemy.transform.Find("Left").gameObject;
 
         // 무브와 이어질 것
-        jh_PlayerMove = enemy.GetComponent<JH_PlayerMove>();
+        jh_PlayerMove = player.GetComponent<JH_PlayerMove>();
 
         // 애너미 cc
         cc = player.GetComponent<CharacterController>();
@@ -77,7 +77,6 @@ public class YJ_Trigger_enemy : MonoBehaviour
 
     void Update()
     {
-        print("플레이어꺼 : " + yj_trigger.goTrigger + " 애너미꺼 : " + goTrigger);
         #region 잡기공격 (휠버튼클릭)
         // 휠버튼을 누르면
         if (InputManager.Instance.EnemyGrap && !grap && !yj_leftScript.Fire && !yj_rightScript.Fire && !yj_trigger.goTrigger && !jh_PlayerMove.Knocked)

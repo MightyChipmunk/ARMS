@@ -51,6 +51,9 @@ public class YJ_Revolver3 : MonoBehaviour
         col = GetComponent<Collider>();
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
+
+        yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
+        targetPos = GameObject.Find("EnemyAttackPos");
     }
 
     // Update is called once per frame
