@@ -58,7 +58,11 @@ public class SY_MemuManager : MonoBehaviour
         }
         else
         {
-            GameObject.Find("WarningText").GetComponent<Text>().enabled = true;
+            Text warn = GameObject.Find("WarningText").GetComponent<Text>();
+            warn.enabled = true;
+            warn.gameObject.transform.localScale = Vector3.zero;
+            iTween.ScaleTo(warn.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+            iTween.ScaleTo(warn.gameObject, iTween.Hash("x", 0, "y", 0, "z", 0, "time", 0.5f, "delay", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
         }
     }
 
