@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class SY_GameOver : MonoBehaviour
+public class SY_GameOver1 : MonoBehaviour
 {
     [SerializeField] GameObject gameOverText;
     [SerializeField] Text countdownText;
@@ -24,9 +24,11 @@ public class SY_GameOver : MonoBehaviour
     GameObject gameUI;
     [SerializeField]
     GameObject podiumUI;
+   
 
     public AudioClip ko;
     public AudioClip end;
+    public int stage;
 
     AudioSource source;
 
@@ -47,7 +49,9 @@ public class SY_GameOver : MonoBehaviour
     void Update()
     {
         if (setTime > 0 && JH_Count.Instance.IsStart && !gameEnd)
+        {
             setTime -= Time.deltaTime;
+        }
         else if (setTime <= 0 && !gameEnd)
         {
             GameOverText(true);
@@ -90,6 +94,8 @@ public class SY_GameOver : MonoBehaviour
         {
             player.GetComponent<JH_PlayerMove>().State = JH_PlayerMove.PlayerState.Win;
             player.GetComponent<Animator>().SetTrigger("Win");
+            yield return new WaitForSeconds(1.5f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
         {
@@ -121,4 +127,6 @@ public class SY_GameOver : MonoBehaviour
         iTween.MoveTo(podiumUI.transform.GetChild(0).gameObject, iTween.Hash("x", 460, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint, "islocal", true));
         yield return new WaitForSeconds(5);
     }
+
+
 }
