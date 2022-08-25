@@ -37,8 +37,8 @@ public class JH_ArmSelect : MonoBehaviour
     public void Left1()
     {
         leftHand = leftDefault;
-        iTween.ScaleTo(left1, iTween.Hash("x", 200, "y", 200, "z", 200, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        iTween.ScaleTo(left1, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.5f, "delay", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left1, iTween.Hash("x", 200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left1, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(left2, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
         //iTween.ScaleTo(left3, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
@@ -46,8 +46,8 @@ public class JH_ArmSelect : MonoBehaviour
     public void Left2()
     {
         leftHand = leftRevolver;
-        iTween.ScaleTo(left2, iTween.Hash("x", 200, "y", 200, "z", 200, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        iTween.ScaleTo(left2, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.5f, "delay", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left2, iTween.Hash("x", 200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left2, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(left1, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
         //iTween.ScaleTo(left3, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
@@ -59,8 +59,8 @@ public class JH_ArmSelect : MonoBehaviour
     public void Right1()
     {
         rightHand = rightDefault;
-        iTween.ScaleTo(right1, iTween.Hash("x", -200, "y", 200, "z", 200, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        iTween.ScaleTo(right1, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.5f, "delay", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right1, iTween.Hash("x", -200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right1, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(right2, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
         //iTween.ScaleTo(right3, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
@@ -68,8 +68,8 @@ public class JH_ArmSelect : MonoBehaviour
     public void Right2()
     {
         rightHand = rightRevolver;
-        iTween.ScaleTo(right2, iTween.Hash("x", -200, "y", 200, "z", 200, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        iTween.ScaleTo(right2, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.5f, "delay", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right2, iTween.Hash("x", -200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right2, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(right1, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
         //iTween.ScaleTo(right3, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
