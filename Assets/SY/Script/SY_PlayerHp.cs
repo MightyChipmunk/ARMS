@@ -16,7 +16,7 @@ public class SY_PlayerHp : MonoBehaviour
     JH_EnemyCharge ech;
     JH_PlayerMove pm;
 
-    SY_GameOver koText;
+    SY_GameOver1 koText;
 
     bool canUp = false;
     public bool CanUp
@@ -60,7 +60,7 @@ public class SY_PlayerHp : MonoBehaviour
         pm = GetComponent<JH_PlayerMove>();
         sliderHp.maxValue = maxHp;
         SetHP(maxHp);
-        koText = GameObject.Find("InputManager").GetComponent<SY_GameOver>();
+        koText = GameObject.Find("InputManager").GetComponent<SY_GameOver1>();
     }
 
     void Update()
