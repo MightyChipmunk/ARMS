@@ -2870,12 +2870,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e67b7232a5b374baa1bcbe736453b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fire: 0
+  yj_KillerGage: {fileID: 0}
+  yj_KillerGage_enemy: {fileID: 0}
   revolver_1: {fileID: 2041811201}
   revolver_2: {fileID: 2099979912}
   revolver_3: {fileID: 1289181071}
   originPos: {fileID: 301416062}
   isFire: 0
-  yj_KillerGage: {fileID: 0}
 --- !u!135 &664016943
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3615,12 +3617,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa891ea44f4bb0341ae015841f7e83e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fire: 0
+  yj_KillerGage: {fileID: 0}
+  yj_KillerGage_enemy: {fileID: 0}
   revolver_4: {fileID: 842655423}
   revolver_5: {fileID: 356046116}
   revolver_6: {fileID: 458340959}
   originPos: {fileID: 1216576657}
   isFire: 0
-  yj_KillerGage: {fileID: 0}
 --- !u!1001 &831407085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10586,11 +10590,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fire: 0
+  yj_KillerGage: {fileID: 0}
+  yj_KillerGage_enemy: {fileID: 0}
   trigger: {fileID: 4696511998795678611}
   enemyCamera: {fileID: 1160279776}
   leftPath: []
   yj_trigger_enemy: {fileID: 9217974470826123696}
-  yj_KillerGage: {fileID: 0}
   shoockSound: {fileID: 0}
 --- !u!114 &4203009513527733170
 MonoBehaviour:
@@ -10887,8 +10892,6 @@ MonoBehaviour:
   enemyCome: 0
   enemyGo: 0
   goTrigger: 0
-  leftHand: {fileID: 0}
-  rightHand: {fileID: 0}
   spring: {fileID: 0}
   yj_trigger_enemy: {fileID: 0}
   grapSound: {fileID: 0}
@@ -10984,8 +10987,6 @@ MonoBehaviour:
   speed: 3.5
   jumpPower: 7
   isEnemy: 1
-  leftHandTarget: {fileID: 8440804458082044107}
-  rightHandTarget: {fileID: 8440804457073073446}
 --- !u!4 &5012701046130560535
 Transform:
   m_ObjectHideFlags: 0
@@ -11274,7 +11275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc6d00a0ff8e50459c3579b6206c50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 1000
+  maxHp: 10
   sliderHp: {fileID: 1500703210}
 --- !u!114 &6162820531413371768
 MonoBehaviour:
@@ -11749,12 +11750,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb44325eddea9c7479b4bd1dfc09e227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  left: {fileID: 9128531005009121639}
+  fire: 0
+  yj_KillerGage: {fileID: 0}
+  yj_KillerGage_enemy: {fileID: 0}
   enemyCamera: {fileID: 1160279776}
   trigger: {fileID: 4696511998795678611}
   yj_trigger: {fileID: 0}
   rightPath: []
-  yj_KillerGage: {fileID: 0}
   yj_trigger_enemy: {fileID: 9217974470826123696}
   shoockSound: {fileID: 0}
 --- !u!114 &8172585456899378400
@@ -12046,13 +12048,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859fdc6a4e254e94aa04fac3f45ebd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fire: 0
+  yj_KillerGage: {fileID: 0}
+  yj_KillerGage_enemy: {fileID: 0}
   left: {fileID: 8440804458082044106}
   targetCamera: {fileID: 2102634343}
   trigger: {fileID: 2196723828355550288}
-  fire: 0
   rightPath: []
   yj_trigger: {fileID: 4696511998795678614}
-  yj_KillerGage_enemy: {fileID: 0}
   originPos: {fileID: 0}
   yj_trigger_enemy: {fileID: 0}
 --- !u!114 &8554293680189073305
@@ -12079,13 +12082,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d058d3b8aa1ad3144b628a6bd9f0d6bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fire: 0
+  yj_KillerGage: {fileID: 0}
+  yj_KillerGage_enemy: {fileID: 0}
   trigger: {fileID: 2196723828355550288}
   playertarget: {fileID: 2102634343}
   originPos: {fileID: 0}
   leftPath: []
   yj_trigger_enemy: {fileID: 0}
   yj_trigger: {fileID: 4696511998795678614}
-  yj_KillerGage_enemy: {fileID: 0}
 --- !u!114 &8554293681995370390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12646,8 +12651,6 @@ MonoBehaviour:
   speed: 3.5
   jumpPower: 7
   isEnemy: 0
-  leftHandTarget: {fileID: 9128531005009121638}
-  rightHandTarget: {fileID: 9128531006547625099}
 --- !u!143 &9128531006493504379
 CharacterController:
   m_ObjectHideFlags: 0
@@ -12841,8 +12844,6 @@ MonoBehaviour:
   playerCome: 0
   playerGo: 0
   goTrigger: 0
-  leftHand: {fileID: 0}
-  rightHand: {fileID: 0}
   yj_rightScript: {fileID: 0}
   yj_leftScript: {fileID: 0}
   spring: {fileID: 0}
