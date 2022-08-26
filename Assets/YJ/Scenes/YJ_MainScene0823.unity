@@ -323,6 +323,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4239800066613214, guid: 869b43ac4ebf0284c96352a161fdf9b5, type: 3}
   m_PrefabInstance: {fileID: 65666645}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &83511455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 83511456}
+  m_Layer: 29
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &83511456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83511455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 758799974}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91056594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,7 +1187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1855340746554395458, guid: 49011e57640af4346b984abcfb1cf581, type: 3}
       propertyPath: m_RootOrder
-      value: 16
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1855340746554395458, guid: 49011e57640af4346b984abcfb1cf581, type: 3}
       propertyPath: m_LocalScale.x
@@ -1508,7 +1539,8 @@ GameObject:
   - component: {fileID: 315187073}
   - component: {fileID: 315187072}
   - component: {fileID: 315187071}
-  m_Layer: 0
+  - component: {fileID: 315187074}
+  m_Layer: 29
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1522,7 +1554,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315187069}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0.000000009084488, z: -0.000000009084488, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1540,10 +1572,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5000001
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &315187072
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1594,6 +1626,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315187069}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &315187074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315187069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b0da44026ee7643a6abe311b034823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &316530655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,7 +2487,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6900704511881687554, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
       propertyPath: m_RootOrder
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6900704511881687554, guid: cf9be061d575df6418c98c2c5ebde13d, type: 3}
       propertyPath: m_LocalScale.x
@@ -4848,7 +4892,6 @@ MonoBehaviour:
   revolver_1: {fileID: 2041811201}
   revolver_2: {fileID: 2099979912}
   revolver_3: {fileID: 1289181071}
-  originPos: {fileID: 301416062}
   isFire: 0
 --- !u!135 &664016943
 SphereCollider:
@@ -5158,7 +5201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 758799974}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: L_Lazer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5174,10 +5217,11 @@ Transform:
   m_GameObject: {fileID: 758799973}
   m_LocalRotation: {x: -0, y: -0.0000004395842, z: -0, w: 1}
   m_LocalPosition: {x: -0.0048660757, y: -0.048239607, z: 0.0058463877}
-  m_LocalScale: {x: 0.10913946, y: 0.10913943, z: 0.02910385}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.03}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 315187070}
+  - {fileID: 83511456}
   m_Father: {fileID: 6977611669283411317}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -351.329, z: 0}
@@ -5375,7 +5419,6 @@ MonoBehaviour:
   revolver_4: {fileID: 842655423}
   revolver_5: {fileID: 356046116}
   revolver_6: {fileID: 458340959}
-  originPos: {fileID: 1216576657}
   isFire: 0
 --- !u!1001 &831407085
 PrefabInstance:
@@ -6321,6 +6364,7 @@ MonoBehaviour:
   podiumUI: {fileID: 252123745}
   ko: {fileID: 8300000, guid: da485b14836720148a99dc2dffeac616, type: 3}
   end: {fileID: 8300000, guid: 75681f78a1ae356458afc4b2a27a321e, type: 3}
+  stage: 0
 --- !u!82 &942894372
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12363,7 +12407,7 @@ GameObject:
   - component: {fileID: 1689687269928452162}
   - component: {fileID: 3955882812396376817}
   - component: {fileID: 7331042124033855729}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: pistonup_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12379,7 +12423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6050827483437804371}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: Helm_visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13258,7 +13302,7 @@ GameObject:
   - component: {fileID: 4766382617399936170}
   - component: {fileID: 452138963726382148}
   - component: {fileID: 1065427369260623391}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: Chin_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13291,7 +13335,7 @@ GameObject:
   - component: {fileID: 7936416596808733692}
   - component: {fileID: 8803388050745271752}
   - component: {fileID: 4121682296923641580}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: polySurface85
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13309,7 +13353,7 @@ GameObject:
   - component: {fileID: 6239608663683780046}
   - component: {fileID: 2567706835878762578}
   - component: {fileID: 337216241662292369}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: polySurface83
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13476,7 +13520,7 @@ GameObject:
   - component: {fileID: 389344347989706684}
   - component: {fileID: 7214351749045676423}
   - component: {fileID: 7624097272853987128}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: helmfang_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13525,7 +13569,7 @@ GameObject:
   - component: {fileID: 2753250915299893872}
   - component: {fileID: 8011665431292435534}
   - component: {fileID: 5467372390821345428}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_inner_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13574,7 +13618,7 @@ GameObject:
   - component: {fileID: 1159565387600335438}
   - component: {fileID: 6452202442070447149}
   - component: {fileID: 3638295536211092669}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: helm_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13692,14 +13736,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041239513279447633}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.20974663, y: -0.0000000074505797, z: -0.0000000018626449, w: 0.9777558}
   m_LocalPosition: {x: 0.000000005128391, y: 0.011398746, z: -0.034456164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6977611669283411317}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.215, y: 0, z: 0}
 --- !u!1 &1185049582610527503
 GameObject:
   m_ObjectHideFlags: 0
@@ -13965,7 +14009,7 @@ GameObject:
   - component: {fileID: 6117595429372422413}
   - component: {fileID: 3629019530648420026}
   - component: {fileID: 1660817893866204713}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_main_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13998,7 +14042,7 @@ GameObject:
   - component: {fileID: 5192823319198194790}
   - component: {fileID: 812091990918752694}
   - component: {fileID: 9043908970456765219}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: pistonup_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14657,7 +14701,7 @@ GameObject:
   - component: {fileID: 698162692551600460}
   - component: {fileID: 6411059722430173710}
   - component: {fileID: 5347554077560613089}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_lowback_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14758,7 +14802,7 @@ GameObject:
   - component: {fileID: 7807964508948487553}
   - component: {fileID: 1502408824332349669}
   - component: {fileID: 6679145044439004823}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: polySurface86
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15004,7 +15048,7 @@ GameObject:
   - component: {fileID: 3980864061657767274}
   - component: {fileID: 5476515147501643347}
   - component: {fileID: 3163409910126004672}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15069,7 +15113,7 @@ GameObject:
   - component: {fileID: 3762626269152186324}
   - component: {fileID: 2057057407218294499}
   - component: {fileID: 3678469475281369860}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: sidewing_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15173,7 +15217,7 @@ GameObject:
   - component: {fileID: 7226064767142905398}
   - component: {fileID: 306371096490656096}
   - component: {fileID: 6243558990214668567}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_inner_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15728,7 +15772,7 @@ GameObject:
   - component: {fileID: 145171934607595366}
   - component: {fileID: 2497687745515663870}
   - component: {fileID: 3956107483708309903}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_lowback_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15800,7 +15844,7 @@ GameObject:
   - component: {fileID: 3658408523351618987}
   - component: {fileID: 5460675355896370694}
   - component: {fileID: 6434634250076144905}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: headplate_Under
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15956,7 +16000,7 @@ GameObject:
   - component: {fileID: 2001419484912708282}
   - component: {fileID: 2805340441680233737}
   - component: {fileID: 3794373760126710915}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: polySurface82
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16748,7 +16792,7 @@ GameObject:
   - component: {fileID: 3414649077775285366}
   - component: {fileID: 7486788002455880024}
   - component: {fileID: 3482859234598348147}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_back_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16782,7 +16826,7 @@ GameObject:
   - component: {fileID: 6919981787758743105}
   - component: {fileID: 7655790109142075238}
   - component: {fileID: 4513577962133144281}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: headplate_Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16847,7 +16891,7 @@ GameObject:
   - component: {fileID: 2071234169102865319}
   - component: {fileID: 4483198804487814399}
   - component: {fileID: 3318004064783973836}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: polySurface81
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16865,7 +16909,7 @@ GameObject:
   - component: {fileID: 4419754631709393461}
   - component: {fileID: 1763528667943789576}
   - component: {fileID: 8995971156722260156}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: sidewing_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16949,7 +16993,7 @@ GameObject:
   - component: {fileID: 8527474280199624316}
   - component: {fileID: 3045551313204255197}
   - component: {fileID: 1959520866760343607}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: headplate_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16979,14 +17023,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3075376679390305179}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.0026402962, y: 0.000030241903, z: 0.008311601, w: 0.99996203}
   m_LocalPosition: {x: 0.000000010242305, y: -0.11593461, z: 0.13144177}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6050827483437804371}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.303, y: 0.001, z: 0.952}
 --- !u!23 &3678469475281369860
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17352,7 +17396,7 @@ GameObject:
   - component: {fileID: 5088400323708426146}
   - component: {fileID: 693124481118970582}
   - component: {fileID: 6538075425257857540}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: helmfang_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17801,7 +17845,7 @@ GameObject:
   - component: {fileID: 3591038917956884716}
   - component: {fileID: 7832765196009697797}
   - component: {fileID: 871169844530419438}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: pistondown_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18171,7 +18215,7 @@ GameObject:
   - component: {fileID: 3055946750278215411}
   - component: {fileID: 631616773798211544}
   - component: {fileID: 5830527305552707907}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_back_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18205,7 +18249,7 @@ GameObject:
   - component: {fileID: 2470409804335977135}
   - component: {fileID: 6773375261416558655}
   - component: {fileID: 3976323835439026001}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_sphere_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20280,7 +20324,7 @@ Transform:
   - {fileID: 1689687269928452162}
   m_Father: {fileID: 6977611669283411317}
   m_RootOrder: 16
-  m_LocalEulerAnglesHint: {x: -20.414375, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.406, y: 0, z: 0}
 --- !u!4 &6066045093249194154
 Transform:
   m_ObjectHideFlags: 0
@@ -20558,7 +20602,7 @@ GameObject:
   - component: {fileID: 6763632284707186966}
   - component: {fileID: 4578821214893237246}
   - component: {fileID: 3470849260831812604}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: backplate_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21028,7 +21072,7 @@ GameObject:
   - component: {fileID: 6522469178425063847}
   - component: {fileID: 8444222528986856985}
   - component: {fileID: 1328541521744399600}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21062,7 +21106,7 @@ GameObject:
   - component: {fileID: 4433340337883953176}
   - component: {fileID: 511155891488584636}
   - component: {fileID: 8287159067044873210}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_sphere_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21465,7 +21509,7 @@ GameObject:
   - component: {fileID: 5182643085179148434}
   - component: {fileID: 3385139549669810670}
   - component: {fileID: 5293979409315283552}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: backplate_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21528,7 +21572,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1783419365084348519}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: helmfang_Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21546,7 +21590,7 @@ GameObject:
   - component: {fileID: 1054502870915718249}
   - component: {fileID: 656635852050690913}
   - component: {fileID: 7988244969263286795}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: ear_main_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21929,7 +21973,7 @@ GameObject:
   - component: {fileID: 6977611669283411317}
   - component: {fileID: 8756186358942286267}
   - component: {fileID: 8756186358942286268}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: Left_Fox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21963,7 +22007,7 @@ GameObject:
   - component: {fileID: 7566011716010621572}
   - component: {fileID: 3520373349374585482}
   - component: {fileID: 5697328061427541808}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: pistondown_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22114,7 +22158,7 @@ GameObject:
   - component: {fileID: 234992540712692797}
   - component: {fileID: 4973619318350408757}
   - component: {fileID: 6997954224499519033}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: headplate_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22788,7 +22832,7 @@ GameObject:
   - component: {fileID: 745740868109515868}
   - component: {fileID: 5529891348048343994}
   - component: {fileID: 4368690473769849123}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: polySurface84
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22900,9 +22944,9 @@ Animation:
   m_GameObject: {fileID: 7754816429638176719}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 1827226128182048838, guid: 33803010035af0a42a13b49f31e7bfc6, type: 3}
+  m_Animation: {fileID: 0}
   m_Animations:
-  - {fileID: 1827226128182048838, guid: 33803010035af0a42a13b49f31e7bfc6, type: 3}
+  - {fileID: 7400000, guid: bc8d91b88b03dd74b9a445e3a7eb5fef, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -22919,8 +22963,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9515c20fb6e15d246ae96ed3d933e4b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fire: 0
+  yj_KillerGage: {fileID: 0}
+  yj_KillerGage_enemy: {fileID: 0}
+  distance: 0
   originPos: {fileID: 301416061}
   lazer: {fileID: 758799973}
+  lazerOn: 0
+  scaleDown: 0
   cylinder: {fileID: 315187069}
 --- !u!1 &8789772924184883877
 GameObject:
@@ -22988,7 +23038,7 @@ GameObject:
   - component: {fileID: 6821580427154137821}
   - component: {fileID: 1943712512297683451}
   - component: {fileID: 1864165039715476567}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: Chin_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23189,7 +23239,7 @@ GameObject:
   - component: {fileID: 3927806486010749802}
   - component: {fileID: 1866020515392487858}
   - component: {fileID: 1436987299239559462}
-  m_Layer: 0
+  m_Layer: 29
   m_Name: eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

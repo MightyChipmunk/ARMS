@@ -12,7 +12,7 @@ public class YJ_LeftRevolver : YJ_Hand_left
     public YJ_Revolver3 revolver_3;
 
     // origin위치
-    public Transform originPos;
+    Transform originPos;
 
     // 이동속도
     float speed = 15f;
@@ -40,7 +40,7 @@ public class YJ_LeftRevolver : YJ_Hand_left
 
         anim = GetComponent<Animation>();
 
-        originPos = GameObject.Find("leftPos_e").transform;
+        originPos = GameObject.Find("leftPos").transform;
     }
 
     // Update is called once per frame

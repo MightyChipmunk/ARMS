@@ -12,7 +12,7 @@ public class YJ_RightRevolver : YJ_Hand_right
     public YJ_Revolver6 revolver_6;
 
     // origin위치
-    public Transform originPos;
+    Transform originPos;
 
     // 이동속도
     float speed = 15f;
@@ -37,7 +37,7 @@ public class YJ_RightRevolver : YJ_Hand_right
         transform.forward = player.transform.forward;
 
         yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
-        originPos = GameObject.Find("rightPos_e").transform;
+        originPos = GameObject.Find("rightPos").transform;
 
         anim = GetComponent<Animation>();
     }
