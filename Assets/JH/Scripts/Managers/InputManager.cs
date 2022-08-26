@@ -90,6 +90,7 @@ public class InputManager : MonoBehaviour
     bool canFire2 = true;
     bool canGrap = true;
     bool canKill = true;
+    bool canJump = true;
 
     //int moveRan = 0;
     //int atkRan = 0;
@@ -151,9 +152,15 @@ public class InputManager : MonoBehaviour
             enemyLeft = (ran >= 9 && ran <= 11) ? true : false;
             enemyDash = actRan <= 3 ? true : false;
 
-            if (!enemy.GetComponent<JH_EnemyCharge>().IsGuard)
-                enemyJump = actRan >= 9 ? true : false;
-            else
+            // GetKeyDown 구현
+            if (actRan >= 9 && canJump)
+            {
+                enemyJump = true;
+                canJump = false;
+            }
+            else if (actRan < 9)
+                canJump = true;
+            else if (canJump == false)
                 enemyJump = false;
 
             if (!enemy.GetComponent<SY_EnemyHp>().IsKnock && !enemy.GetComponent<JH_PlayerMove>().hittedp
@@ -191,7 +198,7 @@ public class InputManager : MonoBehaviour
                     canKill = true;
                 else if (canKill == false)
                     enemyKiller = false;
-
+                // GetKeyDown 구현
                 if (ran >= 18 && ran <= 19 && canGrap)
                 {
                     enemyGrap = true;

@@ -73,7 +73,7 @@ public class YJ_RightFight : YJ_Hand_right
         player = GameObject.Find("Player");
         originPos = player.transform;
         trigger = player.transform.Find("YJ_Trigger").gameObject;
-        enemyCamera = GameObject.Find("Enemy Camera");
+        enemyCamera = GameObject.Find("EnemyAttackPos");
         yj_trigger = trigger.GetComponent<YJ_Trigger>();
 
         // 로컬좌표의 값을 저장

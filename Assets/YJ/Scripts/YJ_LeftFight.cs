@@ -66,7 +66,7 @@ public class YJ_LeftFight : YJ_Hand_left
         target = GameObject.Find("Enemy");
         player = GameObject.Find("Player");
         trigger = player.transform.Find("YJ_Trigger").gameObject;
-        enemyCamera = GameObject.Find("Enemy Camera");
+        enemyCamera = GameObject.Find("EnemyAttackPos");
         // 콜라이더 가져오기
         col = GetComponent<Collider>();
 

@@ -40,7 +40,7 @@ public class YJ_LeftRevolver : YJ_Hand_left
 
         anim = GetComponent<Animation>();
 
-        originPos = GameObject.Find("leftPos_e").transform;
+        originPos = GameObject.Find("leftPos").transform;
     }
 
     // Update is called once per frame

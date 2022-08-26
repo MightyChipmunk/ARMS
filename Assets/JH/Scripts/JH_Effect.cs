@@ -14,6 +14,7 @@ public class JH_Effect : MonoBehaviour
     GameObject guard;
     GameObject hit;
     GameObject killer;
+    public GameObject killerStart;
 
     GameObject left;
     GameObject right;
@@ -153,6 +154,8 @@ public class JH_Effect : MonoBehaviour
             {
                 if (killer.activeSelf == false)
                 {
+                    GameObject start = Instantiate(killerStart);
+                    start.transform.position = transform.position;
                     StartCoroutine("KillerTime");
                     light.cullingMask = 0;
                     light.cullingMask = 1 << LayerMask.NameToLayer("Player");
