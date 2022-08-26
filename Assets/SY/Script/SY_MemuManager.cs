@@ -53,6 +53,8 @@ public class SY_MemuManager : MonoBehaviour
             }
             else
             {
+                SY_PlayerRoundScore.Instance.PlayerScore = 0;
+                SY_EnemyRoundScore.Instance.EnemyScore = 0;
                 SceneManager.LoadScene(2);
             }
         }

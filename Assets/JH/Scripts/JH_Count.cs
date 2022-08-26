@@ -42,7 +42,7 @@ public class JH_Count : MonoBehaviour
 
     IEnumerator CountDown()
     {
-            yield return new WaitForSeconds(2.0f);  
+            yield return new WaitForSeconds(1.0f);  
             count.transform.localScale = Vector3.zero;
             count.text = "3";
             source.PlayOneShot(three);
@@ -61,23 +61,22 @@ public class JH_Count : MonoBehaviour
             iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));
             yield return new WaitForSeconds(1.0f);
 
-            source.PlayOneShot(bell);
 
             round.transform.localScale = Vector3.zero;
             round.text = "Round " + (SY_EnemyRoundScore.Instance.EnemyScore + SY_PlayerRoundScore.Instance.PlayerScore + 1);
 
             round.color = new Color(1f, 1f, 1f);
-            iTween.ScaleTo(round.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));
-            yield return new WaitForSeconds(1.0f);
+            iTween.ScaleTo(round.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.4f, "easetype", iTween.EaseType.easeOutCirc));
+            yield return new WaitForSeconds(0.5f);
 
             source.PlayOneShot(bell);
 
             count.transform.localScale = Vector3.zero;
             count.text = "ARMS!";
             count.color = new Color(1f, 0.92f, 0.016f);
-            iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.9f, "easetype", iTween.EaseType.easeOutCirc));
+            iTween.ScaleTo(count.gameObject, iTween.Hash("x", 1, "y", 1, "z", 1, "time", 0.65f, "easetype", iTween.EaseType.easeOutCirc));
             isStart = true;
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.7f);
             count.enabled = false;
     }
 }

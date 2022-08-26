@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class JH_ArmSelect : MonoBehaviour
 {
+    public AudioClip click;
+    AudioSource source;
     public static JH_ArmSelect Instance;
     [SerializeField]
     GameObject rightDefault;
@@ -31,11 +33,13 @@ public class JH_ArmSelect : MonoBehaviour
         right1 = GameObject.Find("Rotate_Right_Basic");
         left2 = GameObject.Find("Left_Revolver");
         right2 = GameObject.Find("Right_Revolver");
+        source = GetComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
     }
 
     public void Left1()
     {
+        source.PlayOneShot(click);
         leftHand = leftDefault;
         iTween.ScaleTo(left1, iTween.Hash("x", 200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
         iTween.ScaleTo(left1, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
@@ -45,6 +49,7 @@ public class JH_ArmSelect : MonoBehaviour
     }
     public void Left2()
     {
+        source.PlayOneShot(click);
         leftHand = leftRevolver;
         iTween.ScaleTo(left2, iTween.Hash("x", 200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
         iTween.ScaleTo(left2, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
@@ -58,6 +63,7 @@ public class JH_ArmSelect : MonoBehaviour
     }
     public void Right1()
     {
+        source.PlayOneShot(click);
         rightHand = rightDefault;
         iTween.ScaleTo(right1, iTween.Hash("x", -200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
         iTween.ScaleTo(right1, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
@@ -67,6 +73,7 @@ public class JH_ArmSelect : MonoBehaviour
     }
     public void Right2()
     {
+        source.PlayOneShot(click);
         rightHand = rightRevolver;
         iTween.ScaleTo(right2, iTween.Hash("x", -200, "y", 200, "z", 200, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
         iTween.ScaleTo(right2, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));

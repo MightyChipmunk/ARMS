@@ -56,7 +56,7 @@ public class SY_GameOver : MonoBehaviour
         {
             GameOverText(true);
         }
-
+        Debug.Log(SY_PlayerRoundScore.Instance.PlayerScore);
         countdownText.text = Mathf.Round(setTime).ToString();
     }
 
@@ -132,9 +132,13 @@ public class SY_GameOver : MonoBehaviour
             iTween.MoveTo(podiumUI.transform.GetChild(0).gameObject, iTween.Hash("x", 460, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint, "islocal", true));
         }
         else
+        {
             // 게임씬 재시작
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(0.5f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        
     }
 
 
