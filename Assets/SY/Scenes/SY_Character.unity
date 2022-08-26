@@ -11375,7 +11375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc6d00a0ff8e50459c3579b6206c50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 1000
+  maxHp: 10
   sliderHp: {fileID: 1500703210}
 --- !u!114 &6162820531413371768
 MonoBehaviour:

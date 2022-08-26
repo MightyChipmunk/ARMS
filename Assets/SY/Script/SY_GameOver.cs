@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 
-public class SY_GameOver1 : MonoBehaviour
+public class SY_GameOver : MonoBehaviour
 {
     [SerializeField] GameObject gameOverText;
     [SerializeField] Text countdownText;
@@ -24,8 +24,8 @@ public class SY_GameOver1 : MonoBehaviour
     GameObject gameUI;
     [SerializeField]
     GameObject podiumUI;
-   
 
+    
     public AudioClip ko;
     public AudioClip end;
     public int stage;
@@ -95,38 +95,48 @@ public class SY_GameOver1 : MonoBehaviour
             player.GetComponent<JH_PlayerMove>().State = JH_PlayerMove.PlayerState.Win;
             player.GetComponent<Animator>().SetTrigger("Win");
             yield return new WaitForSeconds(1.5f);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            SY_PlayerRoundScore.Instance.PlayerScore++;
+            yield return new WaitForSeconds(1.5f);
         }
         else
         {
             enemy.GetComponent<JH_PlayerMove>().State = JH_PlayerMove.PlayerState.Win;
             enemy.GetComponent<Animator>().SetTrigger("Win");
+            SY_EnemyRoundScore.Instance.EnemyScore++;
         }
-        // 3�� �Ŀ� ������ Ȱ��ȭ �� ī�޶� �̵�
-        yield return new WaitForSeconds(3f);
-        podium.SetActive(true);
-        podiumUI.SetActive(true);
-        if (isEnemy)
+        if (SY_PlayerRoundScore.Instance.PlayerScore >= 2 || SY_EnemyRoundScore.Instance.EnemyScore >= 2)
         {
-            GameObject winner = Instantiate(enemyM);
-            winner.transform.position = podium.transform.position;
-            winner.transform.rotation = Quaternion.Euler(0, 90, 0);
-            podiumCam.GetComponent<JH_LookRotation>().lookRotation = winner.transform;
+            //3�� �Ŀ� ������ Ȱ��ȭ �� ī�޶� �̵�
+            yield return new WaitForSeconds(3f);
+            podium.SetActive(true);
+            podiumUI.SetActive(true);
+            if (isEnemy)
+            {
+                GameObject winner = Instantiate(enemyM);
+                winner.transform.position = podium.transform.position;
+                winner.transform.rotation = Quaternion.Euler(0, 90, 0);
+                podiumCam.GetComponent<JH_LookRotation>().lookRotation = winner.transform;
+            }
+            else
+            {
+                GameObject winner = Instantiate(playerM);
+                winner.transform.position = podium.transform.position;
+                winner.transform.rotation = Quaternion.Euler(0, 90, 0);
+                podiumCam.GetComponent<JH_LookRotation>().lookRotation = winner.transform;
+            }
+            gameUI.SetActive(false);
+            player.SetActive(false);
+            enemy.SetActive(false);
+            iTween.MoveTo(podiumCam, iTween.Hash("x", 1.8, "y", 1.2, "z", -1.4, "time", 2f, "easetype", iTween.EaseType.easeInQuint, "islocal", true));
+            iTween.MoveTo(podiumUI.transform.GetChild(0).gameObject, iTween.Hash("x", 460, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint, "islocal", true));
         }
         else
-        {
-            GameObject winner = Instantiate(playerM);
-            winner.transform.position = podium.transform.position;
-            winner.transform.rotation = Quaternion.Euler(0, 90, 0);
-            podiumCam.GetComponent<JH_LookRotation>().lookRotation = winner.transform;
-        }
-        gameUI.SetActive(false);
-        player.SetActive(false);
-        enemy.SetActive(false);
-        iTween.MoveTo(podiumCam, iTween.Hash("x", 1.8, "y", 1.2, "z", -1.4, "time", 2f, "easetype", iTween.EaseType.easeInQuint, "islocal", true));
-        iTween.MoveTo(podiumUI.transform.GetChild(0).gameObject, iTween.Hash("x", 460, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint, "islocal", true));
-        yield return new WaitForSeconds(5);
+            // 게임씬 재시작
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
 
 
 }
