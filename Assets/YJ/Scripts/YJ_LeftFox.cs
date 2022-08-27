@@ -23,6 +23,14 @@ public class YJ_LeftFox : YJ_Hand_left
 
     Animation anim;
 
+    [Header("Animation Clips")]
+    [SerializeField]
+    private AnimationClip Idle; // Idle상태
+    [SerializeField]
+    private AnimationClip Attack1; // 입벌리는상태
+    [SerializeField]
+    private AnimationClip Attack2; // 입다물때
+
     //bool goRay;
     void Start()
     {
@@ -35,7 +43,7 @@ public class YJ_LeftFox : YJ_Hand_left
         // 애니메이션
         anim = GetComponent<Animation>();
 
-        //anim.Stop();
+        anim.Play("idleee");
     }
 
 
@@ -54,6 +62,8 @@ public class YJ_LeftFox : YJ_Hand_left
 
         if (Input.GetMouseButtonDown(0) && !fire)
         {
+            
+            anim.Stop("idleee");
             fire = true;
             // 눌렀을때 애너미 처음 위치
             enemy_pos = enemy.transform.position;
@@ -75,7 +85,6 @@ public class YJ_LeftFox : YJ_Hand_left
 
         if(lazerOn)
         {
-            anim.Play("Left_Fox_Attack");
             // 레이저 발사
             lazer.transform.localScale += new Vector3(0, 0, 1f * 5 * Time.deltaTime);
         }
@@ -95,6 +104,7 @@ public class YJ_LeftFox : YJ_Hand_left
         // 손이 2.5만큼 이동하면
         if (distance > 2.5f)
         {
+            
             go = false;
             lazerOn = true;
 
@@ -104,6 +114,7 @@ public class YJ_LeftFox : YJ_Hand_left
             // 발사할 곳 쳐다보기
             transform.LookAt(enemy_pos);
 
+            anim.Play("Attack 1");
             // 어디로 쏠지 한번볼까
             Debug.DrawLine(transform.position, enemy_pos * 1f, Color.red, 5f);
             
@@ -112,6 +123,8 @@ public class YJ_LeftFox : YJ_Hand_left
 
             if (currentTime > 0.5f)
             {
+                anim.Stop("Attack 1");
+                anim.Play("Attack 2");
                 scaleDown = true;
                 lazerOn = false;
                 distance = 0;
@@ -167,6 +180,7 @@ public class YJ_LeftFox : YJ_Hand_left
 
                 // LookAt 풀기
                 transform.forward = Camera.main.transform.forward;
+                anim.Play("idleee");
                 currentTime = 0;
                 fire = false;
                 back = false;

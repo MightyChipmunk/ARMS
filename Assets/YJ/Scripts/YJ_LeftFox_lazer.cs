@@ -19,6 +19,6 @@ public class YJ_LeftFox_lazer : MonoBehaviour
     
     void Start()
     {
-        yj_leftfox = GameObject.Find("Left_Fox").GetComponent<YJ_LeftFox>();
+        yj_leftfox = GameObject.Find("Left").GetComponent<YJ_LeftFox>();
     }
 }
