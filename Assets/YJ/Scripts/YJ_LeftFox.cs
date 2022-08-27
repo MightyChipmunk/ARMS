@@ -7,7 +7,7 @@ using UnityEngine;
 public class YJ_LeftFox : YJ_Hand_left
 {
     Vector3 dir;
-    float speed = 5f;
+    float speed = 7f;
     public float distance = 0f;
     float distance_e = 0f;
 
@@ -23,13 +23,8 @@ public class YJ_LeftFox : YJ_Hand_left
 
     Animation anim;
 
-    [Header("Animation Clips")]
-    [SerializeField]
-    private AnimationClip Idle; // Idle상태
-    [SerializeField]
-    private AnimationClip Attack1; // 입벌리는상태
-    [SerializeField]
-    private AnimationClip Attack2; // 입다물때
+    // 레이저가 애너미에 닿았는지 확인할 것
+    YJ_LeftFox_lazer yj_leftfox_lazer;
 
     //bool goRay;
     void Start()
@@ -44,19 +39,23 @@ public class YJ_LeftFox : YJ_Hand_left
         anim = GetComponent<Animation>();
 
         anim.Play("idleee");
+
+        yj_leftfox_lazer = cylinder.GetComponent<YJ_LeftFox_lazer>();
     }
 
 
     void Update()
     {
+        //OpenMouse();
+
         // 필살기 감지
-        if(yj_KillerGage)
+        if (yj_KillerGage)
         {
-            speed = 10f;
+            speed = 20f;
         }
         if(!yj_KillerGage)
         {
-            speed = 5f;
+            speed = 7f;
         }
 
 
@@ -85,8 +84,11 @@ public class YJ_LeftFox : YJ_Hand_left
 
         if(lazerOn)
         {
-            // 레이저 발사
-            lazer.transform.localScale += new Vector3(0, 0, 1f * 5 * Time.deltaTime);
+            if(openMouseTime > 0.25f && !yj_leftfox_lazer.triggerOn)
+            {
+                // 레이저 발사
+                lazer.transform.localScale += new Vector3(0, 0, 1f) * 10 * Time.deltaTime;
+            }
         }
 
         ScaleDown();
@@ -106,7 +108,6 @@ public class YJ_LeftFox : YJ_Hand_left
         {
             
             go = false;
-            lazerOn = true;
 
             // 보이게 켜두고
             cylinder.GetComponent<MeshRenderer>().enabled = true;
@@ -114,17 +115,25 @@ public class YJ_LeftFox : YJ_Hand_left
             // 발사할 곳 쳐다보기
             transform.LookAt(enemy_pos);
 
-            anim.Play("Attack 1");
+            // 입을 벌리고
+            OpenMouse();
+
+            // 레이저가 애너미에 닿지 않았을때
+          
+                // 레이저발사
+                lazerOn = true;
+            
+            //anim.Play("Attack 1");
             // 어디로 쏠지 한번볼까
-            Debug.DrawLine(transform.position, enemy_pos * 1f, Color.red, 5f);
+            //Debug.DrawLine(transform.position, enemy_pos * 1f, Color.red, 5f);
             
             // 0.5초 후에 사이즈 줄일것
             currentTime += Time.deltaTime;
 
-            if (currentTime > 0.5f)
+            if (currentTime > 1f )
             {
-                anim.Stop("Attack 1");
-                anim.Play("Attack 2");
+                //anim.Stop("Attack 1");
+                //anim.Play("Attack 2");
                 scaleDown = true;
                 lazerOn = false;
                 distance = 0;
@@ -139,20 +148,33 @@ public class YJ_LeftFox : YJ_Hand_left
     {
         if (scaleDown)
         {
+            
+            openMouseTime = 0;
             distance = 0;
             currentTime = 0;
-
-            // 레이저 크기 줄여주기
-            lazer.transform.localScale -= new Vector3(0.5f, 0.5f, 0) * 1 * Time.deltaTime;
-
+            
+            if(lazer.transform.localScale.x > 0.1f)
+            {
+                // 레이저 크기 줄여주기
+                lazer.transform.localScale -= new Vector3(0.5f, 0.5f, 0) * 1 * Time.deltaTime;
+            }
             // 많이 줄어 들었으면
-            if(lazer.transform.localScale.x < 0.02f)
+            else
             {
                 // 안보이게 꺼주고
                 cylinder.GetComponent<MeshRenderer>().enabled = false;
 
                 // 준비상태 크기로 변경
                 lazer.transform.localScale = new Vector3(0.1f, 0.1f, 0.03f);
+
+                // 입닫기 애니메이션
+                CloseMouse();
+
+            }
+
+            // 입 다 닫고 나서
+            if (closeMouseTime > 0.25f)
+            { 
                 back = true;
                 scaleDown = false;
             }
@@ -177,15 +199,49 @@ public class YJ_LeftFox : YJ_Hand_left
             if (Vector3.Distance(transform.position, originPos.transform.position) < 0.2f)
             {
                 transform.position = originPos.transform.position;
-
+                yj_leftfox_lazer.triggerOn = false;
                 // LookAt 풀기
                 transform.forward = Camera.main.transform.forward;
-                anim.Play("idleee");
                 currentTime = 0;
+                closeMouseTime = 0;
+                anim.Play("idleee");
                 fire = false;
                 back = false;
             }
 
+        }
+    }
+
+    public GameObject helm_visor;
+    public GameObject ear_main_L;
+    public GameObject ear_main_R;
+    public GameObject sidewing_L;
+    public GameObject sidewing_R;
+    float openMouseTime = 0;
+    float closeMouseTime = 0;
+    void OpenMouse()
+    {
+        openMouseTime += Time.deltaTime;
+        if(openMouseTime < 0.25f)
+        {
+            helm_visor.transform.eulerAngles += new Vector3(-2, 0, 0) * 60 * Time.deltaTime;
+            ear_main_L.transform.eulerAngles += new Vector3(-2, 0, 0) * 60 * Time.deltaTime;
+            ear_main_R.transform.eulerAngles += new Vector3(2, 0, 0) * 60 * Time.deltaTime;
+            sidewing_L.transform.eulerAngles += new Vector3(2, 0, 0) * 60 * Time.deltaTime;
+            sidewing_R.transform.eulerAngles += new Vector3(2, 0, 0) * 60 * Time.deltaTime;
+        }
+    }
+
+    void CloseMouse()
+    {
+        closeMouseTime += Time.deltaTime;
+        if (closeMouseTime < 0.25f)
+        {
+            helm_visor.transform.eulerAngles -= new Vector3(-2, 0, 0) * 60 * Time.deltaTime;
+            ear_main_L.transform.eulerAngles -= new Vector3(-2, 0, 0) * 60 * Time.deltaTime;
+            ear_main_R.transform.eulerAngles -= new Vector3(2, 0, 0) * 60 * Time.deltaTime;
+            sidewing_L.transform.eulerAngles -= new Vector3(2, 0, 0) * 60 * Time.deltaTime;
+            sidewing_R.transform.eulerAngles -= new Vector3(2, 0, 0) * 60 * Time.deltaTime;
         }
     }
 }
