@@ -26,6 +26,14 @@ public class YJ_LeftFox : YJ_Hand_left
     // 레이저가 애너미에 닿았는지 확인할 것
     YJ_LeftFox_lazer yj_leftfox_lazer;
 
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip moveSound;
+    [SerializeField]
+    private AudioClip lazerSound;
+
     //bool goRay;
     void Start()
     {
@@ -41,27 +49,26 @@ public class YJ_LeftFox : YJ_Hand_left
         anim.Play("idleee");
 
         yj_leftfox_lazer = cylinder.GetComponent<YJ_LeftFox_lazer>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
 
     void Update()
     {
-        //OpenMouse();
-
-        // 필살기 감지
-        if (yj_KillerGage)
-        {
-            speed = 20f;
-        }
-        if(!yj_KillerGage)
-        {
-            speed = 7f;
-        }
-
-
         if (Input.GetMouseButtonDown(0) && !fire)
         {
-            
+            // 필살기 감지
+            if (yj_KillerGage)
+            {
+                lazer.transform.localScale = new Vector3(0.25f, 0.25f, 0.03f);
+            }
+            if (!yj_KillerGage)
+            {
+                lazer.transform.localScale = new Vector3(0.1f, 0.1f, 0.03f);
+            }
+
+            audioSource.PlayOneShot(moveSound);
             anim.Stop("idleee");
             fire = true;
             // 눌렀을때 애너미 처음 위치
@@ -84,10 +91,15 @@ public class YJ_LeftFox : YJ_Hand_left
 
         if(lazerOn)
         {
-            if(openMouseTime > 0.25f && !yj_leftfox_lazer.triggerOn)
+            if (openMouseTime > 0.25f && !yj_leftfox_lazer.triggerOn)
             {
                 // 레이저 발사
                 lazer.transform.localScale += new Vector3(0, 0, 1f) * 10 * Time.deltaTime;
+            }
+
+            if(openMouseTime > 0.25 && openMouseTime < 0.26)
+            {
+                audioSource.PlayOneShot(lazerSound);
             }
         }
 
@@ -118,15 +130,11 @@ public class YJ_LeftFox : YJ_Hand_left
             // 입을 벌리고
             OpenMouse();
 
-            // 레이저가 애너미에 닿지 않았을때
-          
-                // 레이저발사
-                lazerOn = true;
-            
-            //anim.Play("Attack 1");
-            // 어디로 쏠지 한번볼까
-            //Debug.DrawLine(transform.position, enemy_pos * 1f, Color.red, 5f);
-            
+
+
+            // 레이저발사
+            lazerOn = true;
+
             // 0.5초 후에 사이즈 줄일것
             currentTime += Time.deltaTime;
 
