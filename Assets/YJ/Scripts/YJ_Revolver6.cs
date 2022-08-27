@@ -73,12 +73,14 @@ public class YJ_Revolver6 : MonoBehaviour
         // isFire가 true일때 0.2초 후 날아가기
         if (rightRevolver.isFire && !end)
         {
+            
             // 갈때 콜라이더 켜기
             col.enabled = true;
             // 트레일 켜기
             trail.enabled = true;
             //speed = 3f;
             currnetTime += Time.deltaTime;
+
             if (currnetTime < 0.2f)
             {
                 target = targetPos.transform.position;

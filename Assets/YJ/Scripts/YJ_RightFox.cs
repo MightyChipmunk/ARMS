@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 왼쪽 버튼을 누르면 바깥쪽 대각선 방향으로 향하고 타겟포지션을 쳐다보고싶다.
-public class YJ_LeftFox : YJ_Hand_left
+public class YJ_RightFox : YJ_Hand_right
 {
     Vector3 dir;
     float speed = 7f;
     public float distance = 0f;
-    float distance_e = 0f;
 
     public GameObject originPos;
     GameObject enemy;
@@ -24,7 +23,7 @@ public class YJ_LeftFox : YJ_Hand_left
     Animation anim;
 
     // 레이저가 애너미에 닿았는지 확인할 것
-    YJ_LeftFox_lazer yj_leftfox_lazer;
+    YJ_RightFox_lazer yj_Rightfox_lazer;
 
     AudioSource audioSource;
 
@@ -46,9 +45,9 @@ public class YJ_LeftFox : YJ_Hand_left
         // 애니메이션
         anim = GetComponent<Animation>();
 
-        anim.Play("idleee");
+        anim.Play("idleee 1");
 
-        yj_leftfox_lazer = cylinder.GetComponent<YJ_LeftFox_lazer>();
+        yj_Rightfox_lazer = cylinder.GetComponent<YJ_RightFox_lazer>();
 
         audioSource = GetComponent<AudioSource>();
 
@@ -58,7 +57,7 @@ public class YJ_LeftFox : YJ_Hand_left
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !fire)
+        if (Input.GetMouseButtonDown(1) && !fire)
         {
             // 필살기 감지
             if (yj_KillerGage.killerModeOn)
@@ -71,13 +70,13 @@ public class YJ_LeftFox : YJ_Hand_left
             }
 
             audioSource.PlayOneShot(moveSound);
-            anim.Stop("idleee");
+            anim.Stop("idleee 1");
             fire = true;
             // 눌렀을때 애너미 처음 위치
             enemy_pos = enemy.transform.position;
 
             //방향
-            dir = -player.transform.position + transform.position;
+            dir = transform.position - player.transform.position;
             dir.Normalize();
             go = true;
         }
@@ -93,7 +92,7 @@ public class YJ_LeftFox : YJ_Hand_left
 
         if(lazerOn)
         {
-            if (openMouseTime > 0.25f && !yj_leftfox_lazer.triggerOn)
+            if (openMouseTime > 0.25f && !yj_Rightfox_lazer.triggerOn)
             {
                 // 레이저 발사
                 lazer.transform.localScale += new Vector3(0, 0, 1f) * 10 * Time.deltaTime;
@@ -209,12 +208,12 @@ public class YJ_LeftFox : YJ_Hand_left
             if (Vector3.Distance(transform.position, originPos.transform.position) < 0.2f)
             {
                 transform.position = originPos.transform.position;
-                yj_leftfox_lazer.triggerOn = false;
+                yj_Rightfox_lazer.triggerOn = false;
                 // LookAt 풀기
                 transform.forward = Camera.main.transform.forward;
                 currentTime = 0;
                 closeMouseTime = 0;
-                anim.Play("idleee");
+                anim.Play("idleee 1");
                 fire = false;
                 back = false;
             }

@@ -46,6 +46,7 @@ public class YJ_Revolver3 : MonoBehaviour
     // ∆Æ∑π¿œ
     TrailRenderer trail;
 
+
     void Start()
     {
         col = GetComponent<Collider>();
