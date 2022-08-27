@@ -77,8 +77,8 @@ public class JH_PlayerMove : MonoBehaviour
     #endregion
 
     #region 에너미 필요 속성
-    YJ_LeftFight_enemy elf;
-    YJ_RightFight_enemy erf;
+    YJ_Hand_left elf;
+    YJ_Hand_right erf;
     YJ_Trigger trigger;
     bool playerGo = false;
     bool PlayerGo
@@ -246,8 +246,8 @@ public class JH_PlayerMove : MonoBehaviour
         if (isEnemy)
         {
             eh = GetComponent<SY_EnemyHp>();
-            elf = transform.Find("Left").GetComponent<YJ_LeftFight_enemy>();
-            erf = transform.Find("Right").GetComponent<YJ_RightFight_enemy>();
+            elf = transform.Find("Left").GetComponent<YJ_Hand_left>();
+            erf = transform.Find("Right").GetComponent<YJ_Hand_right>();
             ech = GetComponent<JH_EnemyCharge>();
             
             target = GameObject.Find("Player");

@@ -43,8 +43,8 @@ public class YJ_Trigger_enemy : MonoBehaviour
     // 애너미 손 불러오기
     GameObject leftHand;
     GameObject rightHand;
-    public YJ_RightFight_enemy yj_rightScript;
-    public YJ_LeftFight_enemy yj_leftScript;
+    public YJ_Hand_right yj_rightScript;
+    public YJ_Hand_left yj_leftScript;
 
     public GameObject spring;
 

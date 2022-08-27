@@ -27,11 +27,6 @@ public class YJ_LeftFight_enemy : YJ_Hand_left
     // Å¸°ÙÀ§Ä¡
     Vector3 targetPos;
 
-    bool fire = false; // ¿ŞÂÊ
-    public bool Fire
-    {
-        get { return fire; }
-    }
     bool click = false;
     bool overlap = false; // ÇÃ·¹ÀÌ¾î¶û ´ê¾ÒÀ»¶§
 

@@ -33,6 +33,8 @@ public class JH_ArmSelect : MonoBehaviour
         right1 = GameObject.Find("Rotate_Right_Basic");
         left2 = GameObject.Find("Left_Revolver");
         right2 = GameObject.Find("Right_Revolver");
+        left3 = GameObject.Find("Left_Fox_OnlyModel");
+        right3 = GameObject.Find("Right_Fox_OnlyModel");
         source = GetComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
     }
@@ -45,7 +47,7 @@ public class JH_ArmSelect : MonoBehaviour
         iTween.ScaleTo(left1, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(left2, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        //iTween.ScaleTo(left3, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left3, iTween.Hash("x", 250, "y", 250, "z", 250, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
     }
     public void Left2()
     {
@@ -55,11 +57,15 @@ public class JH_ArmSelect : MonoBehaviour
         iTween.ScaleTo(left2, iTween.Hash("x", 150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(left1, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        //iTween.ScaleTo(left3, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left3, iTween.Hash("x", 250, "y", 250, "z", 250, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
     }
     public void Left3()
     {
+        iTween.ScaleTo(left3, iTween.Hash("x", 500, "y", 500, "z", 500, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left3, iTween.Hash("x", 375, "y", 375, "z", 375, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
+        iTween.ScaleTo(left1, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(left2, iTween.Hash("x", 100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
     }
     public void Right1()
     {
@@ -69,7 +75,7 @@ public class JH_ArmSelect : MonoBehaviour
         iTween.ScaleTo(right1, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(right2, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        //iTween.ScaleTo(right3, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right3, iTween.Hash("x", -250, "y", 250, "z", 250, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
     }
     public void Right2()
     {
@@ -79,10 +85,14 @@ public class JH_ArmSelect : MonoBehaviour
         iTween.ScaleTo(right2, iTween.Hash("x", -150, "y", 150, "z", 150, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
         iTween.ScaleTo(right1, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
-        //iTween.ScaleTo(right3, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right3, iTween.Hash("x", -250, "y", 250, "z", 250, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
     }
     public void Right3()
     {
+        iTween.ScaleTo(right3, iTween.Hash("x", -500, "y", 500, "z", 500, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right3, iTween.Hash("x", -375, "y", 375, "z", 375, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
+        iTween.ScaleTo(right1, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
+        iTween.ScaleTo(right2, iTween.Hash("x", -100, "y", 100, "z", 100, "time", 0.5f, "easetype", iTween.EaseType.easeOutQuint));
     }
 }

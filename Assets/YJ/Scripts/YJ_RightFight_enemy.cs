@@ -13,7 +13,6 @@ public class YJ_RightFight_enemy : YJ_Hand_right
     public GameObject left;
     public GameObject targetCamera;
     public GameObject trigger;
-    YJ_LeftFight_enemy leftFight;
 
     // 공격 속도
     float rightspeed = 15f;
@@ -63,8 +62,6 @@ public class YJ_RightFight_enemy : YJ_Hand_right
 
         // 이동 좌표를 저장할 리스트
         rightPath = new List<Vector3>();
-
-        leftFight = left.GetComponent<YJ_LeftFight_enemy>();
 
         col = GetComponent<Collider>();
 

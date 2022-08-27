@@ -56,7 +56,6 @@ public class SY_GameOver : MonoBehaviour
         {
             GameOverText(true);
         }
-        Debug.Log(SY_PlayerRoundScore.Instance.PlayerScore);
         countdownText.text = Mathf.Round(setTime).ToString();
     }
 

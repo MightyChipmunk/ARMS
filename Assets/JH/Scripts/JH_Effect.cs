@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class JH_Effect : MonoBehaviour
 {
+    PostProcessProfile profile;
     JH_PlayerMove pm;
     JH_PlayerCharge ch;
     JH_EnemyCharge ech;
     YJ_Hand_left lf;
-    YJ_LeftFight_enemy elf;
+    YJ_Hand_left elf;
 
     GameObject dash;
     GameObject guard;
@@ -29,7 +31,7 @@ public class JH_Effect : MonoBehaviour
         TryGetComponent<JH_PlayerCharge>(out ch);
         isEnemy = TryGetComponent<JH_EnemyCharge>(out ech);
         transform.Find("Left").TryGetComponent<YJ_Hand_left>(out lf);
-        transform.Find("Left").TryGetComponent<YJ_LeftFight_enemy>(out elf);
+        transform.Find("Left").TryGetComponent<YJ_Hand_left>(out elf);
         dash = transform.Find("DashEffect").gameObject;
         guard = transform.Find("GuardEffect").gameObject;
         hit = transform.Find("HitEffect").gameObject;
@@ -38,6 +40,9 @@ public class JH_Effect : MonoBehaviour
         left = transform.Find("Left").gameObject;
         right = transform.Find("Right").gameObject;
         light = GameObject.Find("Directional Light").GetComponent<Light>();
+
+        if (!isEnemy)
+            profile = transform.Find("Main Camera").transform.Find("Post-process Volume").GetComponent<PostProcessVolume>().profile;
     }
 
     // Update is called once per frame
@@ -160,13 +165,20 @@ public class JH_Effect : MonoBehaviour
                     light.cullingMask = 0;
                     light.cullingMask = 1 << LayerMask.NameToLayer("Player");
                     light.cullingMask |= 1 << LayerMask.NameToLayer("Enemy");
+                    light.cullingMask |= 1 << LayerMask.NameToLayer("PlayerHand");
+                    light.cullingMask |= 1 << LayerMask.NameToLayer("EnemyHand");
+
+                    profile.GetSetting<AmbientOcclusion>().intensity.Override(2f);
                 }
                 killer.SetActive(true);
             }
             else
             {
                 if (killer.activeSelf == true)
+                {
                     light.cullingMask = -1;
+                    profile.GetSetting<AmbientOcclusion>().intensity.Override(0f);
+                }
                 killer.SetActive(false);
             }
         }
