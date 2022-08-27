@@ -12,7 +12,7 @@ public class YJ_RightRevolver : YJ_Hand_right
     public YJ_Revolver6 revolver_6;
 
     // origin위치
-    public Transform originPos;
+    Transform originPos;
 
     // 이동속도
     float speed = 15f;
