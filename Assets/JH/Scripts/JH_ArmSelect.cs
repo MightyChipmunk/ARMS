@@ -15,6 +15,10 @@ public class JH_ArmSelect : MonoBehaviour
     GameObject rightRevolver;
     [SerializeField]
     GameObject leftRevolver;
+    [SerializeField]
+    GameObject rightFox;
+    [SerializeField]
+    GameObject leftFox;
 
     GameObject left1;
     GameObject left2;
