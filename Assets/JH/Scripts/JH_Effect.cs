@@ -23,7 +23,7 @@ public class JH_Effect : MonoBehaviour
 
     bool trail = false;
     bool isEnemy = false;
-    Light light;
+    Light _light;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +39,7 @@ public class JH_Effect : MonoBehaviour
 
         left = transform.Find("Left").gameObject;
         right = transform.Find("Right").gameObject;
-        light = GameObject.Find("Directional Light").GetComponent<Light>();
+        _light = GameObject.Find("Directional Light").GetComponent<Light>();
 
         if (!isEnemy)
             profile = transform.Find("Main Camera").transform.Find("Post-process Volume").GetComponent<PostProcessVolume>().profile;
@@ -162,11 +162,11 @@ public class JH_Effect : MonoBehaviour
                     GameObject start = Instantiate(killerStart);
                     start.transform.position = transform.position;
                     StartCoroutine("KillerTime");
-                    light.cullingMask = 0;
-                    light.cullingMask = 1 << LayerMask.NameToLayer("Player");
-                    light.cullingMask |= 1 << LayerMask.NameToLayer("Enemy");
-                    light.cullingMask |= 1 << LayerMask.NameToLayer("PlayerHand");
-                    light.cullingMask |= 1 << LayerMask.NameToLayer("EnemyHand");
+                    _light.cullingMask = 0;
+                    _light.cullingMask = 1 << LayerMask.NameToLayer("Player");
+                    _light.cullingMask |= 1 << LayerMask.NameToLayer("Enemy");
+                    _light.cullingMask |= 1 << LayerMask.NameToLayer("PlayerHand");
+                    _light.cullingMask |= 1 << LayerMask.NameToLayer("EnemyHand");
 
                     profile.GetSetting<AmbientOcclusion>().intensity.Override(2f);
                 }
@@ -176,7 +176,7 @@ public class JH_Effect : MonoBehaviour
             {
                 if (killer.activeSelf == true)
                 {
-                    light.cullingMask = -1;
+                    _light.cullingMask = -1;
                     profile.GetSetting<AmbientOcclusion>().intensity.Override(0f);
                 }
                 killer.SetActive(false);
