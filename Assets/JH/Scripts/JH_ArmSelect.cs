@@ -65,6 +65,8 @@ public class JH_ArmSelect : MonoBehaviour
     }
     public void Left3()
     {
+        source.PlayOneShot(click);
+        leftHand = leftFox;
         iTween.ScaleTo(left3, iTween.Hash("x", 500, "y", 500, "z", 500, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
         iTween.ScaleTo(left3, iTween.Hash("x", 375, "y", 375, "z", 375, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 
@@ -93,6 +95,8 @@ public class JH_ArmSelect : MonoBehaviour
     }
     public void Right3()
     {
+        source.PlayOneShot(click);
+        leftHand = rightFox;
         iTween.ScaleTo(right3, iTween.Hash("x", -500, "y", 500, "z", 500, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
         iTween.ScaleTo(right3, iTween.Hash("x", -375, "y", 375, "z", 375, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 

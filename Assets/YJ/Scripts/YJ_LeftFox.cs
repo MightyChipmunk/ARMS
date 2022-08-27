@@ -51,19 +51,21 @@ public class YJ_LeftFox : YJ_Hand_left
         yj_leftfox_lazer = cylinder.GetComponent<YJ_LeftFox_lazer>();
 
         audioSource = GetComponent<AudioSource>();
+        originPos = GameObject.Find(("leftPos"));
+        yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
     }
 
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !fire)
+        if (InputManager.Instance.Fire1 && !fire)
         {
             // 필살기 감지
-            if (yj_KillerGage)
+            if (yj_KillerGage.killerModeOn)
             {
                 lazer.transform.localScale = new Vector3(0.25f, 0.25f, 0.03f);
             }
-            if (!yj_KillerGage)
+            if (!yj_KillerGage.killerModeOn)
             {
                 lazer.transform.localScale = new Vector3(0.1f, 0.1f, 0.03f);
             }

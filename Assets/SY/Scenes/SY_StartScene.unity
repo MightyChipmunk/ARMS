@@ -1093,7 +1093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6191499710010460771, guid: 0b7f5cb01399ee447bcf00a82297d0bc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 250
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 6191499710010460771, guid: 0b7f5cb01399ee447bcf00a82297d0bc, type: 3}
       propertyPath: m_LocalScale.y
@@ -3629,6 +3629,8 @@ MonoBehaviour:
   leftDefault: {fileID: 865539494169145842, guid: f31f06e33ec1b1d4cbfec731482df926, type: 3}
   rightRevolver: {fileID: 6142428633651788320, guid: 1552d1269ba128d429dce3e2bc692d52, type: 3}
   leftRevolver: {fileID: 1936598890384853079, guid: f8b055cc1cfcd144a85e2300db7e9d76, type: 3}
+  rightFox: {fileID: 0}
+  leftFox: {fileID: 8759791306665038802, guid: 718446e729a44f742bfc2557d8a8f190, type: 3}
   rightHand: {fileID: 0}
   leftHand: {fileID: 0}
 --- !u!4 &1096731675
