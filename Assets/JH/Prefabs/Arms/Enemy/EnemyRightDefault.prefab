@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5907615729437129363}
   - component: {fileID: 5907615729437129360}
   m_Layer: 11
-  m_Name: RightDefault
+  m_Name: EnemyRightDefault
   m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

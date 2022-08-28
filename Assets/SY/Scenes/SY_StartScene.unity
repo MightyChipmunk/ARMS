@@ -3631,8 +3631,16 @@ MonoBehaviour:
   leftRevolver: {fileID: 1936598890384853079, guid: f8b055cc1cfcd144a85e2300db7e9d76, type: 3}
   rightFox: {fileID: 0}
   leftFox: {fileID: 8759791306665038802, guid: 718446e729a44f742bfc2557d8a8f190, type: 3}
+  enemyRightDefault: {fileID: 5938320591802728494, guid: 4319f4ff117d910438cde45b833c3d59, type: 3}
+  enemyLeftDefault: {fileID: 2623642782272394298, guid: 541d0d216ae598648a3fc7bb8092f63f, type: 3}
+  enemyRightRevolver: {fileID: 0}
+  enemyLeftRevolver: {fileID: 0}
+  enemyRightFox: {fileID: 0}
+  enemyLeftFox: {fileID: 0}
   rightHand: {fileID: 0}
   leftHand: {fileID: 0}
+  enemyRightHand: {fileID: 0}
+  enemyLeftHand: {fileID: 0}
 --- !u!4 &1096731675
 Transform:
   m_ObjectHideFlags: 0

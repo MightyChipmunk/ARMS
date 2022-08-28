@@ -7,6 +7,7 @@ public class JH_ArmSelect : MonoBehaviour
     public AudioClip click;
     AudioSource source;
     public static JH_ArmSelect Instance;
+    [Header("PlayerArms")]
     [SerializeField]
     GameObject rightDefault;
     [SerializeField]
@@ -20,6 +21,20 @@ public class JH_ArmSelect : MonoBehaviour
     [SerializeField]
     GameObject leftFox;
 
+    [Header("EnemyArms")]
+    [SerializeField]
+    GameObject enemyRightDefault;
+    [SerializeField]
+    GameObject enemyLeftDefault;
+    [SerializeField]
+    GameObject enemyRightRevolver;
+    [SerializeField]
+    GameObject enemyLeftRevolver;
+    [SerializeField]
+    GameObject enemyRightFox;
+    [SerializeField]
+    GameObject enemyLeftFox;
+
     GameObject left1;
     GameObject left2;
     GameObject left3;
@@ -29,6 +44,9 @@ public class JH_ArmSelect : MonoBehaviour
 
     public GameObject rightHand;
     public GameObject leftHand;
+
+    public GameObject enemyRightHand;
+    public GameObject enemyLeftHand;
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,6 +59,22 @@ public class JH_ArmSelect : MonoBehaviour
         right3 = GameObject.Find("Right_Fox_OnlyModel");
         source = GetComponent<AudioSource>();
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        int leftRan = Random.Range(1, 4);
+        int rightRan = Random.Range(1, 4);
+
+        if (leftRan == 1)
+            enemyLeftHand = enemyLeftDefault;
+        else
+            enemyLeftHand = enemyLeftDefault;
+
+        if (rightRan == 1)
+            enemyRightHand = enemyRightDefault;
+        else
+            enemyRightHand = enemyRightDefault;
     }
 
     public void Left1()
