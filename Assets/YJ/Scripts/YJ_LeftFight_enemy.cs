@@ -68,6 +68,8 @@ public class YJ_LeftFight_enemy : YJ_Hand_left
 
         col.enabled = false;
 
+        trigger = me.transform.Find("YJ_trigger").gameObject;
+
         yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
     }
 
