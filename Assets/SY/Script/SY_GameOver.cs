@@ -64,6 +64,7 @@ public class SY_GameOver : MonoBehaviour
         gameEnd = true;
         //Time.timeScale = 0.0f;
         //gameOverText.SetActive(true);
+        StopAllCoroutines();
         StartCoroutine(DelayText(isEnemy));
 
     }
@@ -104,7 +105,7 @@ public class SY_GameOver : MonoBehaviour
             enemy.GetComponent<Animator>().SetTrigger("Win");
             SY_EnemyRoundScore.Instance.EnemyScore++;
         }
-        if (SY_PlayerRoundScore.Instance.PlayerScore >= 2 || SY_EnemyRoundScore.Instance.EnemyScore >= 2)
+        if (SY_PlayerRoundScore.Instance.PlayerScore == 2 || SY_EnemyRoundScore.Instance.EnemyScore == 2)
         {
             //3�� �Ŀ� ������ Ȱ��ȭ �� ī�޶� �̵�
             yield return new WaitForSeconds(3f);
