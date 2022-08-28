@@ -429,6 +429,7 @@ GameObject:
   - component: {fileID: 1301438847806604130}
   - component: {fileID: 1301438847806604191}
   - component: {fileID: 459043804320695579}
+  - component: {fileID: 758947081020190864}
   m_Layer: 29
   m_Name: Cylinder
   m_TagString: PlayerArms
@@ -542,6 +543,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 150
   chargeDamage: 200
+--- !u!114 &758947081020190864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301438847806604128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9273ce2686ff1b74e8e3ab4e6f46f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
+  isLeft: 1
 --- !u!1 &1301438847927386744
 GameObject:
   m_ObjectHideFlags: 0

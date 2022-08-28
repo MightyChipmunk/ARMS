@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 1936598891068475379}
   - component: {fileID: 1936598891361766431}
   - component: {fileID: 1936598891361766424}
+  - component: {fileID: 5789905101212971393}
   m_Layer: 29
   m_Name: Revolver_3
   m_TagString: PlayerArms
@@ -538,7 +539,6 @@ MonoBehaviour:
   leftRevolver: {fileID: 1936598890384853074}
   creatTime: 0.4
   yj_KillerGage: {fileID: 0}
-  shotSound: {fileID: 8300000, guid: 46ed626884436004fa1c45a2b9bb64ed, type: 3}
 --- !u!96 &1936598891361766431
 TrailRenderer:
   serializedVersion: 2
@@ -670,6 +670,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 30
   chargeDamage: 40
+--- !u!114 &5789905101212971393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936598891068475382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9273ce2686ff1b74e8e3ab4e6f46f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
+  isLeft: 1
 --- !u!1 &1936598891829493888
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +699,7 @@ GameObject:
   - component: {fileID: 1936598891829494141}
   - component: {fileID: 1936598891674262798}
   - component: {fileID: 1936598891829494142}
+  - component: {fileID: 643777459087628007}
   m_Layer: 29
   m_Name: Revolver_1
   m_TagString: PlayerArms
@@ -789,7 +804,6 @@ MonoBehaviour:
   leftRevolver: {fileID: 1936598890384853074}
   creatTime: 0
   yj_KillerGage: {fileID: 0}
-  shotSound: {fileID: 8300000, guid: 46ed626884436004fa1c45a2b9bb64ed, type: 3}
 --- !u!96 &1936598891674262798
 TrailRenderer:
   serializedVersion: 2
@@ -921,6 +935,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 30
   chargeDamage: 40
+--- !u!114 &643777459087628007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936598891829493888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9273ce2686ff1b74e8e3ab4e6f46f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
+  isLeft: 1
 --- !u!1 &1936598891888719615
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,6 +964,7 @@ GameObject:
   - component: {fileID: 1936598891888719604}
   - component: {fileID: 1936598890297517642}
   - component: {fileID: 1936598891888719605}
+  - component: {fileID: 8046982608158384827}
   m_Layer: 29
   m_Name: Revolver_2
   m_TagString: PlayerArms
@@ -1040,7 +1069,6 @@ MonoBehaviour:
   leftRevolver: {fileID: 1936598890384853074}
   creatTime: 0.2
   yj_KillerGage: {fileID: 0}
-  shotSound: {fileID: 8300000, guid: 46ed626884436004fa1c45a2b9bb64ed, type: 3}
 --- !u!96 &1936598890297517642
 TrailRenderer:
   serializedVersion: 2
@@ -1172,6 +1200,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 30
   chargeDamage: 40
+--- !u!114 &8046982608158384827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936598891888719615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9273ce2686ff1b74e8e3ab4e6f46f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 0
+  isLeft: 1
 --- !u!1 &2401974106043746481
 GameObject:
   m_ObjectHideFlags: 0

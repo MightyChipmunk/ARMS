@@ -249,6 +249,7 @@ GameObject:
   - component: {fileID: 6384299260819196546}
   - component: {fileID: 6384299260819196573}
   - component: {fileID: 6384299260089340382}
+  - component: {fileID: 5990486579365719515}
   m_Layer: 28
   m_Name: Revolver_12
   m_TagString: EnemyArms
@@ -484,6 +485,20 @@ MonoBehaviour:
   rightRevolver: {fileID: 0}
   creatTime: 0.4
   yj_KillerGage_enemy: {fileID: 0}
+--- !u!114 &5990486579365719515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384299260089340375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9273ce2686ff1b74e8e3ab4e6f46f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
+  isLeft: 0
 --- !u!1 &6384299260214932562
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,6 +631,7 @@ GameObject:
   - component: {fileID: 6384299262029672490}
   - component: {fileID: 6384299262029672485}
   - component: {fileID: 6384299262029672491}
+  - component: {fileID: 1455487058739414002}
   m_Layer: 28
   m_Name: Revolver_11
   m_TagString: EnemyArms
@@ -851,6 +867,20 @@ MonoBehaviour:
   rightRevolver: {fileID: 0}
   creatTime: 0.2
   yj_KillerGage_enemy: {fileID: 0}
+--- !u!114 &1455487058739414002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384299260317499026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9273ce2686ff1b74e8e3ab4e6f46f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
+  isLeft: 0
 --- !u!1 &6384299260393448191
 GameObject:
   m_ObjectHideFlags: 0
@@ -983,6 +1013,7 @@ GameObject:
   - component: {fileID: 6384299261212033171}
   - component: {fileID: 6384299261212033170}
   - component: {fileID: 6384299261212033168}
+  - component: {fileID: 3687031278202104088}
   m_Layer: 28
   m_Name: Revolver_10
   m_TagString: EnemyArms
@@ -1218,6 +1249,20 @@ MonoBehaviour:
   rightRevolver: {fileID: 0}
   creatTime: 0
   yj_KillerGage_enemy: {fileID: 0}
+--- !u!114 &3687031278202104088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6384299260736851255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9273ce2686ff1b74e8e3ab4e6f46f2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnemy: 1
+  isLeft: 0
 --- !u!1 &6384299260790852790
 GameObject:
   m_ObjectHideFlags: 0
