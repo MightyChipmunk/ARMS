@@ -50,7 +50,7 @@ public class YJ_RightFox : YJ_Hand_right
         yj_Rightfox_lazer = cylinder.GetComponent<YJ_RightFox_lazer>();
 
         audioSource = GetComponent<AudioSource>();
-
+        originPos = GameObject.Find(("rightPos"));
         yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
     }
 

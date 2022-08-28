@@ -1851,6 +1851,7 @@ MonoBehaviour:
   revolver_2: {fileID: 2099979912}
   revolver_3: {fileID: 1289181071}
   isFire: 0
+  shoockSound: {fileID: 0}
 --- !u!135 &664016943
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2551,6 +2552,7 @@ MonoBehaviour:
   revolver_5: {fileID: 356046116}
   revolver_6: {fileID: 458340959}
   isFire: 0
+  shoockSound: {fileID: 0}
 --- !u!1 &842655418
 GameObject:
   m_ObjectHideFlags: 0
@@ -3629,14 +3631,14 @@ MonoBehaviour:
   leftDefault: {fileID: 865539494169145842, guid: f31f06e33ec1b1d4cbfec731482df926, type: 3}
   rightRevolver: {fileID: 6142428633651788320, guid: 1552d1269ba128d429dce3e2bc692d52, type: 3}
   leftRevolver: {fileID: 1936598890384853079, guid: f8b055cc1cfcd144a85e2300db7e9d76, type: 3}
-  rightFox: {fileID: 0}
+  rightFox: {fileID: 7679416834060636185, guid: 93ffd677db562c94a9259e360cb94bff, type: 3}
   leftFox: {fileID: 8759791306665038802, guid: 718446e729a44f742bfc2557d8a8f190, type: 3}
   enemyRightDefault: {fileID: 5938320591802728494, guid: 4319f4ff117d910438cde45b833c3d59, type: 3}
   enemyLeftDefault: {fileID: 2623642782272394298, guid: 541d0d216ae598648a3fc7bb8092f63f, type: 3}
-  enemyRightRevolver: {fileID: 0}
-  enemyLeftRevolver: {fileID: 0}
-  enemyRightFox: {fileID: 0}
-  enemyLeftFox: {fileID: 0}
+  enemyRightRevolver: {fileID: 6384299260790852790, guid: bb05bdc8e8b0d8d4c9071e48c23507d1, type: 3}
+  enemyLeftRevolver: {fileID: 4499136322651942915, guid: 1a56dcb1f91182048bf5a76a80928b64, type: 3}
+  enemyRightFox: {fileID: 4085561646789937764, guid: 87938c9968619584dbd2ae564bce12d7, type: 3}
+  enemyLeftFox: {fileID: 6872469322996556004, guid: 7b7fc149b3e4f8946befc900d34c6a75, type: 3}
   rightHand: {fileID: 0}
   leftHand: {fileID: 0}
   enemyRightHand: {fileID: 0}

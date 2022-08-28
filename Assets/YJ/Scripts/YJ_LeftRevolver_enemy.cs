@@ -32,11 +32,6 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
     // 애니메이션
     Animation anim;
 
-    AudioSource audioSource;
-
-    [Header("Audio Clips")]
-    [SerializeField]
-    private AudioClip shoockSound; // 주먹 날아갈때 사운드
 
     YJ_Trigger_enemy yj_trigger_enemy;
 
@@ -46,15 +41,13 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
 
         transform.forward = enemy.transform.forward;
 
-        yj_KillerGage = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage>();
+        yj_KillerGage = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
 
         anim = GetComponent<Animation>();
 
         originPos = GameObject.Find("leftPos_e").transform;
 
-        audioSource = GetComponent<AudioSource>();
-
-        trigger = enemy.transform.Find("YJ_trigger").gameObject;
+        trigger = enemy.transform.Find("YJ_Trigger").gameObject;
 
         yj_trigger_enemy = trigger.GetComponent<YJ_Trigger_enemy>();
     }
@@ -75,7 +68,6 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
         // 왼쪽 마우스 버튼을 누르면 앞으로 조금 이동하고싶다
         if (InputManager.Instance.EnemyFire1 && !fire && !yj_trigger_enemy.grap)
         {
-            audioSource.PlayOneShot(shoockSound);
             anim.Stop();
             speed = 15f;
             fire = true;

@@ -21,6 +21,7 @@ public class YJ_RightFight_enemy : YJ_Hand_right
 
     // 타겟
     GameObject me;
+    GameObject player;
 
     // 타겟위치
     Vector3 targetPos;
@@ -57,16 +58,20 @@ public class YJ_RightFight_enemy : YJ_Hand_right
         // 애너미의 처음위치로
         //target = GameObject.Find("Enemy");
         me = GameObject.Find("Enemy");
+        player = GameObject.Find("Player");
 
-
+        left = me.transform.Find("Left").gameObject;
 
         // 이동 좌표를 저장할 리스트
         rightPath = new List<Vector3>();
 
         col = GetComponent<Collider>();
-
+        targetCamera = GameObject.Find("PlayerAttackPos");
         col.enabled = false;
-
+        trigger = me.transform.Find("YJ_Trigger").gameObject;
+        yj_trigger_enemy = trigger.GetComponent<YJ_Trigger_enemy>();
+        yj_trigger = player.transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
+        originPos = me.transform.Find("rightPos_e");
         yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
     }
 

@@ -67,14 +67,14 @@ public class JH_ArmSelect : MonoBehaviour
         int rightRan = Random.Range(1, 4);
 
         if (leftRan == 1)
-            enemyLeftHand = enemyLeftDefault;
+            enemyLeftHand = enemyLeftRevolver;
         else
-            enemyLeftHand = enemyLeftDefault;
+            enemyLeftHand = enemyLeftRevolver;
 
         if (rightRan == 1)
-            enemyRightHand = enemyRightDefault;
+            enemyRightHand = enemyRightRevolver;
         else
-            enemyRightHand = enemyRightDefault;
+            enemyRightHand = enemyRightRevolver;
     }
 
     public void Left1()
@@ -130,7 +130,7 @@ public class JH_ArmSelect : MonoBehaviour
     public void Right3()
     {
         source.PlayOneShot(click);
-        leftHand = rightFox;
+        rightHand = rightFox;
         iTween.ScaleTo(right3, iTween.Hash("x", -500, "y", 500, "z", 500, "time", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
         iTween.ScaleTo(right3, iTween.Hash("x", -375, "y", 375, "z", 375, "time", 0.3f, "delay", 0.3f, "easetype", iTween.EaseType.easeOutQuint));
 

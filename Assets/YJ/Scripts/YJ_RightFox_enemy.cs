@@ -25,14 +25,6 @@ public class YJ_RightFox_enemy : YJ_Hand_right
     // 레이저가 애너미에 닿았는지 확인할 것
     YJ_RightFox_lazer_e yj_Rightfox_lazer;
 
-    AudioSource audioSource;
-
-    [Header("Audio Clips")]
-    [SerializeField]
-    private AudioClip moveSound;
-    [SerializeField]
-    private AudioClip lazerSound;
-
     //bool goRay;
     void Start()
     {
@@ -48,8 +40,6 @@ public class YJ_RightFox_enemy : YJ_Hand_right
         anim.Play("idleee 1");
 
         yj_Rightfox_lazer = cylinder.GetComponent<YJ_RightFox_lazer_e>();
-
-        audioSource = GetComponent<AudioSource>();
 
         yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
     }
@@ -69,7 +59,6 @@ public class YJ_RightFox_enemy : YJ_Hand_right
                 lazer.transform.localScale = new Vector3(0.1f, 0.1f, 0.03f);
             }
 
-            audioSource.PlayOneShot(moveSound);
             anim.Stop("idleee 1");
             fire = true;
             // 눌렀을때 애너미 처음 위치
@@ -98,10 +87,6 @@ public class YJ_RightFox_enemy : YJ_Hand_right
                 lazer.transform.localScale += new Vector3(0, 0, 1f) * 10 * Time.deltaTime;
             }
 
-            if(openMouseTime > 0.25 && openMouseTime < 0.26)
-            {
-                audioSource.PlayOneShot(lazerSound);
-            }
         }
 
         ScaleDown();

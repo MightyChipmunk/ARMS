@@ -3075,7 +3075,7 @@ GameObject:
   - component: {fileID: 5853268567936852982}
   m_Layer: 29
   m_Name: Left_Fox
-  m_TagString: Untagged
+  m_TagString: PlayerArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

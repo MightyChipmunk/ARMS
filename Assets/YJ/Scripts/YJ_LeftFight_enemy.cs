@@ -60,15 +60,15 @@ public class YJ_LeftFight_enemy : YJ_Hand_left
 
         // 콜라이더 가져오기
         col = GetComponent<Collider>();
-
+        playertarget = GameObject.Find("PlayerAttackPos");
         // 이동 좌표를 저장할 리스트
         leftPath = new List<Vector3>();
-
+        trigger = me.transform.Find("YJ_Trigger").gameObject;
         yj_trigger_enemy = trigger.GetComponent<YJ_Trigger_enemy>();
-
+        yj_trigger = player.transform.Find("YJ_Trigger").GetComponent<YJ_Trigger>();
+        originPos = me.transform.Find("leftPos_e");
         col.enabled = false;
 
-        trigger = me.transform.Find("YJ_trigger").gameObject;
 
         yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
     }

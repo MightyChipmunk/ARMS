@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 211863709395338893}
   - component: {fileID: 4282735885496733759}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,9 +95,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8247748563182232907}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: Root_ChocolateMarshmallow
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,9 +126,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8483986129193091076}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: ChocolateSketchfab (1)
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,9 +159,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 276155452155548586}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: Root_ChocolateMarshmallow
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,9 +191,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2942044641117804273}
   - component: {fileID: 4544893742101073258}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,9 +282,9 @@ GameObject:
   - component: {fileID: 4499136321624699979}
   - component: {fileID: 4499136321624699980}
   - component: {fileID: 4499136321624699972}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Revolver_9
-  m_TagString: PlayerArms
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -532,9 +532,9 @@ GameObject:
   - component: {fileID: 4499136322705727006}
   - component: {fileID: 4499136321935560353}
   - component: {fileID: 4499136321935560354}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Revolver_8
-  m_TagString: PlayerArms
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -782,9 +782,9 @@ GameObject:
   - component: {fileID: 4499136321865852250}
   - component: {fileID: 4499136322012608810}
   - component: {fileID: 4499136322012608720}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Revolver_7
-  m_TagString: PlayerArms
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1026,9 +1026,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4499136322316523616}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Revolver_1_Pos
-  m_TagString: PlayerArms
+  m_TagString: EnemyArms
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1057,9 +1057,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4499136322536529032}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Revolver_2_Pos
-  m_TagString: PlayerArms
+  m_TagString: EnemyArms
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1093,10 +1093,9 @@ GameObject:
   - component: {fileID: 4499136322651942919}
   - component: {fileID: 4157333425065296063}
   - component: {fileID: 4499136322651942937}
-  - component: {fileID: 5087256919422039502}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: LeftRevolver
-  m_TagString: PlayerArms
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1206,7 +1205,6 @@ MonoBehaviour:
   revolver_8: {fileID: 4499136321935560354}
   revolver_9: {fileID: 4499136321624699972}
   isFire: 0
-  shoockSound: {fileID: 8300000, guid: a69b042b4e9c76c4da3da83929aa824f, type: 3}
 --- !u!111 &4499136322651942937
 Animation:
   m_ObjectHideFlags: 0
@@ -1223,102 +1221,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!82 &5087256919422039502
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4499136322651942915}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &4499136322781804171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,9 +1230,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4499136322781804172}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Revolver_3_Pos
-  m_TagString: PlayerArms
+  m_TagString: EnemyArms
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1359,9 +1261,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4123720380616294484}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: ChocolateSketchfab (2)
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1392,9 +1294,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3849067525265628548}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: Root_ChocolateMarshmallow
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1423,9 +1325,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2463068000679776180}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: ChocolateSketchfab (3)
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1457,9 +1359,9 @@ GameObject:
   m_Component:
   - component: {fileID: 629715742012944097}
   - component: {fileID: 3381801607492184851}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: Box001
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1544,9 +1446,9 @@ GameObject:
   - component: {fileID: 6924405827649383454}
   - component: {fileID: 5530223690300143096}
   - component: {fileID: 3237712491297145864}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: default
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1625,9 +1527,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2910664996821749085}
-  m_Layer: 10
+  m_Layer: 28
   m_Name: jaakiekkohanska_3184_1ab (1)
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1658,6 +1560,10 @@ PrefabInstance:
     - target: {fileID: 483918908983999528, guid: 2111d2eee3769bf45925d85467473212, type: 3}
       propertyPath: m_Name
       value: ChargeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999528, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_Layer
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 483918908983999528, guid: 2111d2eee3769bf45925d85467473212, type: 3}
       propertyPath: m_IsActive
@@ -1722,6 +1628,10 @@ PrefabInstance:
     - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918910038387716, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_Layer
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 483918910038387717, guid: 2111d2eee3769bf45925d85467473212, type: 3}
       propertyPath: m_LocalScale.x

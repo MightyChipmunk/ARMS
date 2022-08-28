@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8240724449588377737}
   - component: {fileID: 4422313902540443133}
   - component: {fileID: 7960858835839372591}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: helmfang_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 1991166242775487325}
   - component: {fileID: 5991797543980428915}
   - component: {fileID: 330121898369518168}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_back_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 6109688006090727786}
   - component: {fileID: 6845359908441040973}
   - component: {fileID: 748227718678752754}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: headplate_Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 691110613554162974}
   - component: {fileID: 3222327601679371043}
   - component: {fileID: 5195273813593421719}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: sidewing_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 4798271725036697943}
   - component: {fileID: 2198520588766246646}
   - component: {fileID: 3454493752511409948}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: headplate_Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 2918278251024481420}
   - component: {fileID: 790042621349942228}
   - component: {fileID: 1930536832262001383}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: polySurface81
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 366094241642100679}
   - component: {fileID: 6373398767843646766}
   - component: {fileID: 4095542553876396485}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: pistondown_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 69461317971763455}
   - component: {fileID: 2904096955667706312}
   - component: {fileID: 562319266922861615}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: sidewing_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 5803290015484881181}
   - component: {fileID: 3495141825353428555}
   - component: {fileID: 7090035569517514300}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_inner_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 3388737106410767761}
   - component: {fileID: 1310508321335912994}
   - component: {fileID: 29586550511803304}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: polySurface82
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,7 +841,7 @@ GameObject:
   - component: {fileID: 3945873461035710541}
   - component: {fileID: 1614786611579870933}
   - component: {fileID: 155273927704850084}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_lowback_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,7 +924,7 @@ GameObject:
   - component: {fileID: 433481567804496512}
   - component: {fileID: 9153981130731829549}
   - component: {fileID: 7894009536209562146}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: headplate_Under
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 6928610705281320486}
   - component: {fileID: 476695544354836881}
   - component: {fileID: 2579761078821519618}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_main_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 8994202273636987725}
   - component: {fileID: 4576905475264480925}
   - component: {fileID: 5279104222074485768}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: pistonup_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1173,7 +1173,7 @@ GameObject:
   - component: {fileID: 288108186650686017}
   - component: {fileID: 8701292689593289080}
   - component: {fileID: 2245042862822139627}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: eye_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1256,7 +1256,7 @@ GameObject:
   - component: {fileID: 6384477275499508394}
   - component: {fileID: 2312860946411102158}
   - component: {fileID: 7525612956496697788}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: polySurface86
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1339,7 +1339,7 @@ GameObject:
   - component: {fileID: 4427339005599614567}
   - component: {fileID: 7798517954446572837}
   - component: {fileID: 9148809766439077834}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_lowback_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1422,7 +1422,7 @@ GameObject:
   - component: {fileID: 2572601598003720041}
   - component: {fileID: 155181146114457050}
   - component: {fileID: 5871666846356111322}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: pistonup_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1503,7 +1503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7438140717491537016}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Helm_visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1549,9 +1549,9 @@ GameObject:
   - component: {fileID: 3801405439938244779}
   - component: {fileID: 3801405439938244692}
   - component: {fileID: 3801405439938244776}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1657,7 +1657,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3801405439979204941}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: L_Lazer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1691,7 +1691,7 @@ GameObject:
   - component: {fileID: 1365942012451278171}
   - component: {fileID: 6624347930054538085}
   - component: {fileID: 9160686832766670783}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_inner_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1774,7 +1774,7 @@ GameObject:
   - component: {fileID: 3577675066041919639}
   - component: {fileID: 5827597075488769708}
   - component: {fileID: 6705703749357441043}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: helmfang_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1857,7 +1857,7 @@ GameObject:
   - component: {fileID: 2654542714213334373}
   - component: {fileID: 7875562048418790150}
   - component: {fileID: 485435037366913942}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: helm_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1940,7 +1940,7 @@ GameObject:
   - component: {fileID: 8567211706637396865}
   - component: {fileID: 3640913899643919215}
   - component: {fileID: 4181705054531275060}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Chin_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2023,7 +2023,7 @@ GameObject:
   - component: {fileID: 6548971371832310999}
   - component: {fileID: 5686538699154639587}
   - component: {fileID: 1004978012148382151}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: polySurface85
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2106,7 +2106,7 @@ GameObject:
   - component: {fileID: 7086067796829446885}
   - component: {fileID: 1685223499182749561}
   - component: {fileID: 3490085725310623418}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: polySurface83
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2189,7 +2189,7 @@ GameObject:
   - component: {fileID: 4510400403646468983}
   - component: {fileID: 8682747644132826257}
   - component: {fileID: 604039586148498952}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: polySurface84
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2272,7 +2272,7 @@ GameObject:
   - component: {fileID: 162992887983606849}
   - component: {fileID: 3252762072119209625}
   - component: {fileID: 2823891443966602765}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: eye_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2355,7 +2355,7 @@ GameObject:
   - component: {fileID: 7668030766220004854}
   - component: {fileID: 3330475834039641808}
   - component: {fileID: 3251482526056287100}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Chin_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2438,7 +2438,7 @@ GameObject:
   - component: {fileID: 8299356166181631929}
   - component: {fileID: 1890140097399557829}
   - component: {fileID: 9058621360853527883}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: backplate_up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2521,7 +2521,7 @@ GameObject:
   - component: {fileID: 4207231617074688834}
   - component: {fileID: 4457887222473727050}
   - component: {fileID: 6492708944446072096}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_main_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2602,7 +2602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3206198368760966988}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: helmfang_Mid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2641,7 +2641,7 @@ GameObject:
   - component: {fileID: 6646910126085723567}
   - component: {fileID: 296022561810122145}
   - component: {fileID: 8922114324450248731}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: pistondown_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2724,7 +2724,7 @@ GameObject:
   - component: {fileID: 4000201851390853910}
   - component: {fileID: 8197842631150207774}
   - component: {fileID: 6187088617193865490}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: headplate_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2806,10 +2806,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6058532009730046558}
   - component: {fileID: 5567987367671279466}
-  - component: {fileID: 5567987367671279253}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Left_Fox
-  m_TagString: Untagged
+  m_TagString: EnemyArms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2848,6 +2847,7 @@ Transform:
   - {fileID: 366094241642100679}
   - {fileID: 691110613554162974}
   - {fileID: 69461317971763455}
+  - {fileID: 7474202155790165794}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -351.329, z: 0}
@@ -2870,8 +2870,6 @@ MonoBehaviour:
   originPos: {fileID: 0}
   lazer: {fileID: 3801405439979204942}
   lazerOn: 0
-  moveSound: {fileID: 8300000, guid: 46ed626884436004fa1c45a2b9bb64ed, type: 3}
-  lazerSound: {fileID: 8300000, guid: 5b45244a1c0130349b975a9aaa673205, type: 3}
   scaleDown: 0
   cylinder: {fileID: 3801405439938244694}
   helm_visor: {fileID: 3519471188052769180}
@@ -2879,102 +2877,6 @@ MonoBehaviour:
   ear_main_R: {fileID: 2739806291611084282}
   sidewing_L: {fileID: 469308703774608328}
   sidewing_R: {fileID: 1547569627899519733}
---- !u!82 &5567987367671279253
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6872469322996556004}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &7643075141686426044
 GameObject:
   m_ObjectHideFlags: 0
@@ -2986,7 +2888,7 @@ GameObject:
   - component: {fileID: 7945820005725984396}
   - component: {fileID: 4750921289769963826}
   - component: {fileID: 2787344864665560027}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: Neck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3069,7 +2971,7 @@ GameObject:
   - component: {fileID: 668553196988487475}
   - component: {fileID: 3735370339611221143}
   - component: {fileID: 5170318571541556433}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_sphere_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3152,7 +3054,7 @@ GameObject:
   - component: {fileID: 7574053609723987517}
   - component: {fileID: 813589925121428693}
   - component: {fileID: 354554120679867607}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: backplate_down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3235,7 +3137,7 @@ GameObject:
   - component: {fileID: 2209483440546335192}
   - component: {fileID: 4324223104351158515}
   - component: {fileID: 7218003196594597480}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_back_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3318,7 +3220,7 @@ GameObject:
   - component: {fileID: 1624082834045959556}
   - component: {fileID: 7583660393288957716}
   - component: {fileID: 283712958394785914}
-  m_Layer: 29
+  m_Layer: 28
   m_Name: ear_sphere_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3390,3 +3292,109 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &6993680024905784073
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6058532009730046558}
+    m_Modifications:
+    - target: {fileID: 483918908983999528, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_Name
+      value: ChargeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999528, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_Layer
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999528, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999529, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_RootOrder
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918910038387716, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_Layer
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918910038387717, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918910038387717, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918910038387717, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 483918910038387718, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+--- !u!4 &7474202155790165794 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 483918908983999531, guid: 2111d2eee3769bf45925d85467473212, type: 3}
+  m_PrefabInstance: {fileID: 6993680024905784073}
+  m_PrefabAsset: {fileID: 0}

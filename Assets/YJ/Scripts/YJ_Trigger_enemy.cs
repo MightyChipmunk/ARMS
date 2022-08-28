@@ -60,7 +60,8 @@ public class YJ_Trigger_enemy : MonoBehaviour
 
         rightHand = enemy.transform.Find("Right").gameObject;
         leftHand = enemy.transform.Find("Left").gameObject;
-
+        yj_leftScript = leftHand.GetComponent<YJ_Hand_left>();
+        yj_rightScript = rightHand.GetComponent<YJ_Hand_right>();
         // 무브와 이어질 것
         jh_PlayerMove = player.GetComponent<JH_PlayerMove>();
 
