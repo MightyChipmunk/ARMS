@@ -7,6 +7,7 @@ public class JH_ButtonSound : MonoBehaviour
 {
     AudioSource source;
     public AudioClip buttonSound;
+    public AudioClip starSound;
     GameObject cam1;
     GameObject cam2;
     // Start is called before the first frame update
@@ -25,6 +26,10 @@ public class JH_ButtonSound : MonoBehaviour
         source.PlayOneShot(buttonSound);
         GameObject.Find("Start Button").SetActive(false);
 
+        GameObject.Find("Player").GetComponent<Animator>().SetTrigger("Selected");
+        GameObject.Find("Enemy").GetComponent<Animator>().SetTrigger("Selected");
+
+        iTween.ScaleTo(GameObject.Find("Text"), iTween.Hash("x", 0, "y", 0, "z", 0, "time", 0.5f, "easetype", iTween.EaseType.easeInCirc));
         iTween.MoveTo(cam1, iTween.Hash("z", 0.8f, "time", 1.5f, "easetype", iTween.EaseType.easeInCirc));
         iTween.MoveTo(cam2, iTween.Hash("z", 0.8f, "time", 1.5f, "easetype", iTween.EaseType.easeInCirc));
 
@@ -40,7 +45,11 @@ public class JH_ButtonSound : MonoBehaviour
 
     IEnumerator ILoadScene()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(2f);
+        GameObject.Find("Player").transform.Find("Star").GetComponent<ParticleSystem>().Play();
+        GameObject.Find("Enemy").transform.Find("Star").GetComponent<ParticleSystem>().Play();
+        source.PlayOneShot(starSound);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(1);
     }
 }

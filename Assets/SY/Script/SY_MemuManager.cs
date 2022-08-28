@@ -83,4 +83,9 @@ public class SY_MemuManager : MonoBehaviour
         menuSet.SetActive(false);
         Time.timeScale = 1;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
