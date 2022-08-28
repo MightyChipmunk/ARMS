@@ -880,6 +880,7 @@ GameObject:
   - component: {fileID: 4085561645708013529}
   - component: {fileID: 4085561645708013534}
   - component: {fileID: 4085561645708013543}
+  - component: {fileID: 114558858226360233}
   m_Layer: 28
   m_Name: R_Cylinder
   m_TagString: EnemyArms
@@ -979,6 +980,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerOn: 0
+--- !u!114 &114558858226360233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085561645708013533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a62ee6b6e56d5840a1b0a7ecb2782f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 150
+  chargeDamage: 200
 --- !u!1 &4085561645821324253
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,8 +2613,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4085561646789937767}
   - component: {fileID: 4085561646789937760}
-  - component: {fileID: 4085561646789937761}
-  - component: {fileID: 4085561646789937766}
+  - component: {fileID: -7088490972524721007}
+  - component: {fileID: 7422420266400496029}
   m_Layer: 28
   m_Name: Right_Fox
   m_TagString: EnemyArms
@@ -2663,6 +2678,7 @@ MonoBehaviour:
   distance: 0
   lazer: {fileID: 4085561645870275443}
   lazerOn: 0
+  lazerSound: {fileID: 8300000, guid: 5b45244a1c0130349b975a9aaa673205, type: 3}
   scaleDown: 0
   cylinder: {fileID: 4085561645708013533}
   helm_visor: {fileID: 4085561647173120382}
@@ -2670,23 +2686,21 @@ MonoBehaviour:
   ear_main_R: {fileID: 4085561645821324253}
   sidewing_L: {fileID: 4085561645600390724}
   sidewing_R: {fileID: 4085561645972471997}
---- !u!111 &4085561646789937761
-Animation:
+--- !u!136 &-7088490972524721007
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4085561646789937764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: e7c41d0082727194895b66746237d16f, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: e7c41d0082727194895b66746237d16f, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
---- !u!82 &4085561646789937766
+  m_Radius: 0.1
+  m_Height: 0.1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &7422420266400496029
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

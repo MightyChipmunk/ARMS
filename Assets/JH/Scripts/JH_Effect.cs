@@ -159,8 +159,7 @@ public class JH_Effect : MonoBehaviour
             {
                 if (killer.activeSelf == false)
                 {
-                    GameObject start = Instantiate(killerStart);
-                    start.transform.position = transform.position;
+                    StartCoroutine("KillerSpawn");
                     StartCoroutine("KillerTime");
                     _light.cullingMask = 0;
                     _light.cullingMask = 1 << LayerMask.NameToLayer("Player");
@@ -186,8 +185,23 @@ public class JH_Effect : MonoBehaviour
 
     IEnumerator KillerTime()
     {
-        Time.timeScale = 0.01f;
-        yield return new WaitForSeconds(0.005f);
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 1f;
+    }
+
+    IEnumerator KillerSpawn()
+    {
+        GameObject start = Instantiate(killerStart);
+        start.transform.position = transform.position;
+        yield return new WaitForSecondsRealtime(0.2f);
+        GameObject start2 = Instantiate(killerStart);
+        start2.transform.position = transform.position;
+        yield return new WaitForSecondsRealtime(0.2f);
+        GameObject start3 = Instantiate(killerStart);
+        start3.transform.position = transform.position;
+        yield return new WaitForSecondsRealtime(0.2f);
+        GameObject start4 = Instantiate(killerStart);
+        start4.transform.position = transform.position;
     }
 }

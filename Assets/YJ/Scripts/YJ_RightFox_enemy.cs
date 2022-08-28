@@ -6,6 +6,8 @@ using UnityEngine;
 // 왼쪽 버튼을 누르면 바깥쪽 대각선 방향으로 향하고 타겟포지션을 쳐다보고싶다.
 public class YJ_RightFox_enemy : YJ_Hand_right
 {
+    GameObject trigger; // 가운데 선
+
     Vector3 dir;
     float speed = 7f;
     public float distance = 0f;
@@ -20,10 +22,18 @@ public class YJ_RightFox_enemy : YJ_Hand_right
     bool back;
     public bool lazerOn; //protected 자식만 상속가능
 
-    Animation anim;
+    //Animation anim;
 
     // 레이저가 애너미에 닿았는지 확인할 것
     YJ_RightFox_lazer_e yj_Rightfox_lazer;
+
+    YJ_Trigger_enemy yj_trigger_enemy;
+
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip lazerSound;
 
     //bool goRay;
     void Start()
@@ -35,19 +45,27 @@ public class YJ_RightFox_enemy : YJ_Hand_right
         cylinder.GetComponent<MeshRenderer>().enabled = false;
 
         // 애니메이션
-        anim = GetComponent<Animation>();
+        //anim = GetComponent<Animation>();
 
-        anim.Play("idleee 1");
+        //anim.Play("idleee 1");
 
         yj_Rightfox_lazer = cylinder.GetComponent<YJ_RightFox_lazer_e>();
 
+        originPos = GameObject.Find("rightPos_e");
+
         yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
+
+        trigger = enemy.transform.Find("YJ_Trigger").gameObject;
+
+        yj_trigger_enemy = trigger.GetComponent<YJ_Trigger_enemy>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
 
     void Update()
     {
-        if (InputManager.Instance.EnemyFire2 && !fire)
+        if (InputManager.Instance.EnemyFire2 && !fire && !yj_trigger_enemy.grap)
         {
             // 필살기 감지
             if (yj_KillerGage_enemy.killerModeOn_enemy)
@@ -59,7 +77,7 @@ public class YJ_RightFox_enemy : YJ_Hand_right
                 lazer.transform.localScale = new Vector3(0.1f, 0.1f, 0.03f);
             }
 
-            anim.Stop("idleee 1");
+            //anim.Stop("idleee 1");
             fire = true;
             // 눌렀을때 애너미 처음 위치
             target_pos = player.transform.position;
@@ -86,7 +104,10 @@ public class YJ_RightFox_enemy : YJ_Hand_right
                 // 레이저 발사
                 lazer.transform.localScale += new Vector3(0, 0, 1f) * 10 * Time.deltaTime;
             }
-
+            if (openMouseTime > 0.25 && openMouseTime < 0.26)
+            {
+                audioSource.PlayOneShot(lazerSound);
+            }
         }
 
         ScaleDown();
@@ -198,7 +219,7 @@ public class YJ_RightFox_enemy : YJ_Hand_right
                 transform.forward = -Camera.main.transform.forward;
                 currentTime = 0;
                 closeMouseTime = 0;
-                anim.Play("idleee 1");
+                //anim.Play("idleee 1");
                 fire = false;
                 back = false;
             }

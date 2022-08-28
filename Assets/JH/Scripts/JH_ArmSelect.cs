@@ -67,14 +67,18 @@ public class JH_ArmSelect : MonoBehaviour
         int rightRan = Random.Range(1, 4);
 
         if (leftRan == 1)
+            enemyLeftHand = enemyLeftDefault;
+        else if (leftRan == 2)
             enemyLeftHand = enemyLeftRevolver;
-        else
-            enemyLeftHand = enemyLeftRevolver;
+        else if (leftRan == 3)
+            enemyLeftHand = enemyLeftFox;
 
         if (rightRan == 1)
+            enemyRightHand = enemyRightDefault;
+        else if (rightRan == 2)
             enemyRightHand = enemyRightRevolver;
-        else
-            enemyRightHand = enemyRightRevolver;
+        else if (rightRan == 3)
+            enemyRightHand = enemyRightFox;
     }
 
     public void Left1()

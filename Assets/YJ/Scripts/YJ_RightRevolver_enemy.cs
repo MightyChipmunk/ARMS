@@ -30,7 +30,7 @@ public class YJ_RightRevolver_enemy : YJ_Hand_right
     public bool isFire = false;
 
     // 애니메이션
-    Animation anim;
+    //Animation anim;
 
     YJ_Trigger_enemy yj_trigger_enemy;
 
@@ -40,11 +40,11 @@ public class YJ_RightRevolver_enemy : YJ_Hand_right
 
         transform.forward = enemy.transform.forward;
 
-        yj_KillerGage = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
+        yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
         
         originPos = GameObject.Find("rightPos_e").transform;
 
-        anim = GetComponent<Animation>();
+        //anim = GetComponent<Animation>();
 
         trigger = enemy.transform.Find("YJ_Trigger").gameObject;
 
@@ -68,7 +68,7 @@ public class YJ_RightRevolver_enemy : YJ_Hand_right
         // 왼쪽 마우스 버튼을 누르면 앞으로 조금 이동하고싶다
         if (InputManager.Instance.EnemyFire2 && !fire && !yj_trigger_enemy.grap)
         {
-            anim.Stop();
+            //anim.Stop();
             speed = 15f;
             fire = true;
         }
@@ -111,7 +111,7 @@ public class YJ_RightRevolver_enemy : YJ_Hand_right
             revolver_11.end = false;
             revolver_12.end = false;
             // 애니메이션 플레이
-            anim.Play();
+            //anim.Play();
             // 공격종료
             fire = false;
         }

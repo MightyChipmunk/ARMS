@@ -29,6 +29,18 @@ public class YJ_KillerGage : MonoBehaviour
     // 뒤에 같이 나올 이미지
     public RectTransform blur;
 
+    bool canPlay = true;
+
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip gage;
+    [SerializeField]
+    private AudioClip powerUp;
+    [SerializeField]
+    private AudioClip powerDown;
+
     void Start()
     {
         // 시작할때 사이즈 저장
@@ -37,6 +49,8 @@ public class YJ_KillerGage : MonoBehaviour
         imageScale = GetComponent<Transform>();
         // 이미지 컬러를 변경하기위해 이미지 가져오기
         imagecolor = GetComponent<Image>();
+        // 오디오
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -70,8 +84,16 @@ public class YJ_KillerGage : MonoBehaviour
         else
         {
             imagecolor.color = Color.yellow;
+
+            if (canPlay)
+            {
+                audioSource.PlayOneShot(gage);
+                canPlay = false;
+            }
+
             if(InputManager.Instance.Killer)
             {
+                audioSource.PlayOneShot(powerUp);
                 killerModeOn = true;
                 scaleDown = true;
             }
@@ -82,14 +104,17 @@ public class YJ_KillerGage : MonoBehaviour
         {
             endTime += Time.deltaTime;
             imageScale.localScale -= new Vector3(0.0007f, 0.0007f, 0.0007f);
+
             if (endTime > 3f)
             {
+                audioSource.PlayOneShot(powerDown);
                 imageScale.localScale = orizinSize;
                 imagecolor.color = Color.white;
                 endTime = 0;
                 overTime = 0;
                 currentTime = 0;
                 blur.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+                canPlay = true;
                 killerModeOn = false;
                 scaleDown = false;
             }

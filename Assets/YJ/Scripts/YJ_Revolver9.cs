@@ -52,8 +52,9 @@ public class YJ_Revolver9 : MonoBehaviour
         col = GetComponent<Collider>();
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
-
+        leftRevolver = GameObject.Find("Enemy").transform.Find("Left").GetComponent<YJ_LeftRevolver_enemy>();
         yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
+        originPos = GameObject.Find("Revolver_9_Pos").transform;
         targetPos = GameObject.Find("PlayerAttackPos");
     }
 

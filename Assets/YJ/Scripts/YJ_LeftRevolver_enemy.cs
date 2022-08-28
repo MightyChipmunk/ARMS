@@ -30,7 +30,7 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
     public bool isFire = false;
 
     // 애니메이션
-    Animation anim;
+    //Animation anim;
 
 
     YJ_Trigger_enemy yj_trigger_enemy;
@@ -41,9 +41,9 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
 
         transform.forward = enemy.transform.forward;
 
-        yj_KillerGage = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
+        yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
 
-        anim = GetComponent<Animation>();
+        //anim = GetComponent<Animation>();
 
         originPos = GameObject.Find("leftPos_e").transform;
 
@@ -68,7 +68,7 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
         // 왼쪽 마우스 버튼을 누르면 앞으로 조금 이동하고싶다
         if (InputManager.Instance.EnemyFire1 && !fire && !yj_trigger_enemy.grap)
         {
-            anim.Stop();
+            //anim.Stop();
             speed = 15f;
             fire = true;
         }
@@ -87,11 +87,11 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
             isFire = true;
         }
         // 모든 리볼버가 제자리로 돌아왔다면
-        //if (revolver_4.end && revolver_5.end && revolver_6.end)
-        //{
-        //    isFire = false;
-        //    Return();
-        //}
+        if (revolver_7.end && revolver_8.end && revolver_9.end)
+        {
+            isFire = false;
+            Return();
+        }
         transform.position += dir * speed * Time.deltaTime;
     }
 
@@ -107,11 +107,11 @@ public class YJ_LeftRevolver_enemy : YJ_Hand_left
             // 원위치 돌아오기
             transform.position = originPos.position;
             // 리볼버에 bool값 변경
-            //revolver_4.end = false;
-            //revolver_5.end = false;
-            //revolver_6.end = false;
+            revolver_7.end = false;
+            revolver_8.end = false;
+            revolver_9.end = false;
             // 애니메이션 플레이
-            anim.Play();
+            //anim.Play();
             // 공격종료
             fire = false;
         }

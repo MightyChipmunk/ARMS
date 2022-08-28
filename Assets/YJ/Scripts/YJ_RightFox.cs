@@ -57,7 +57,7 @@ public class YJ_RightFox : YJ_Hand_right
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && !fire)
+        if (InputManager.Instance.Fire2 && !fire)
         {
             // 필살기 감지
             if (yj_KillerGage.killerModeOn)
