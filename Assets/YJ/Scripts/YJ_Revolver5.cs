@@ -79,6 +79,7 @@ public class YJ_Revolver5 : MonoBehaviour
             trail.enabled = true;
             //speed = 3f;
             currnetTime += Time.deltaTime;
+
             if (currnetTime < 0.2f)
             {
                 target = targetPos.transform.position;

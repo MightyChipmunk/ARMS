@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // isFire가 true면 targetPos로 가고싶다
-public class YJ_Revolver6 : MonoBehaviour
+public class YJ_Revolver9 : MonoBehaviour
 {
     // 내부 bool 값
     public bool end = false;
@@ -21,27 +21,27 @@ public class YJ_Revolver6 : MonoBehaviour
     float distance = 0;
 
     // 속도
-    float speed = 5f;
+    float speed = 3f;
 
     // 되돌아오는속도
-    float backspeed = 10f;
+    float backspeed = 5f;
     bool go = false;
 
     // 돌아올 곳
     public Transform originPos;
 
     // isFire를 가져올 곳
-    public YJ_RightRevolver rightRevolver;
+    public YJ_LeftRevolver_enemy leftRevolver;
 
     // 출발시간
     float currnetTime = 0;
     public float creatTime = 0;
-    
+
     // 콜라이더 켜고 끄기
     Collider col;
 
     // 필살기 사용
-    public YJ_KillerGage yj_KillerGage;
+    public YJ_KillerGage_enemy yj_KillerGage_enemy;
 
     // 트레일
     TrailRenderer trail;
@@ -53,14 +53,14 @@ public class YJ_Revolver6 : MonoBehaviour
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
 
-        yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
-        targetPos = GameObject.Find("EnemyAttackPos");
+        yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
+        targetPos = GameObject.Find("PlayerAttackPos");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (yj_KillerGage.killerModeOn)
+        if (yj_KillerGage_enemy.killerModeOn_enemy)
         {
             speed = 30f;
             backspeed = 50f;
@@ -71,16 +71,14 @@ public class YJ_Revolver6 : MonoBehaviour
             backspeed = 10f;
         }
         // isFire가 true일때 0.2초 후 날아가기
-        if (rightRevolver.isFire && !end)
+        if (leftRevolver.isFire && !end)
         {
-            
             // 갈때 콜라이더 켜기
             col.enabled = true;
             // 트레일 켜기
             trail.enabled = true;
-            //speed = 3f;
+            speed = 3f;
             currnetTime += Time.deltaTime;
-
             if (currnetTime < 0.2f)
             {
                 target = targetPos.transform.position;
@@ -90,18 +88,16 @@ public class YJ_Revolver6 : MonoBehaviour
                 go = true;
                 Go();
             }
-            if(!trigger)
+            if (!trigger)
                 dir = target - transform.position;
-            if(trigger)
+            if (trigger)
                 dir = originPos.position - transform.position;
         }
         if (go)
             distance += speed * Time.deltaTime;
     }
-
     void Go()
     {
-
         // 거리가 1.7이상일때 되돌아오기
         if (distance > 1.7f)
         {
@@ -120,8 +116,6 @@ public class YJ_Revolver6 : MonoBehaviour
         col.enabled = false;
         // 트레일 끄기
         trail.enabled = false;
-        // 트레일 끄기
-        trail.enabled = false;
         // 방향바꿔주기
         dir = originPos.position - transform.position;
         // 올때 스피드는 빠르게
@@ -138,12 +132,10 @@ public class YJ_Revolver6 : MonoBehaviour
             end = true;
         }
     }
-
-
     private void OnTriggerEnter(Collider other)
     {
         // 애너미레이어와 닿았을 때
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             trigger = true;
             Back();

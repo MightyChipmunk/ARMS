@@ -30,6 +30,13 @@ public class YJ_LeftRevolver : YJ_Hand_left
     // 애니메이션
     Animation anim;
 
+    AudioSource audioSource;
+
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip shoockSound; // 주먹 날아갈때 사운드
+
+
     void Start()
     {
         player = GameObject.Find("Player");
@@ -41,6 +48,9 @@ public class YJ_LeftRevolver : YJ_Hand_left
         anim = GetComponent<Animation>();
 
         originPos = GameObject.Find("leftPos").transform;
+
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -59,6 +69,7 @@ public class YJ_LeftRevolver : YJ_Hand_left
         // 왼쪽 마우스 버튼을 누르면 앞으로 조금 이동하고싶다
         if (InputManager.Instance.Fire1 && !fire)
         {
+            audioSource.PlayOneShot(shoockSound);
             anim.Stop();
             speed = 15f;
             fire = true;

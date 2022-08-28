@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // isFire가 true면 targetPos로 가고싶다
-public class YJ_Revolver6 : MonoBehaviour
+public class YJ_Revolver10 : MonoBehaviour
 {
     // 내부 bool 값
     public bool end = false;
@@ -31,7 +31,7 @@ public class YJ_Revolver6 : MonoBehaviour
     public Transform originPos;
 
     // isFire를 가져올 곳
-    public YJ_RightRevolver rightRevolver;
+    public YJ_RightRevolver_enemy rightRevolver;
 
     // 출발시간
     float currnetTime = 0;
@@ -41,11 +41,10 @@ public class YJ_Revolver6 : MonoBehaviour
     Collider col;
 
     // 필살기 사용
-    public YJ_KillerGage yj_KillerGage;
+    public YJ_KillerGage_enemy yj_KillerGage_enemy;
 
     // 트레일
     TrailRenderer trail;
-
 
     void Start()
     {
@@ -53,14 +52,16 @@ public class YJ_Revolver6 : MonoBehaviour
         trail = GetComponent<TrailRenderer>();
         trail.enabled = false;
 
-        yj_KillerGage = GameObject.Find("KillerGage (2)").GetComponent<YJ_KillerGage>();
-        targetPos = GameObject.Find("EnemyAttackPos");
+        yj_KillerGage_enemy = GameObject.Find("KillerGage_e (2)").GetComponent<YJ_KillerGage_enemy>();
+
+        targetPos = GameObject.Find("PlayerAttackPos");
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (yj_KillerGage.killerModeOn)
+        if (yj_KillerGage_enemy.killerModeOn_enemy)
         {
             speed = 30f;
             backspeed = 50f;
@@ -73,14 +74,12 @@ public class YJ_Revolver6 : MonoBehaviour
         // isFire가 true일때 0.2초 후 날아가기
         if (rightRevolver.isFire && !end)
         {
-            
             // 갈때 콜라이더 켜기
             col.enabled = true;
             // 트레일 켜기
             trail.enabled = true;
             //speed = 3f;
             currnetTime += Time.deltaTime;
-
             if (currnetTime < 0.2f)
             {
                 target = targetPos.transform.position;
@@ -143,7 +142,7 @@ public class YJ_Revolver6 : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 애너미레이어와 닿았을 때
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             trigger = true;
             Back();
