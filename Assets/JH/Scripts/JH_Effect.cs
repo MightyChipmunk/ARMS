@@ -168,6 +168,7 @@ public class JH_Effect : MonoBehaviour
                     _light.cullingMask |= 1 << LayerMask.NameToLayer("EnemyHand");
 
                     profile.GetSetting<AmbientOcclusion>().intensity.Override(2f);
+                    profile.GetSetting<Bloom>().intensity.Override(1f);
                 }
                 killer.SetActive(true);
             }
@@ -176,6 +177,7 @@ public class JH_Effect : MonoBehaviour
                 if (killer.activeSelf == true)
                 {
                     _light.cullingMask = -1;
+                    profile.GetSetting<Bloom>().intensity.Override(2f);
                     profile.GetSetting<AmbientOcclusion>().intensity.Override(0f);
                 }
                 killer.SetActive(false);
