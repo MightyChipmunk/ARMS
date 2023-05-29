@@ -1,5 +1,11 @@
 # :pushpin: ARMS 모작
 메타버스 아카데미 2차 프로젝트
+
+</br>
+
+![image](https://github.com/MightyChipmunk/ARMS/assets/35093963/ad9ed702-bbd6-4eda-bb5a-ea5472cb1a81)
+![image](https://github.com/MightyChipmunk/ARMS/assets/35093963/56461be3-fd1e-4682-a6cb-21863f039aba)
+
 </br>
 
 ## 1. 제작 기간 & 참여 인원
