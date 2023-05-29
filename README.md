@@ -22,7 +22,8 @@
 </br>
 
 
-## 3. 핵심 기능 및 상세 역할
+## 3. 핵심 기능 및 상세 역할 :pushpin: [코드 확인](https://github.com/MightyChipmunk/ARMS/tree/NewMain/Assets/JH/Scripts)
+
 - 1대 1 액션게임을 구현해 간단한 AI 로직 구현 및 3인칭 카메라 / Charactor Controller를 통한 플레이어 움직임 구현에 중점을 뒀습니다. 
 - ARMS라는 스위치로 출시된 액션 게임을 모작하였습니다.
 
